@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한미그룹 2026년 하반기 공개채용</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* CSS 변수구역 */
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --red: #E60012;
+    --orange: #FF5D32;
+    --white-10: rgba(255, 255, 255, 0.1);
+    --white-50: rgba(255, 255, 255, 0.5);
+    --gradient-cta: linear-gradient(90deg, #E60012 0%, #FF5D32 100%);
+    --font: 'Inter', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    --transition: 0.2s ease;
+    --page-width: 1920px;
+    --container-width: 1440px;
+    --hero-height: 900px;
+    --scale: 1;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; }
+  body {
+    font-family: var(--font);
+    color: var(--black);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    position: relative;
+  }
+  a { color: inherit; text-decoration: none; transition: color var(--transition); }
+  button { font-family: inherit; border: 0; cursor: pointer; }
+  img { display: block; max-width: 100%; height: auto; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+  /* ---------- Hero (main_visual) ---------- */
+  .main-visual {
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    height: calc(var(--hero-height) * var(--scale));
+    min-height: calc(720px * var(--scale));
+    margin: 0 auto;
+    overflow: hidden;
+    background: #FFF1EC none;
+  }
+  .mv-container {
+    position: relative;
+    width: var(--container-width);
+    height: var(--hero-height);
+    margin: 0 auto;
+    zoom: var(--scale);
+    transform: none;
+  }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: calc(100px * var(--scale));
+    z-index: 5;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container-width);
+    height: 100px;
+    margin: 0 auto;
+    padding: 0 60px;
+    zoom: var(--scale);
+    transform: none;
+  }
+  .brand { display: block; width: 182px; height: 31px; }
+  .brand img { width: 182px; height: 31px; }
+
+  .gnb { display: flex; align-items: center; }
+  .gnb-list {
+    display: flex;
+    gap: 40px;
+    margin: 0; padding: 0;
+    list-style: none;
+  }
+  .gnb-list a {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    font-weight: 600;
+    font-size: 19.1px;
+    line-height: 20px;
+    letter-spacing: -0.4px;
+    white-space: nowrap;
+  }
+  .gnb-list li:first-child a { font-size: 19.4px; }
+  .gnb-list a:hover { color: var(--red); }
+  .gnb-cta { padding-left: 40px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 500px;
+    color: var(--white);
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+  }
+  .btn-apply {
+    gap: 10px;
+    width: 119px;
+    height: 48px;
+    padding: 13.5px 20px 14.5px;
+    background: var(--red);
+    font-size: 17.4px;
+    line-height: 18px;
+    letter-spacing: -0.36px;
+  }
+  .btn-apply svg { width: 7px; height: 12px; flex: none; }
+  .btn-apply:hover {
+    background: var(--white);
+    color: var(--red);
+    box-shadow: inset 0 0 0 1px var(--red);
+  }
+
+  .btn-main {
+    width: 303px;
+    height: 72px;
+    padding: 18.7px 64px 19.3px;
+    background-image: var(--gradient-cta);
+    background-color: var(--red);
+    font-size: 22.7px;
+    line-height: 34px;
+    letter-spacing: -0.48px;
+  }
+  .btn-main:hover {
+    background-image: none;
+    background-color: var(--white);
+    color: var(--red);
+    box-shadow: inset 0 0 0 2px var(--red);
+  }
+
+  .site-header .gnb-head,
+  .site-header .gnb-deco,
+  .site-header .header-apply,
+  .site-header .menu-toggle { display: none; }
+
+  /* ---------- Copy ---------- */
+  .mv-copy {
+    position: absolute;
+    left: 100px;
+    top: 0; bottom: 0;
+    width: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 80px;
+    z-index: 3;
+  }
+  .mv-text { display: flex; flex-direction: column; gap: 31.9px; }
+  .mv-title { margin: 0; display: flex; flex-direction: column; gap: 31.9px; font-weight: inherit; }
+  .mv-season { font-weight: 700; font-size: 31.1px; line-height: 45px; letter-spacing: -0.64px; }
+  .mv-title-wrap { display: flex; flex-direction: column; }
+  .mv-brand { font-weight: 800; font-size: 72.3px; line-height: 76px; letter-spacing: -1.76px; }
+  .mv-kind { font-weight: 800; font-size: 45.8px; line-height: 72px; letter-spacing: -1.12px; }
+  .mv-period { margin: 0; font-weight: 500; font-size: 19.2px; line-height: 28px; letter-spacing: -0.4px; white-space: nowrap; }
+
+  /* ---------- Visual collage ---------- */
+  .mv-visual {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1440px; height: 900px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .ring { position: absolute; border-radius: 500px; }
+  .ring-glow {
+    left: 700px; top: 118px;
+    width: 663px; height: 663px;
+    border: 5px solid var(--white);
+    background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+    filter: blur(5px);
+  }
+  .ring-line {
+    left: 755px; top: 173px;
+    width: 553px; height: 553px;
+    border: 1px solid var(--white-50);
+  }
+  .mv-visual img { position: absolute; }
+  .micro { left: 765.8px;  top: 151.7px; width: 289.52px; height: 221.76px; }
+  .char1 { left: 815.1px;  top: 295.1px; width: 253.44px; height: 395.12px; }
+  .char2 { left: 1036.8px; top: 293.4px; width: 181.28px; height: 381.04px; }
+  .char3 { left: 739.4px;  top: 469.4px; width: 216.48px; height: 262.24px; }
+  .char4 { left: 1095.8px; top: 490.5px; width: 292.16px; height: 206.8px; }
+
+  .star {
+    position: absolute;
+    background: var(--star, #FFC928);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  }
+  .star1 { --star: #CFE6F5; left: 921.6px;  top: 237px;   width: 17.6px;  height: 16.72px; }
+  .star2 { --star: #A267F0; left: 740.3px;  top: 469.4px; width: 22.88px; height: 23.76px; }
+  .star3 { --star: #FFC928; left: 1314.9px; top: 474.6px; width: 21.12px; height: 21.12px; }
+  .star3.big { left: 1332.5px; top: 432.4px; width: 34.32px; height: 35.2px; }
+  .star4 { --star: #FF5D32; left: 1160.9px; top: 249.4px; width: 23.76px; height: 24.64px; }
+
+  .scroll-down {
+    position: absolute;
+    left: 50%;
+    bottom: 64px;
+    width: 80px; height: 80px;
+    margin-left: -40px;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 500px;
+    background: var(--white-10);
+    box-shadow: inset 4px 4px 10px rgba(255,255,255,0.4), inset -4px -4px 10px rgba(0,0,0,0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    color: var(--white);
+    z-index: 2;
+    transition: background-color var(--transition), color var(--transition);
+  }
+  .scroll-down::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(132.3deg, rgba(255,255,255,0.8) 12.7%, rgba(255,255,255,0) 86.3%);
+    z-index: -1;
+    opacity: 0.5;
+  }
+  .scroll-down svg { width: 40px; height: 40px; }
+  .scroll-down:hover { background: var(--white); color: var(--red); }
+
+  /* ---------- Mirae ---------- */
+  .mirae {
+    --mu: calc(min(100vw, var(--container-width)) / 1440);
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    height: calc(944 * var(--mu));
+    margin: 0 auto;
+    overflow: hidden;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFE8E1 100%);
+  }
+  .mr-container { position: relative; width: 100%; height: 100%; }
+
+  .mr-title {
+    position: absolute;
+    top: calc(189 * var(--mu));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    margin: 0;
+    font-weight: 800;
+    font-size: calc(72 * var(--mu));
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+    color: var(--red);
+    background: var(--gradient-cta);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .mr-container img { position: absolute; height: auto; pointer-events: none; user-select: none; }
+
+  .mr-walking { left: calc(50% - 623 * var(--mu)); bottom: 0;                  width: calc(1246 * var(--mu)); z-index: 2; }
+  .mr-cloud1  { left: calc(50% - 667 * var(--mu)); top: calc(153 * var(--mu)); width: calc(427 * var(--mu));  z-index: 1; }
+  .mr-cloud2  { left: calc(50% + 318 * var(--mu)); top: calc(605 * var(--mu)); width: calc(176 * var(--mu));  z-index: 1; }
+  .mr-cloud3  { left: 0;                           top: calc(494 * var(--mu)); width: calc(209 * var(--mu));  z-index: 1; }
+  .mr-cloud4  { right: 0;                          top: calc(243 * var(--mu)); width: calc(346 * var(--mu));  z-index: 1; }
+  .mr-star1   { left: calc(50% + 96 * var(--mu));  top: calc(347 * var(--mu)); width: calc(36 * var(--mu));   z-index: 3; }
+  .mr-star2   { left: calc(50% - 182 * var(--mu)); top: calc(663 * var(--mu)); width: calc(57 * var(--mu));   z-index: 3; }
+
+  /* ---------- History (한미그룹 연역 - 접기/펼치기 구조 개선) ---------- */
+  .history {
+    --mu: calc(min(100vw, var(--container-width)) / 1440);
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    background: var(--white);
+    overflow: hidden;
+  }
+
+  /* 접힌 상태: max-height를 충분히 넉넉하게(예: 1100px) 주어 이미지와 내용이 잘리지 않도록 조정 */
+  .history .hs-container.is-collapsed {
+    max-height: calc(1200 * var(--mu));
+    overflow: hidden;
+    position: relative;
+  }
+  .history .hs-container.is-collapsed::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0; right: 0;
+    height: calc(200 * var(--mu));
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    pointer-events: none;
+    z-index: 15;
+  }
+
+  /* 펼쳐진 상태: 높이 제한 해제 및 transition */
+  .hs-container {
+    position: relative;
+    width: var(--container-width);
+    margin: 0 auto;
+    padding: calc(100 * var(--mu)) 0 calc(120 * var(--mu));
+    transition: max-height 0.5s ease-in-out;
+  }
+
+  .hs-title {
+    margin: 0 auto calc(100 * var(--mu));
+    text-align: center;
+    font-weight: 800;
+    font-size: calc(52 * var(--mu));
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--black);
+  }
+
+  .hs-content-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(100 * var(--mu));
+  }
+
+  .hs-timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: calc(150 * var(--mu));
+    width: calc(6 * var(--mu));
+    transform: translateX(-50%);
+    background: #FF5D32;
+    z-index: 1;
+  }
+
+  .hs-block {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .hs-col {
+    width: calc(50% - 70 * var(--mu));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hs-year-title {
+    font-weight: 800;
+    font-size: calc(44 * var(--mu));
+    color: #FF5D32;
+    margin-bottom: calc(16 * var(--mu));
+    line-height: 1.1;
+  }
+  .hs-year-title sub { font-size: 0.6em; }
+
+  .hs-desc-head {
+    font-weight: 700;
+    font-size: calc(22 * var(--mu));
+    color: var(--black);
+    margin-bottom: calc(24 * var(--mu));
+    display: block;
+    line-height: 1.4;
+  }
+
+  .hs-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--mu));
+  }
+  .hs-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: calc(17 * var(--mu));
+    line-height: 1.5;
+    color: #333333;
+    gap: 15px;
+  }
+  .hs-row span:first-child {
+    flex: 1;
+  }
+  .hs-row .yr {
+    font-weight: 700;
+    color: var(--black);
+    flex: none;
+    text-align: right;
+  }
+
+  .hs-img-box {
+    margin-top: calc(24 * var(--mu));
+  }
+  .hs-img-box img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(12 * var(--mu));
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .hs-footer-visual {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: calc(60 * var(--mu));
+  }
+  .hs-big-100 {
+    font-weight: 800;
+    font-size: calc(140 * var(--mu));
+    line-height: 1;
+    color: #FF5D32;
+    margin-bottom: calc(24 * var(--mu));
+  }
+  .hs-big-100 sub { font-size: 0.5em; }
+  .hs-outro {
+    font-weight: 700;
+    font-size: calc(22 * var(--mu));
+    line-height: 1.6;
+    color: var(--black);
+    margin: 0;
+  }
+
+  .hs-btn-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: calc(60 * var(--mu));
+    z-index: 20;
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer {
+    background: var(--black);
+    color: var(--white-50);
+  }
+  .footer-inner {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 40px 60px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.3px;
+  }
+  .footer-inner p { margin: 0; }
+
+  /* =====================================================================
+     RESPONSIVE
+     ===================================================================== */
+  @media (max-width: 1024px) {
+    :root { --vs: 0.7; --pad: 40px; }
+    .main-visual { height: calc(376px + 757px * var(--vs)); min-height: 0; }
+    .mv-container { width: 100%; height: 100%; zoom: 1; transform: none; }
+    .site-header { height: auto; }
+    .header-inner { width: 100%; zoom: 1; transform: none; padding: 0 var(--pad); }
+    .mv-copy { left: var(--pad); top: 99px; bottom: auto; width: auto; justify-content: flex-start; }
+    .mv-visual { left: calc(50% - 1063.7px * var(--vs)); top: 376px; transform: scale(var(--vs)); transform-origin: 0 0; }
+  }
+
+  @media (min-width: 391px) and (max-width: 1024px) {
+    .site-header { font-size: min(17px, 2.1vw); }
+    .header-inner { height: 5.88em; padding: 0 2.35em; }
+    .brand { width: 9em; height: 1.53em; }
+    .brand img { width: 100%; height: 100%; }
+
+    .gnb-list { gap: 1.9em; }
+    .gnb-list a, .gnb-list li:first-child a { height: 5.88em; font-size: 1em; line-height: 1.2; letter-spacing: -0.024em; }
+    .gnb-cta { padding-left: 1.4em; }
+    .btn-apply { gap: 0.6em; width: 7em; height: 2.7em; padding: 0; font-size: 0.94em; line-height: 1; letter-spacing: -0.02em; }
+    .btn-apply svg { width: 0.41em; height: 0.7em; }
+
+    .mv-copy { gap: 40px; }
+    .mv-text { gap: 26px; }
+    .mv-title { gap: 16px; }
+    .mv-season { font-size: 27px; line-height: 40px; letter-spacing: -0.55px; }
+    .mv-brand  { font-size: 57px; line-height: 68px; letter-spacing: -1.4px; }
+    .mv-kind   { font-size: 34px; line-height: 44px; letter-spacing: -0.85px; }
+    .mv-period { font-size: min(19.2px, calc((100vw - 80px) / 23.2)); line-height: 28px; }
+    .btn-main { width: 303px; height: 64px; padding: 0; font-size: 20px; line-height: 1; letter-spacing: -0.4px; }
+
+    .scroll-down { width: 64px; height: 64px; margin-left: -32px; bottom: 32px; }
+    .scroll-down svg { width: 32px; height: 32px; }
+
+    .mirae { --mu: calc(100vw / 1024); height: calc(697 * var(--mu)); }
+    .mr-title { top: calc(142 * var(--mu)); font-size: max(30px, calc(44 * var(--mu))); background: none; color: var(--black); -webkit-text-fill-color: var(--black); }
+    .mr-point { background: linear-gradient(90deg, #E60012 0%, #F0261A 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .mr-walking { left: calc(50% - 332.5 * var(--mu)); width: calc(665 * var(--mu)); }
+    .mr-cloud1  { left: calc(50% - 357 * var(--mu));   top: calc(274 * var(--mu)); width: calc(226 * var(--mu)); }
+    .mr-cloud2  { left: calc(50% + 167 * var(--mu));   top: calc(520 * var(--mu)); width: calc(95 * var(--mu)); }
+    .mr-cloud3  { top: calc(461 * var(--mu)); width: calc(108 * var(--mu)); }
+    .mr-cloud4  { top: calc(327 * var(--mu)); width: calc(188 * var(--mu)); }
+    .mr-star1   { left: calc(50% + 50 * var(--mu));    top: calc(379 * var(--mu)); width: calc(20 * var(--mu)); }
+    .mr-star2   { left: calc(50% - 99.5 * var(--mu));  top: calc(550 * var(--mu)); width: calc(29 * var(--mu)); }
+
+    .history { --mu: calc(100vw / 1024); }
+    .hs-container { width: 100%; padding: 60px 40px 80px; }
+    .hs-title { font-size: 36px; margin-bottom: 50px; }
+    .hs-col { width: calc(50% - 40px); }
+    .hs-year-title { font-size: 32px; }
+    .hs-row { font-size: 15px; }
+    .hs-big-100 { font-size: 100px; }
+    .hs-outro { font-size: 18px; }
+  }
+
+  @media (max-width: 390px) {
+    :root { --vs: 0.5335; --pad: 20px; }
+
+    .header-inner { height: 70px; }
+    .brand { width: 129px; height: 22px; }
+    .brand img { width: 129px; height: 22px; }
+
+    .site-header .header-apply { display: inline-flex; margin-left: auto; width: 64px; height: 28px; padding: 0; font-size: 12px; line-height: 1; letter-spacing: -0.25px; }
+    .site-header .menu-toggle { display: flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; margin-right: -8px; padding: 0; background: none; color: var(--black); }
+    .menu-toggle svg { width: 24px; height: 24px; }
+
+    .gnb {
+      position: fixed; inset: 0; z-index: 10; display: block; width: 100%; padding: 0 20px; overflow-y: auto; background: var(--white); transform: translateX(100%); visibility: hidden; transition: transform 0.3s ease, visibility 0s linear 0.3s;
+    }
+    .gnb.is-open { transform: translateX(0); visibility: visible; transition: transform 0.3s ease, visibility 0s; }
+    body.menu-open { overflow: hidden; }
+
+    .site-header .gnb-head { display: flex; align-items: center; justify-content: space-between; height: 48px; }
+    .gnb-brand { display: block; width: 105px; height: 18px; }
+    .gnb-brand img { width: 105px; height: 18px; }
+    .menu-close { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin-right: -10px; padding: 0; background: none; color: var(--black); }
+    .menu-close svg { width: 24px; height: 24px; }
+
+    .gnb-list { flex-direction: column; gap: 0; margin-top: 51px; }
+    .gnb-list li { border-bottom: 1px solid #EEEEEE; }
+    .gnb-list a, .gnb-list li:first-child a { height: 56px; font-size: 18px; line-height: 1.2; letter-spacing: -0.4px; }
+    .gnb-cta { padding: 39px 0 0; }
+    .gnb .btn-apply { width: 100%; height: 48px; padding: 0; font-size: 16px; line-height: 1; letter-spacing: -0.3px; }
+    .gnb .btn-apply svg { width: 7px; height: 12px; }
+
+    .site-header .gnb-deco { display: block; position: absolute; right: 9px; bottom: 27px; width: 150px; height: auto; pointer-events: none; z-index: -1; }
+
+    .mv-copy { top: 103px; gap: 54px; }
+    .mv-text { gap: 19px; }
+    .mv-title { gap: 17px; }
+    .mv-season { font-size: 20px; line-height: 30px; letter-spacing: -0.4px; }
+    .mv-brand  { font-size: 55px; line-height: 60px; letter-spacing: -1.3px; }
+    .mv-kind   { font-size: 35px; line-height: 56px; letter-spacing: -0.85px; }
+    .mv-period { font-size: 13px; line-height: 20px; letter-spacing: -0.3px; white-space: normal; }
+    .btn-main { width: 202px; height: 48px; padding: 0; font-size: 15px; line-height: 1; letter-spacing: -0.32px; }
+
+    .scroll-down { width: 40px; height: 40px; margin-left: -20px; bottom: 16px; }
+    .scroll-down svg { width: 20px; height: 20px; }
+
+    .mirae { --mu: calc(100vw / 390); height: calc(424 * var(--mu)); }
+    .mr-title { top: calc(60 * var(--mu)); font-size: calc(30 * var(--mu)); }
+    .mr-walking { left: 0; width: 100%; }
+    .mr-cloud1  { left: calc(50% - 168 * var(--mu)); top: calc(118 * var(--mu)); width: calc(138 * var(--mu)); }
+    .mr-cloud2  { left: calc(50% + 113 * var(--mu)); top: calc(279 * var(--mu)); width: calc(62 * var(--mu)); }
+    .mr-cloud3  { top: calc(221 * var(--mu)); width: calc(94 * var(--mu)); }
+    .mr-cloud4  { top: calc(130 * var(--mu)); width: calc(140 * var(--mu)); }
+    .mr-star1   { left: calc(50% + 32 * var(--mu));   top: calc(236 * var(--mu)); width: calc(13 * var(--mu)); }
+    .mr-star2   { left: calc(50% - 50.5 * var(--mu)); top: calc(330 * var(--mu)); width: calc(17 * var(--mu)); }
+
+    .history { --mu: calc(100vw / 390); }
+    .hs-container { width: 100%; padding: 40px 20px 60px; }
+    .hs-container.is-collapsed { max-height: 750px; }
+    .hs-title { font-size: 24px; margin-bottom: 30px; line-height: 1.4; }
+    .hs-timeline-line { display: none; }
+    .hs-block { flex-direction: column; width: 100%; gap: 30px; }
+    .hs-col { width: 100%; }
+    .hs-year-title { font-size: 24px; margin-bottom: 8px; }
+    .hs-desc-head { font-size: 16px; margin-bottom: 12px; }
+    .hs-row { font-size: 13px; }
+    .hs-footer-visual .hs-outro { display: none; }
+    .hs-big-100 { font-size: 64px; margin-bottom: 0; }
+    .hs-btn-wrap { margin-top: 30px; }
+    .hs-btn-wrap .btn-main { width: 180px; height: 44px; font-size: 15px; }
+  }
+
+  @media (max-width: 390px) and (prefers-reduced-motion: reduce) {
+    .gnb, .gnb.is-open { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#main-visual" aria-label="한미그룹 홈">
+      <img src="./images/logo_svg.svg" alt="한미그룹 Hanmi">
+    </a>
+
+    <nav class="gnb" id="gnb-menu" aria-label="주요 메뉴">
+      <div class="gnb-head">
+        <a class="gnb-brand" href="#main-visual" aria-label="한미그룹 홈">
+          <img src="./images/logo_svg.svg" alt="한미그룹 Hanmi">
+        </a>
+        <button type="button" class="menu-close" aria-label="메뉴 닫기">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="gnb-list">
+        <li><a href="#jobs">직무소개</a></li>
+        <li><a href="#qualification">지원자격 및 접수방법</a></li>
+        <li><a href="#schedule">채용설명회 일정</a></li>
+      </ul>
+      <div class="gnb-cta">
+        <a class="btn btn-apply" href="#apply">
+          <span>지원하기</span>
+          <svg viewBox="0 0 7 12" fill="none" aria-hidden="true">
+            <path d="M1 1l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <img class="gnb-deco" src="./images/menu_char_png.png" alt="">
+    </nav>
+
+    <a class="btn btn-apply header-apply" href="#apply"><span>지원하기</span></a>
+    <button type="button" class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="gnb-menu">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M2 5h20M2 12h20M2 19h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="main-visual" id="main-visual" aria-label="한미그룹 2026년 하반기 공개채용">
+    <div class="mv-container">
+      <div class="mv-visual" aria-hidden="true">
+        <div class="ring ring-glow"></div>
+        <div class="ring ring-line"></div>
+        <img class="micro" src="./images/mv_micro_png.png" alt="">
+        <img class="char1" src="./images/mv_char1_png.png" alt="">
+        <img class="char2" src="./images/mv_char2_png.png" alt="">
+        <img class="char3" src="./images/mv_char3_png.png" alt="">
+        <img class="char4" src="./images/mv_char4_png.png" alt="">
+        <span class="star star1"></span>
+        <span class="star star2"></span>
+        <span class="star star3"></span>
+        <span class="star star3 big"></span>
+        <span class="star star4"></span>
+      </div>
+
+      <div class="mv-copy">
+        <div class="mv-text">
+          <h1 class="mv-title">
+            <span class="mv-season">2026년 하반기</span>
+            <span class="mv-title-wrap">
+              <span class="mv-brand">한미그룹</span>
+              <span class="mv-kind">공개채용</span>
+            </span>
+          </h1>
+          <p class="mv-period">모집기간 : 2026.9.28(월) ~ 2026.10.18(일) 23:59까지</p>
+        </div>
+        <div>
+          <a class="btn btn-main" href="#jobs">모집직무 바로가기!</a>
+        </div>
+      </div>
+
+      <a class="scroll-down" href="#jobs" aria-label="아래로 스크롤">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M10 15l10 10 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="mirae" id="mirae" aria-labelledby="mirae-title">
+    <div class="mr-container">
+      <h2 class="mr-title" id="mirae-title"><span class="mr-point">새로운 미래</span>를 향해 나아갑니다</h2>
+      <img class="mr-cloud1" src="./images/mirae_cloud1.png" alt="구름 장식">
+      <img class="mr-cloud2" src="./images/mirae_cloud2.png" alt="구름 장식">
+      <img class="mr-cloud3" src="./images/mirae_cloud3.png" alt="구름 장식">
+      <img class="mr-cloud4" src="./images/mirae_cloud4.png" alt="구름 장식">
+      <img class="mr-walking" src="./images/mirae_walking.png" alt="캐릭터">
+      <img class="mr-star1" src="./images/mirae_star1.png" alt="별 장식">
+      <img class="mr-star2" src="./images/mirae_star2.png" alt="별 장식">
+    </div>
+  </section>
+
+  <!-- 세 번째 섹션: 한미그룹 연역 -->
+  <section class="history" id="history" aria-labelledby="history-title">
+    <div class="hs-container is-collapsed" id="history-container">
+      
+      <h2 class="hs-title" id="history-title">한미의 도전은 작은 가능성에서 시작되었습니다.</h2>
+
+      <div class="hs-content-wrap">
+        <div class="hs-timeline-line" aria-hidden="true"></div>
+
+        <div class="hs-block">
+          <div class="hs-col">
+            <div class="hs-year-title">53<sub>th</sub></div>
+            <span class="hs-desc-head">한계를 하나씩 넘을 때마다,</span>
+            <div class="hs-list">
+              <div class="hs-row"><span>창립 제정업무 개시 및 설립</span> <span class="yr">1973</span></div>
+              <div class="hs-row"><span>일동바비신 공장 신축</span> <span class="yr">1984</span></div>
+              <div class="hs-row"><span>세프트리악손 정맥주사제 기술 수출</span> <span class="yr">1989</span></div>
+              <div class="hs-row"><span>펜디크로페낙 세계최초 겔화식물 기술 수출</span> <span class="yr">1997</span></div>
+            </div>
+          </div>
+          <div class="hs-col">
+            <div class="hs-year-title">1973~2001</div>
+            <div class="hs-img-box">
+              <img src="./images/his1.jpg" alt="1973~2001 주요 제품 및 텐텐, 쎄쎄 영양제 패키지 시안">
+            </div>
+          </div>
+        </div>
+
+        <div class="hs-block">
+          <div class="hs-col">
+            <div class="hs-year-title">2002~2010</div>
+            <div class="hs-img-box">
+              <img src="./images/his3.jpg" alt="2002~2010 연구 인체 그래픽 및 에소메졸 제품">
+            </div>
+          </div>
+          <div class="hs-col" style="justify-content: flex-end;">
+            <div class="hs-list">
+              <div class="hs-row"><span>복합 고혈압치료제 아모잘탄허가·약가협상 타결</span> <span class="yr">2004</span></div>
+              <div class="hs-row"><span>세프토라콜·다중스텝 제형연구 기술적용·발명 성립</span> <span class="yr">2006</span></div>
+              <div class="hs-row"><span>바이오 항암신약바이오시밀러 스위스 FDA 승인</span> <span class="yr">2008</span></div>
+              <div class="hs-row"><span>사노피와 항암기타·임상시험 기술수출·설립</span> <span class="yr">2009</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hs-block">
+          <div class="hs-col">
+            <div class="hs-year-title">2011~2015</div>
+            <span class="hs-desc-head">새로운 가능성이 현실이 되었어요.</span>
+            <div class="hs-list">
+              <div class="hs-row"><span>KBSD와 혁신신약 공동연구 및 계약 체결</span> <span class="yr">2011</span></div>
+              <div class="hs-row"><span>LAPS-GCSF 등 스마트임상시험 공동개발 계약 체결</span> <span class="yr">2012</span></div>
+              <div class="hs-row"><span>국내 제약사 최초로 FDA 혁신신약 연구 허가 획득</span> <span class="yr">2013</span></div>
+              <div class="hs-row"><span>이스라엘 테바와 유럽 호흡기 수출 계약</span> <span class="yr">2014</span></div>
+              <div class="hs-row"><span>최초 국산 항암신약 벨로테칸 제품수출</span> <span class="yr">2015</span></div>
+            </div>
+          </div>
+          <div class="hs-col">
+            <div class="hs-year-title" style="visibility: hidden;">숨김</div>
+            <div class="hs-img-box">
+              <img src="./images/his4.png" alt="2011~2015 ASCO 학회 발표 및 로수젯 제품군">
+            </div>
+          </div>
+        </div>
+
+        <div class="hs-block">
+          <div class="hs-col">
+            <div class="hs-year-title">2016~2020</div>
+            <div class="hs-img-box">
+              <img src="./images/his4.png" alt="2016~2020 ASCO 발표 자료 이미지">
+            </div>
+          </div>
+          <div class="hs-col" style="justify-content: flex-end;">
+            <div class="hs-list">
+              <div class="hs-row"><span>유럽 ASCO서 지텍터/Teoder 바이오머 기술수출</span> <span class="yr">2016</span></div>
+              <div class="hs-row"><span>테오블롤 국내 시판허가 도출 및 수의진단기기 등록</span> <span class="yr">2017</span></div>
+              <div class="hs-row"><span>Change in Analog, 오토글리코시드 ASCO 개시</span> <span class="yr">2018</span></div>
+              <div class="hs-row"><span>대구 신장암/유방암 치료 4건 시판승인</span> <span class="yr">2019</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hs-block">
+          <div class="hs-col">
+            <div class="hs-year-title">2021~2026</div>
+            <span class="hs-desc-head">하지만 아직, 가야 할 길이 더 남아 있습니다.</span>
+            <div class="hs-list">
+              <div class="hs-row"><span>글로벌, 차세대 지방간염치료제 임상 1상 성공</span> <span class="yr">2021</span></div>
+              <div class="hs-row"><span>혈알츠~인체 투여 FDA 허가 파이프라인 확대 및 AACR 연구</span> <span class="yr">2022</span></div>
+              <div class="hs-row"><span>1형 당뇨포트폴리오 제품화 계약 체결</span> <span class="yr">2023</span></div>
+              <div class="hs-row"><span>간손상 원인 비알코올성 지방간염 치료제 HMM103P 임상</span> <span class="yr">2024</span></div>
+              <div class="hs-row"><span>중국인 대상 혁신신약 기술 수출 및 수출품 등록</span> <span class="yr">2025</span></div>
+              <div class="hs-row"><span>미국임상종양학회(ASCO)서 엔포 전임상서비스 진행</span> <span class="yr">2026</span></div>
+            </div>
+          </div>
+          <div class="hs-col">
+            <div class="hs-year-title" style="visibility: hidden;">숨김</div>
+            <div class="hs-img-box">
+              <img src="./images/his5.png" alt="2021~2026 롤론티스 및 주요 바이오 신약">
+            </div>
+          </div>
+        </div>
+
+        <div class="hs-footer-visual">
+          <div class="hs-big-100">100<sub>th</sub></div>
+          <p class="hs-outro">수많은 도전이 오늘의 한미를 만들었습니다.<br>이제 또 다른 가능성을 향해 당신과 함께 나아갑니다.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 버튼은 컨테이너 외부(하단)에 배치하여 가리지 않도록 처리 -->
+    <div class="hs-btn-wrap">
+      <button type="button" class="btn btn-main hs-toggle-btn" aria-expanded="false" aria-controls="history-container">
+        <span>펼치기</span>
+      </button>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; 2026 Hanmi Group. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    function fit() {
+      var s = Math.min(1, Math.max(0.3, window.innerWidth / 1440));
+      root.style.setProperty('--scale', s.toFixed(4));
+      var vs = Math.min(0.7, (window.innerWidth - 44) / 648.6);
+      root.style.setProperty('--vs', Math.max(vs, 0.3).toFixed(4));
+    }
+    fit();
+    window.addEventListener('resize', fit);
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        var target = id.length > 1 ? document.querySelector(id) : null;
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  })();
+
+  (function () {
+    var toggle = document.querySelector('.menu-toggle');
+    var menu = document.getElementById('gnb-menu');
+    if (!toggle || !menu) return;
+    var closeBtn = menu.querySelector('.menu-close');
+    var mq = window.matchMedia('(max-width: 390px)');
+
+    function isOpen() { return menu.classList.contains('is-open'); }
+
+    function openMenu() {
+      if (isOpen() || !mq.matches) return;
+      menu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('menu-open');
+      closeBtn.focus({ preventScroll: true });
+    }
+
+    function closeMenu(returnFocus) {
+      if (!isOpen()) return;
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+      if (returnFocus !== false) toggle.focus({ preventScroll: true });
+    }
+
+    toggle.addEventListener('click', function () { isOpen() ? closeMenu() : openMenu(); });
+    closeBtn.addEventListener('click', function () { closeMenu(); });
+
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { closeMenu(); });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (isOpen() && !menu.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!isOpen()) return;
+      if (e.key === 'Escape') { closeMenu(); return; }
+      if (e.key === 'Tab') {
+        var f = menu.querySelectorAll('a[href], button');
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    function onChange() { if (!mq.matches) closeMenu(false); }
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else if (mq.addListener) mq.addListener(onChange);
+  })();
+
+  /* [추가] 콘텐츠 접기/펼치기 기능 개선 */
+  (function () {
+    var container = document.getElementById('history-container');
+    var btn = document.querySelector('.hs-toggle-btn');
+    if (!container || !btn) return;
+
+    var isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function checkHeight() {
+      var wasCollapsed = container.classList.contains('is-collapsed');
+      if (wasCollapsed) container.classList.remove('is-collapsed');
+      var realHeight = container.scrollHeight;
+      if (wasCollapsed) container.classList.add('is-collapsed');
+
+      if (realHeight <= container.clientHeight && !container.classList.contains('is-expanded')) {
+        btn.style.display = 'none';
+      } else {
+        btn.style.display = 'inline-flex';
+      }
+    }
+
+    checkHeight();
+
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+
+      if (!expanded) {
+        container.classList.remove('is-collapsed');
+        container.classList.add('is-expanded');
+        container.style.maxHeight = container.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+        btn.querySelector('span').textContent = '접기';
+      } else {
+        container.classList.add('is-collapsed');
+        container.classList.remove('is-expanded');
+        container.style.maxHeight = '';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.querySelector('span').textContent = '펼치기';
+
+        var sectionTop = document.getElementById('history').getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: sectionTop - 50,
+          behavior: isReducedMotion ? 'auto' : 'smooth'
+        });
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (container.classList.contains('is-expanded')) {
+        container.style.maxHeight = container.scrollHeight + 'px';
+      } else {
+        checkHeight();
+      }
+    });
+  })();
+</script>
+</body>
+</html>

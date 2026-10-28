@@ -1,0 +1,422 @@
+/* =====================================================
+   common.css : 모든 페이지 공통 스타일
+   글꼴 / 공통 레이아웃 / 제목 / 버튼 / 헤더 / 푸터
+   (reset.css 다음, 페이지 전용 css 앞에 불러온다.)
+   ===================================================== */
+
+/* 웹폰트 로딩하기(CDN방식)
+  CDN은 Content Delivery Networt 즉, 네트워크 망으로
+  컨텐트를 배달시켜 쓰는 방식 */
+
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap");
+
+  @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+  
+  /* 전체 루트 설정 */
+  html {
+    /* rem단위를 위한 Root 글자크기설정 */
+    font-size: 10px;
+    /* 왜 10px인가? rem단위에 계산이 용이함! */
+  }
+  html,
+  body {
+    /* 웹폰트체 지정 (콤마는 우선순위) */
+    font-family: Montserrat, NanumBarunGothic, Dotum, sans-serif;
+  }
+  
+  /* 공통셋팅 */
+  /* 메인영역 하위박스 공통 */
+  /* 직계자식 선택자(>), 형제선택자(+)
+  section + section 은 앞에 section태그가 있는 section태그를
+  모두 선택하라! 즉, 첫번째 section을 제외한 모든 section선택
+  */
+  .main-area > section + section {
+    padding: 85px 0;
+  }
+  
+  /* 상단영역 내부박스 */
+  .top-inner {
+    max-width: 1440px; /* 최대 너비 지정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 0 20px;
+    display: flex; /* 가로 레이아웃을 위한 flex 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 양끝 정렬 */
+    height: 90px; /* 높이 지정 */
+  }
+  /* 상단로고박스 */
+  h1.logo-box {
+    width: 10%;
+  }
+  h1.logo-box img {
+    max-width: 100%;
+  }
+  
+  .menu-list {
+    flex: 0 0 auto; /* 크기 고정 */
+    display: flex; /* 가로로 나열 */
+    gap: 48px; /* 메뉴 아이템 간 간격 */
+    list-style: none; /* 기본 리스트 마커 제거 */
+    padding: 0; /* 패딩 제거 */
+    margin: 0; /* 마진 제거 */
+    font-size: 1.6rem; /* 폰트 크기 */
+  }
+  .menu-list li a {
+    color: inherit; /* 글자색 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+    text-transform: uppercase; /* 대문자 변환 */
+  }
+  
+  /* 공통타이틀박스 */
+  .tit-box {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* outline: 3px dashed blue; */
+    /* 대문자변환 */
+    text-transform: uppercase;
+  }
+  /* 타이틀파트 */
+  .tit-box .part-tit {
+    text-align: center;
+    /* padding: 40px 0; */
+    margin-bottom: 30px;
+    font-size: 5rem;
+    font-weight: normal;
+  }
+  
+  /* 타이틀박스 하위 버튼박스 */
+  .btn-box {
+    text-align: center;
+    /* padding: 20px 0; */
+    margin-bottom: 50px;
+    /* 버튼이 사라지면 하단 마진도 사라짐! */
+  }
+  /* 버튼출력안함 클래스 */
+  .btn-box.off {
+    display: none;
+  }
+  
+  /* 타이틀 흰색테마 클래스 */
+  .tit-box.white .part-tit {
+    color: #fff;
+  }
+  /* 타이틀박스의 로고 컨트롤 */
+  .tit-box.white .logo-box {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  /* 버튼 흰색테마 클래스 */
+  .tit-box.white .btn-view {
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  .tit-box.white .btn-view::after {
+    content: url(../images/ico_more2.png);
+  }
+  .tit-box.white .btn-view:hover {
+    color: #222;
+    background: #fff;
+  }
+  .tit-box.white .btn-view:hover::after {
+    content: url(../images/ico_more1.png);
+  }
+  
+  /* 화살표 출력안함 클래스
+  -> 부모박스에 simple클래스를 주면
+  자식 버튼에 가상요소 화살표가 출력안됨 */
+  .btn-box.simple .btn-view::after {
+    display: none;
+  }
+  /* simple클래스 버튼 디자인변경 */
+  .btn-box.simple .btn-view {
+    padding: 11px 22px;
+  }
+  
+  /* 타이틀 아래 버튼 */
+  .btn-view {
+    text-decoration: none;
+    color: #222;
+    font-size: 1.2rem;
+    /* 대문자출력 */
+    text-transform: uppercase;
+    display: inline-block;
+    margin: 0 auto;
+    border-radius: 24px;
+    border: 1px solid #222;
+    padding: 16px 32px;
+    /* 트랜지션 : 속시이지(속성 시간 이징 지연) */
+    transition: all 0.5s;
+  }
+  /* 버튼가상요소로 이미지 넣기 */
+  /* 앞은 ::before, 뒤는 ::after */
+  .btn-view::after {
+    /* before,after의 필수속성 content */
+    content: url(../images/ico_more1.png);
+    padding-left: 20px;
+  }
+  /* 버튼 오버시 가상클래스 :hover를 사용함 */
+  .btn-view:hover {
+    color: #fff;
+    background: #222;
+    /* 트랜지션 양방향은 원본에 설정함! */
+    /* :hover에 설정하면 오버시에만 애니됨 */
+    /* transition: all .5s; */
+  }
+  /* 버튼오버시 가상요소 after이미지변경 */
+  .btn-view:hover::after {
+    content: url(../images/ico_more2.png);
+  }
+  
+  /* 하단영역 */
+  .bottom-area {
+    background-color: #222;
+    padding: 50px;
+  }
+  /* 하단속박스 */
+  .bottom-inner {
+    /* 플렉스박스 */
+    display: flex;
+    /* 진행방향정렬:사이간격 일정하게 */
+    justify-content: space-between;
+    /* 진행방향의 수직정렬: 중간 */
+    align-items: center;
+  }
+  /* 하단속박스 카피라이트 이미지 */
+  .bottom-inner img {
+    height: 13px;
+  }
+  /* 하단속박스 버튼 */
+  .bottom-inner .btn-view {
+    background-color: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+  .bottom-inner .btn-box {
+    margin-bottom: 0;
+  }
+  /* =====================================================
+     반응형 미디어쿼리 (PC 기본 CSS 아래에 큰 값 → 작은 값 순서)
+     1199px → 1024px → 800px → 736px
+     ===================================================== */
+  
+  /* 햄버거 버튼: PC에서는 숨김 */
+  .menu-btn {
+    display: none;
+  }
+  
+  /* ---------- 1199px 이하 ---------- */
+  @media screen and (max-width: 1199px) {
+    /* 1. 공통 컨테이너: 고정 너비 → 가로 꽉 참 + 좌우 14px 여백 */
+    .tit-box {
+      box-sizing: border-box;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+  
+    /* 상단고정으로 body에 패딩탑 필요 */
+    body{
+      padding-top: 100px;
+    }
+  
+    /* 2. 헤더: 높이 100px + 회색 구분선 */
+    .top-area {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .top-inner {
+      max-width: none;
+      padding: 0 14px;
+      height: 100px;
+    }
+    h1.logo-box {
+      position: relative;
+      z-index: 2; /* 메뉴패널 위에 로고 표시 */
+    }
+  
+    /* 햄버거 버튼 (우측, 너비 34px) */
+    .menu-btn {
+      display: block;
+      position: relative;
+      z-index: 2; /* 메뉴패널 위에 버튼 표시 */
+      width: 34px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+    .menu-btn span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #222;
+      transition: all 0.3s;
+    }
+    .menu-btn span:nth-child(1) {
+      top: 0;
+    }
+    .menu-btn span:nth-child(2) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .menu-btn span:nth-child(3) {
+      top: 100%;
+      transform: translateY(-100%);
+    }
+    /* 열림 상태: X 모양 */
+    .top-area.on .menu-btn span:nth-child(1) {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+    .top-area.on .menu-btn span:nth-child(2) {
+      opacity: 0;
+    }
+    .top-area.on .menu-btn span:nth-child(3) {
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+  
+    /* 메뉴: 화면 전체를 덮는 흰색 패널, 오른쪽에서 슬라이드 */
+    .top-area nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding-top: 100px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      /* 변경내용 : 위치이동, 투명도 */
+      translate: 100%;
+      opacity: 0;
+      transition: 0.4s;
+      /* translate속성값은 하나만 쓰면 x축, 두개 x,y축 */
+      /* transform: translateX(100%); */
+      /* visibility와 opacity 투명도0의 차이는 
+      투명해진 후 이벤트 적용여부다.
+      opacity:0은 이벤트가 적용되고 visibility:hidden은 이벤트 적용안됨. */
+      /* visibility: hidden; */
+      /* 트랜지션을 처음부터 주면 메뉴변경시 화면한번 보이므로
+      처음엔 트랜지션을 주지 않는다. */
+      /* transition:
+        transform 0.4s ease,
+        visibility 0s 0.4s; */
+    }
+    /* 모바일용 메뉴를 위한 클래스 지정:트랜지션 넣기 
+    -> mob클래스를 자바스크립트에서 작동시 넣어주면된다!*/
+    .top-area.on nav {
+      /* 트랜스폼 보이게 설정 */
+      translate: 0;
+      opacity: 1;
+    }
+    /* .menu-open .top-area nav {
+      transform: translateX(0);
+      visibility: visible;
+      transition:
+        transform 0.4s ease,
+        visibility 0s;
+    } */
+    body.menu-open {
+      overflow: hidden;
+      /* 메뉴 열린 동안 배경 스크롤 방지 */
+    }
+    /* 항목 세로 쌓기 + 가운데 정렬 + 대문자 + 큰 글자 */
+    .menu-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 42px;
+    }
+  }
+  /* 1199px 이하 미디어쿼리 종료 */
+  
+  /* ---------- 1024px 이하 ---------- */
+  @media screen and (max-width: 1024px) {
+    /* 로고 너비 30% */
+    h1.logo-box {
+      width: 30%;
+    }
+  }
+  /* 1024px 이하 미디어쿼리 종료 */
+  
+  /* ---------- 800px 이하 ---------- */
+  @media screen and (max-width: 800px) {
+    /* 루트 글자크기: 타이틀 5rem = 32px 이 되도록 1rem = 6.4px
+       (rem 단위 글자가 자동 비례 축소) */
+    html {
+      font-size: 6.4px;
+    }
+  
+    /* 5. 섹션 공통: 상하 여백 75px */
+    .main-area > section + section {
+      padding-top: 75px;
+      padding-bottom: 75px;
+    }
+  
+    /* 12. 푸터: 세로로 쌓기, 가운데 정렬 */
+    .bottom-inner {
+      display: block;
+      text-align: center;
+    }
+    .bottom-inner img {
+      max-width: 100%;
+    }
+    .bottom-inner .btn-box {
+      margin-top: 20px;
+    }
+  }
+  /* 800px 이하 미디어쿼리 종료 */
+  
+  /* ---------- 736px 이하 ---------- */
+  @media screen and (max-width: 736px) {
+    /* 상단고정으로 body에 패딩탑 필요 */
+    body{
+      padding-top: 50px;
+    }
+    /* 2. 헤더 높이 50px, 햄버거 24px(선 3px), 메뉴 글자 28px */
+    .top-inner {
+      height: 50px;
+    }
+    .top-area nav {
+      padding-top: 50px;
+    }
+    .menu-btn {
+      width: 24px;
+      height: 18px;
+    }
+    .menu-btn span {
+      height: 3px;
+    }
+    .menu-list {
+      font-size: 9vw;
+      gap: 20px; /* 항목 간격 좁아짐 */
+    }
+  
+    /* 5. 섹션 공통: 상하 여백 50px
+       (섹션 제목은 루트 6.4px 기준 5rem = 32px 로 이미 축소됨) */
+    .main-area > section + section {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+  
+    /* 12. 푸터: 여백 30px / 50px, 저작권 이미지 60% */
+    .bottom-area {
+      padding: 30px 50px;
+    }
+    .bottom-inner img {
+      width: 60%;
+      height: auto;
+    }
+  }
+  /* 736px 이하 미디어쿼리 종료 */

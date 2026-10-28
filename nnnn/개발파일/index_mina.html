@@ -1,0 +1,1293 @@
+<!doctype html>
+<html>
+  <head>
+    <title>산리오 코리아</title>
+    <meta charset="UTF-8" />
+    <!-- 미디어쿼리를 위한 뷰포트 필수 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 스타일 시트 -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap");
+      @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+
+      /* 전체 루트 설정 */
+      html {
+        font-size: 10px;
+      }
+      html,
+      body {
+        font-family: Montserrat, NanumBarunGothic, Dotum, sans-serif;
+      }
+
+      /* 공통요소 초기화 */
+      /* prettier-ignore */
+      html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+      }
+
+      /* 공통셋팅 */
+      .main-area > section + section {
+        padding: 85px 0;
+      }
+
+      /* 상단영역 내부박스 */
+      .top-inner {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 90px;
+      }
+      /* 상단로고박스 */
+      h1.logo-box {
+        width: 10%;
+      }
+      h1.logo-box img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .menu-list {
+        flex: 0 0 auto;
+        display: flex;
+        gap: 48px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 1.6rem;
+      }
+      .menu-list li a {
+        color: inherit;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      /* 네비게이션 내 모바일 전용 SNS 링크 (기본 숨김) */
+      .nav-sns {
+        display: none;
+      }
+
+      /* 배너영역 스타일 */
+      .banner-area {
+        position: relative;
+        padding: 80px;
+        padding-bottom: 160px;
+        background: url("./images/main_visual_bg.jpg") repeat 0 0/50px;
+      }
+      .banner-area .center-banner {
+        text-align: center;
+      }
+      .banner-area .main-visual-img {
+        width: 984px;
+        max-width: 100%;
+      }
+
+      /* SNS 버튼 박스 스타일 */
+      .sns {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 50px;
+      }
+      .sns img {
+        width: 40px;
+        height: 40px;
+      }
+
+      /* 스크롤 유도 애니 버튼박스 */
+      .scroll_btn {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        translate: -50%;
+        width: 79px;
+        height: 70px;
+      }
+      .scroll_btn p {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1rem;
+      }
+      .scroll_btn .mouse {
+        position: absolute;
+        left: 50%;
+        translate: -50%;
+        top: 0px;
+        display: block;
+        width: 26px;
+        height: 36px;
+        background-color: #fff;
+        border: 1px solid #222;
+        border-radius: 15px;
+        animation: mouse-ani 0.5s ease-in-out infinite alternate;
+      }
+      @keyframes mouse-ani {
+        from {
+          top: 0;
+        }
+        to {
+          top: 15px;
+        }
+      }
+
+      .scroll_btn .mouse span {
+        position: absolute;
+        top: 27%;
+        left: 50%;
+        translate: -50% -50%;
+        width: 5px;
+        height: 5px;
+        background-color: #222;
+        border-radius: 50%;
+        opacity: 0;
+        animation: mouse-dot-ani 1.5s linear infinite;
+      }
+      @keyframes mouse-dot-ani {
+        0% {
+          opacity: 0;
+          top: 27%;
+        }
+        10% {
+          opacity: 1;
+          top: 27%;
+        }
+        40% {
+          opacity: 1;
+          top: 50%;
+        }
+        60% {
+          opacity: 0;
+          top: 50%;
+        }
+        100% {
+          opacity: 0;
+          top: 50%;
+        }
+      }
+
+      /* 캐릭터영역 박스 */
+      .character-area {
+        min-height: 100vh;
+      }
+      .tit-box {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-transform: uppercase;
+      }
+      .tit-box .part-tit {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 5rem;
+        font-weight: normal;
+      }
+
+      .btn-box {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .btn-box.off {
+        display: none;
+      }
+
+      .tit-box.white .part-tit {
+        color: #fff;
+      }
+      .tit-box.white .logo-box {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .tit-box.white .btn-view {
+        color: #fff;
+        border: 1px solid #fff;
+      }
+      .tit-box.white .btn-view::after {
+        content: url(./images/ico_more2.png);
+      }
+      .tit-box.white .btn-view:hover {
+        color: #222;
+        background: #fff;
+      }
+      .tit-box.white .btn-view:hover::after {
+        content: url(./images/ico_more1.png);
+      }
+
+      .btn-box.simple .btn-view::after {
+        display: none;
+      }
+      .btn-box.simple .btn-view {
+        padding: 11px 22px;
+      }
+
+      .btn-view {
+        text-decoration: none;
+        color: #222;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        display: inline-block;
+        margin: 0 auto;
+        border-radius: 24px;
+        border: 1px solid #222;
+        padding: 16px 32px;
+        transition: all 0.5s;
+      }
+      .btn-view::after {
+        content: url(./images/ico_more1.png);
+        padding-left: 20px;
+      }
+      .btn-view:hover {
+        color: #fff;
+        background: #222;
+      }
+      .btn-view:hover::after {
+        content: url(./images/ico_more2.png);
+      }
+
+      /* 캐릭터카드 박스 */
+      .character-card-box {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .character-card {
+        width: calc(25% - 15px);
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 16px;
+        box-shadow: 4px 4px 10px #00000026;
+        background: #fff;
+      }
+      .character-card .card-imgs {
+        position: relative;
+        background: #f7f7f7;
+        border-bottom: 1px solid #eee;
+      }
+      .character-area .card-imgs img:first-child {
+        width: 100%;
+        display: block;
+      }
+      .character-card .card-imgs img:last-child {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      .character-card:hover .card-imgs img:last-child {
+        opacity: 1;
+      }
+      .character-card .card-desc {
+        aspect-ratio: 1 / 0.3;
+        padding: 16px 12px 12px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+      .character-card .card-desc h3 {
+        font-size: 2.4rem;
+        color: #444;
+      }
+      .character-card .card-desc h4 {
+        font-size: 1.2rem;
+        color: #ccc;
+      }
+
+      /* 컴퍼니 영역 */
+      .company-area {
+        background-color: #f5f5f5;
+      }
+
+      /* 리쿠르트 영역 */
+      .recruit-area {
+        background: url(./images/bg_recruit.png) no-repeat center 70px;
+      }
+
+      /* 플레이스 영역 */
+      .place-area {
+        background: url(./images/bg_shop.jpg) no-repeat center;
+        height: 30vh;
+      }
+
+      /* 컨텍어스 영역 */
+      .contactus-area {
+        background-color: #4a679e;
+      }
+
+      /* 카드파트 공통 모듈 */
+      .card-part-box {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .card-part {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        flex: 1;
+        margin: 0;
+      }
+      .card-title {
+        font-size: 2.5rem;
+      }
+      .card-desc span {
+        display: block;
+        font-size: 1.8rem;
+      }
+
+      /* 컨택트 박스 */
+      .contact-box {
+        display: flex;
+        max-width: 1200px;
+        height: 350px;
+        margin: 0 auto;
+        border-radius: 20px;
+        background: #fff;
+      }
+      .contact-box .map-box,
+      .contact-box .info-box {
+        width: 50%;
+        height: 100%;
+      }
+      .contact-box .map-box {
+        border-radius: 20px 0 0 20px;
+        overflow: hidden;
+      }
+      .contact-box .map-box iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      .contact-box .info-box {
+        position: relative;
+        border-radius: 0 20px 20px 0;
+        box-sizing: border-box;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #222;
+      }
+      #kitty-car {
+        width: 207px;
+        height: 240px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translate(-23%, 23%);
+      }
+      .contact-box .info-box h3 {
+        font-size: 2.4rem;
+        font-weight: bold;
+        margin-bottom: 14px;
+      }
+      .contact-box .info-box h4 {
+        font-size: 1.6rem;
+        color: #555;
+        line-height: 1.5;
+      }
+      .contact-box .info-box h4:nth-of-type(2) {
+        margin-bottom: 28px;
+      }
+      .contact-box .info-box h5 {
+        font-size: 1.6rem;
+        line-height: 1.8;
+      }
+
+      /* 하단영역 */
+      .bottom-area {
+        background-color: #222;
+        padding: 50px;
+      }
+      .bottom-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .bottom-inner img {
+        height: 13px;
+      }
+      .bottom-inner .btn-view {
+        background-color: transparent;
+        color: #fff;
+        border-color: #fff;
+      }
+      .bottom-inner .btn-box {
+        margin-bottom: 0;
+      }
+
+      /* =====================================================
+         반응형 미디어쿼리 (1199px → 1024px → 800px → 767px → 736px)
+         ===================================================== */
+
+      /* 햄버거 버튼: PC에서는 숨김 */
+      .menu-btn {
+        display: none;
+      }
+
+      /* ---------- 1199px 이하 ---------- */
+      @media screen and (max-width: 1199px) {
+        /* 1. 공통 컨테이너: 고정 너비 해제 + 좌우 14px 여백 */
+        .tit-box,
+        .character-card-box,
+        .card-part-box,
+        .contact-box {
+          box-sizing: border-box;
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+
+        /* 2. 헤더: 높이 100px + 회색 구분선 */
+        .top-area {
+          position: relative;
+          z-index: 100;
+          background: #fff;
+          border-bottom: 1px solid #ddd;
+        }
+        .top-inner {
+          max-width: none;
+          padding: 0 14px;
+          height: 100px;
+        }
+        h1.logo-box {
+          position: relative;
+          z-index: 2;
+        }
+
+        /* 햄버거 버튼 (너비 34px) */
+        .menu-btn {
+          display: block;
+          position: relative;
+          z-index: 2;
+          width: 34px;
+          height: 24px;
+          padding: 0;
+          border: 0;
+          background: none;
+          cursor: pointer;
+        }
+        .menu-btn span {
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 4px;
+          background: #222;
+          transition: all 0.3s;
+        }
+        .menu-btn span:nth-child(1) {
+          top: 0;
+        }
+        .menu-btn span:nth-child(2) {
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        .menu-btn span:nth-child(3) {
+          top: 100%;
+          transform: translateY(-100%);
+        }
+
+        /* 열림 상태 (X) */
+        .menu-open .menu-btn span:nth-child(1) {
+          top: 50%;
+          transform: translateY(-50%) rotate(45deg);
+        }
+        .menu-open .menu-btn span:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-open .menu-btn span:nth-child(3) {
+          top: 50%;
+          transform: translateY(-50%) rotate(-45deg);
+        }
+
+        /* 슬라이드 메뉴 패널 */
+        .top-area nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          padding-top: 100px;
+          padding-bottom: 40px;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+          transform: translateX(100%);
+          visibility: hidden;
+          transition:
+            transform 0.4s ease,
+            visibility 0s 0.4s;
+        }
+        .menu-open .top-area nav {
+          transform: translateX(0);
+          visibility: visible;
+          transition:
+            transform 0.4s ease,
+            visibility 0s;
+        }
+        body.menu-open {
+          overflow: hidden;
+        }
+
+        /* 2.625rem 글자 크기 + 대문자 + 세로 나열 */
+        .menu-list {
+          flex-direction: column;
+          align-items: center;
+          gap: 30px;
+          text-align: center;
+          text-transform: uppercase;
+          font-size: 2.625rem;
+          margin-bottom: auto;
+          margin-top: auto;
+        }
+
+        /* 패널 하단 페이스북 아이콘 가운데 정렬 */
+        .nav-sns {
+          display: block;
+          margin-bottom: 30px;
+          text-align: center;
+        }
+        .nav-sns img {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      /* ---------- 1024px 이하 ---------- */
+      @media screen and (max-width: 1024px) {
+        /* 로고 너비 30% */
+        h1.logo-box {
+          width: 30%;
+        }
+
+        /* SNS 아이콘: 고정 배치 및 top 112px */
+        .sns {
+          position: fixed;
+          top: 112px;
+          right: 30px;
+          z-index: 50;
+        }
+
+        /* 메인 비주얼 좌우 여백 30px */
+        .banner-area {
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+
+        /* recruit: 좌우 여백 9% 및 태블릿 배경 */
+        .main-area > section.recruit-area {
+          padding-left: 9%;
+          padding-right: 9%;
+          background-image: url(./images/bg_recruit_tablet.png);
+        }
+
+        /* place: 태블릿 배경 */
+        .place-area {
+          background-image: url(./images/bg_shop_tablet.jpg);
+        }
+
+        /* contact us: 하단 여백 150px, 스티커 위치 변경 */
+        .main-area > section.contactus-area {
+          padding-bottom: 150px;
+        }
+        #kitty-car {
+          right: 40px;
+          bottom: -120px;
+          transform: none;
+        }
+      }
+
+      /* ---------- 800px 이하 ---------- */
+      @media screen and (max-width: 800px) {
+        /* 섹션 공통 상하 여백 75px */
+        .main-area > section + section {
+          padding-top: 75px;
+          padding-bottom: 75px;
+        }
+
+        /* character: 2열 정렬, 정사각형 카드, 중앙 배치 */
+        .character-card {
+          width: calc(50% - 10px);
+          aspect-ratio: 1 / 1;
+          display: flex;
+          flex-direction: column;
+        }
+        .character-card .card-imgs {
+          flex: 1;
+          min-height: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .character-area .character-card .card-imgs img:first-child,
+        .character-area .character-card .card-imgs img:last-child {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        .character-card .card-desc {
+          flex: none;
+        }
+
+        /* company: 2x2 배치, 구분선 및 5% 여백 */
+        .company-area .card-part-box {
+          flex-wrap: wrap;
+          gap: 0;
+        }
+        .company-area .card-part {
+          flex: 0 0 50%;
+          box-sizing: border-box;
+          padding: 0 0 5% 0;
+          border-right: 1px solid #ddd;
+          border-bottom: 1px solid #ddd;
+        }
+        .company-area .card-part:nth-child(even) {
+          border-right: 0;
+        }
+        .company-area .card-part:nth-child(n + 3) {
+          padding: 5% 0 0 0;
+          border-bottom: 0;
+        }
+        .company-area .card-part:last-child:nth-child(odd) {
+          flex-basis: 100%;
+          border-right: 0;
+        }
+
+        /* recruit: 모바일 배경(90%, 상단 30px), 가로 배치 (57% + 33%) */
+        .recruit-area {
+          background-size: 90%;
+          background-position: center 30px;
+          background-image: url(./images/bg_recruit_mobile.png);
+        }
+        .recruit-area .card-part-box {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .recruit-area .card-part {
+          display: grid;
+          grid-template-columns: 57% 33%;
+          gap: 6px 10%;
+          align-items: center;
+          justify-items: start;
+          flex: none;
+          width: 100%;
+        }
+        .recruit-area .img-box {
+          grid-column: 1;
+          grid-row: 1 / span 3;
+          width: 100%;
+        }
+        .recruit-area .img-box img {
+          max-width: 100%;
+        }
+        .recruit-area .card-title,
+        .recruit-area .card-desc,
+        .recruit-area .btn-box {
+          grid-column: 2;
+        }
+        .recruit-area .btn-box {
+          margin-bottom: 0;
+        }
+
+        /* place: cover 채움 */
+        .place-area {
+          background-size: cover;
+          background-image: url(./images/bg_shop_mobile.jpg);
+        }
+
+        /* contact us: 지도 상단(280px, 위 모서리 20px) + 주소 10px */
+        .contact-box {
+          flex-direction: column;
+          height: auto;
+        }
+        .contact-box .map-box,
+        .contact-box .info-box {
+          width: 100%;
+        }
+        .contact-box .map-box {
+          height: 280px;
+          border-radius: 20px 20px 0 0;
+        }
+        .contact-box .info-box {
+          height: auto;
+          border-radius: 0 0 20px 20px;
+          padding-bottom: 70px;
+        }
+        .contact-box .info-box h3,
+        .contact-box .info-box h4 {
+          font-size: 10px;
+        }
+
+        /* 푸터: 세로 쌓기 */
+        .bottom-inner {
+          display: block;
+          text-align: center;
+        }
+        .bottom-inner img {
+          max-width: 100%;
+        }
+        .bottom-inner .btn-box {
+          margin-top: 20px;
+        }
+      }
+
+      /* ---------- 767px 이하 ---------- */
+      @media screen and (max-width: 767px) {
+        /* 기본 글자 크기 87.5%로 축소 */
+        html {
+          font-size: 8.75px;
+        }
+      }
+
+      /* ---------- 736px 이하 ---------- */
+      @media screen and (max-width: 736px) {
+        /* 헤더 높이 50px, 햄버거 24px(선 3px), 메뉴 28px */
+        .top-inner {
+          height: 50px;
+        }
+        .top-area nav {
+          padding-top: 50px;
+        }
+        .menu-btn {
+          width: 24px;
+          height: 18px;
+        }
+        .menu-btn span {
+          height: 3px;
+        }
+        .menu-list {
+          font-size: 28px;
+          gap: 20px;
+        }
+
+        /* SNS: 20vw, 크기 34px */
+        .sns {
+          top: 20vw;
+        }
+        .sns img {
+          width: 34px;
+          height: 34px;
+        }
+
+        /* 메인 비주얼 여백 제거 & 스크롤 버튼 하단 20px */
+        .banner-area {
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .scroll_btn {
+          bottom: 20px;
+        }
+
+        /* 섹션 공통 여백 50px & 섹션 타이틀 2.33rem */
+        .main-area > section + section {
+          padding-top: 50px;
+          padding-bottom: 50px;
+        }
+        .tit-box .part-tit {
+          font-size: 2.33rem;
+        }
+
+        /* character 이름 영역 높이 축소 */
+        .character-card .card-desc {
+          aspect-ratio: auto;
+          padding: 8px 6px;
+        }
+
+        /* company: 항목 50%, 아이콘 35% */
+        .company-area .card-part {
+          flex-basis: 50%;
+        }
+        .company-area .card-part:last-child:nth-child(odd) {
+          flex-basis: 100%;
+        }
+        .company-area .img-box {
+          width: 100%;
+          text-align: center;
+        }
+        .company-area .img-box img {
+          width: 35%;
+        }
+
+        /* recruit: 아이콘 52% / 텍스트 48%, 더보기 버튼 최대 80px */
+        .recruit-area .card-part {
+          grid-template-columns: 52% 48%;
+          column-gap: 0;
+        }
+        .recruit-area .btn-view {
+          display: block;
+          max-width: 80px;
+          padding: 8px 0;
+          text-align: center;
+        }
+
+        /* place 상하 여백 55px */
+        .main-area > section.place-area {
+          padding-top: 55px;
+          padding-bottom: 55px;
+        }
+
+        /* contact us: 지도 150px, 스티커 40%, 연락처 글자 0.9rem */
+        .contact-box .map-box {
+          height: 150px;
+        }
+        #kitty-car {
+          width: 40%;
+          height: auto;
+          right: 10px;
+          bottom: -40px;
+        }
+        .contact-box .info-box h5 {
+          font-size: 0.9rem;
+        }
+
+        /* 푸터: 여백 30px 50px, 저작권 이미지 60% */
+        .bottom-area {
+          padding: 30px 50px;
+        }
+        .bottom-inner img {
+          width: 60%;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. 상단영역 -->
+    <header class="top-area">
+      <div class="top-inner">
+        <h1 class="logo-box">
+          <img src="./images/logo_2023.png" alt="산리오코리아 로고" />
+        </h1>
+        <nav>
+          <ul class="menu-list">
+            <li><a href="#company">company</a></li>
+            <li><a href="#character">character</a></li>
+            <li><a href="#place">place</a></li>
+            <li><a href="#recruit">recruit</a></li>
+          </ul>
+          <!-- 모바일 메뉴 하단 페이스북 아이콘 링크 -->
+          <div class="nav-sns">
+            <a href="https://www.facebook.com/sanriokorea" target="_blank">
+              <img src="./images/ico_facebook.png" alt="페이스북" />
+            </a>
+          </div>
+        </nav>
+        <!-- 햄버거 버튼 -->
+        <button
+          type="button"
+          class="menu-btn"
+          aria-label="메뉴 열기"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. 메인영역 -->
+    <main class="main-area">
+      <!-- 2-1. 배너영역 -->
+      <section class="banner-area">
+        <div class="center-banner">
+          <img
+            src="./images/main_visual_pc_v1.png"
+            alt="메인 비주얼"
+            class="main-visual-img"
+          />
+        </div>
+
+        <div class="sns">
+          <a href="https://www.instagram.com/sanrio_kr/" target="_blank">
+            <img src="./images/i_ins_pc_v3.png" alt="instagram" />
+          </a>
+          <a
+            href="https://www.youtube.com/c/sanriokorea/featured"
+            target="_blank"
+          >
+            <img src="./images/i_you_pc_v3.png" alt="youtube" />
+          </a>
+        </div>
+
+        <div class="scroll_btn">
+          <span class="mouse"><span></span></span>
+          <p>scroll down</p>
+        </div>
+      </section>
+
+      <!-- 2-2. 캐릭터영역 -->
+      <section id="character" class="character-area">
+        <div class="tit-box">
+          <h2 class="part-tit">character</h2>
+          <div class="btn-box">
+            <a href="#" class="btn-view">view more</a>
+          </div>
+        </div>
+        <div class="character-card-box">
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt1.png" alt="헬로키티" />
+              <img src="./images/new_main_crt1_ov.png" alt="헬로키티" />
+            </div>
+            <div class="card-desc">
+              <h3>헬로키티</h3>
+              <h4>hello kitty</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt2.png" alt="마이멜로디" />
+              <img src="./images/new_main_crt2_ov.png" alt="마이멜로디" />
+            </div>
+            <div class="card-desc">
+              <h3>마이멜로디</h3>
+              <h4>MY MELODY</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt3.png" alt="쿠로미" />
+              <img src="./images/new_main_crt3_ov.png" alt="쿠로미" />
+            </div>
+            <div class="card-desc">
+              <h3>쿠로미</h3>
+              <h4>KUROMI</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt4.png" alt="폼폼푸린" />
+              <img src="./images/new_main_crt4_ov.png" alt="폼폼푸린" />
+            </div>
+            <div class="card-desc">
+              <h3>폼폼푸린</h3>
+              <h4>POMPOMPURIN</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt5.png" alt="시나모롤" />
+              <img src="./images/new_main_crt5_ov.png" alt="시나모롤" />
+            </div>
+            <div class="card-desc">
+              <h3>시나모롤</h3>
+              <h4>CINNAMOROLL</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt6.png" alt="리틀트윈스타" />
+              <img src="./images/new_main_crt6_ov.png" alt="리틀트윈스타" />
+            </div>
+            <div class="card-desc">
+              <h3>리틀트윈스타</h3>
+              <h4>LittleTwinStars</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt7.png" alt="포차코" />
+              <img src="./images/new_main_crt7_ov.png" alt="포차코" />
+            </div>
+            <div class="card-desc">
+              <h3>포차코</h3>
+              <h4>POCHACCO</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt8.png" alt="케로케로케로피" />
+              <img src="./images/new_main_crt8_ov.png" alt="케로케로케로피" />
+            </div>
+            <div class="card-desc">
+              <h3>케로케로케로피</h3>
+              <h4>KEROKEROKEROPPI</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt9.png" alt="구데타마" />
+              <img src="./images/new_main_crt9_ov.png" alt="구데타마" />
+            </div>
+            <div class="card-desc">
+              <h3>구데타마</h3>
+              <h4>GUDETAMA</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt10.png" alt="배드바츠마루" />
+              <img src="./images/new_main_crt10_ov.png" alt="배드바츠마루" />
+            </div>
+            <div class="card-desc">
+              <h3>배드바츠마루</h3>
+              <h4>BAD BADTZ-MARU</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt11.png" alt="턱시도샘" />
+              <img src="./images/new_main_crt11_ov.png" alt="턱시도샘" />
+            </div>
+            <div class="card-desc">
+              <h3>턱시도샘</h3>
+              <h4>TUXEDOSAM</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt12.png" alt="코기뮹" />
+              <img src="./images/new_main_crt12_ov.png" alt="코기뮹" />
+            </div>
+            <div class="card-desc">
+              <h3>코기뮹</h3>
+              <h4>Cogimyun</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt13.png" alt="딩구리데이즈" />
+              <img src="./images/new_main_crt13_ov.png" alt="딩구리데이즈" />
+            </div>
+            <div class="card-desc">
+              <h3>딩구리데이즈</h3>
+              <h4>Marumofubiyori</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt14.png" alt="숲의요정 페어리루" />
+              <img
+                src="./images/new_main_crt14_ov.png"
+                alt="숲의요정 페어리루"
+              />
+            </div>
+            <div class="card-desc">
+              <h3>숲의요정 페어리루</h3>
+              <h4>RILU RILU FAIRILU</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt15.png" alt="어그레츠코" />
+              <img src="./images/new_main_crt15_ov.png" alt="어그레츠코" />
+            </div>
+            <div class="card-desc">
+              <h3>어그레츠코</h3>
+              <h4>Aggretsuko</h4>
+            </div>
+          </div>
+          <div class="character-card">
+            <div class="card-imgs">
+              <img src="./images/new_main_crt16.png" alt="꿈속의 뮤" />
+              <img src="./images/new_main_crt16_ov.png" alt="꿈속의 뮤" />
+            </div>
+            <div class="card-desc">
+              <h3>꿈속의 뮤</h3>
+              <h4>Mewkledreamy</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2-3. 컴퍼니영역 -->
+      <section id="company" class="company-area">
+        <div class="tit-box">
+          <h2 class="part-tit">company</h2>
+          <div class="btn-box off">
+            <a href="#" class="btn-view">view more</a>
+          </div>
+        </div>
+        <div class="card-part-box">
+          <figure class="card-part">
+            <div class="img-box">
+              <img src="./images/ico_company1.png" alt="회사아이콘" />
+            </div>
+            <h3 class="card-title">회사소개</h3>
+            <p class="card-desc">
+              <span>맑고 깨끗한 강가에</span>
+              <span>문화를 쌓아 올리자.</span>
+            </p>
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <div class="img-box">
+              <img src="./images/ico_company3.png" alt="회사아이콘" />
+            </div>
+            <h3 class="card-title">회사연혁</h3>
+            <p class="card-desc">
+              <span>산리오의 히스토리를</span>
+              <span>확인하세요.</span>
+            </p>
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <div class="img-box">
+              <img src="./images/ico_company4.png" alt="회사아이콘" />
+            </div>
+            <h3 class="card-title">사업영역</h3>
+            <p class="card-desc">
+              <span>소셜 커뮤니케이션을</span>
+              <span>산리오가 시작합니다.</span>
+            </p>
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 2-4. 리쿠르트영역 -->
+      <section id="recruit" class="recruit-area">
+        <div class="tit-box">
+          <h2 class="part-tit">recruit</h2>
+          <div class="btn-box off">
+            <a href="#" class="btn-view">view more</a>
+          </div>
+        </div>
+        <div class="card-part-box">
+          <figure class="card-part">
+            <div class="img-box">
+              <img src="./images/ico_recruit1.png" alt="채용아이콘" />
+            </div>
+            <h3 class="card-title">채용공고</h3>
+            <p class="card-desc">
+              <span>산리오코리아에서</span>
+              <span>인재를 찾습니다</span>
+            </p>
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <div class="img-box">
+              <img src="./images/ico_recruit2.png" alt="채용아이콘" />
+            </div>
+            <h3 class="card-title">직무소개</h3>
+            <p class="card-desc">
+              <span>산리오코리아에서는</span>
+              <span>어떤 일을 할까요?</span>
+            </p>
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <div class="img-box">
+              <img src="./images/ico_recruit3.png" alt="채용아이콘" />
+            </div>
+            <h3 class="card-title">복리후생</h3>
+            <p class="card-desc">
+              <span>산리오코리아에서</span>
+              <span>누릴 수 있는것!</span>
+            </p>
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 2-5. 플레이스영역 -->
+      <section id="place" class="place-area">
+        <div class="tit-box">
+          <h2 class="part-tit">place</h2>
+          <div class="btn-box">
+            <a href="#" class="btn-view">view more</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2-6. 컨텍어스영역 -->
+      <section class="contactus-area">
+        <div class="tit-box white">
+          <div class="logo-box">
+            <img src="./images/logo_w.png" alt="화이트로고" />
+          </div>
+          <h2 class="part-tit">contact us</h2>
+          <div class="btn-box">
+            <a href="#" class="btn-view">view more</a>
+          </div>
+        </div>
+        <div class="contact-box">
+          <div class="map-box">
+            <iframe
+              src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%ED%85%8C%ED%97%A4%EB%9E%80%EB%A1%9C%20509&hl=ko&z=17&output=embed"
+              title="산리오코리아 위치"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="info-box">
+            <h3>서울시 강남구 테헤란로 509, 4층 (삼성동, 엔씨타워1)</h3>
+            <h4>509, Teheranro, Gangnam-gu, Seoul</h4>
+            <h4>(4th floor, Samsung-dong, NC Tower 1)</h4>
+            <h5>M : webmaster@sanriokorea.co.kr</h5>
+            <h5>T : +82 (0) 2 543 3810</h5>
+            <h5>F : +82 (0) 2 543 2904</h5>
+            <img
+              id="kitty-car"
+              src="./images/contact_img.png"
+              alt="키티자동차"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 3. 하단영역 -->
+    <footer class="bottom-area">
+      <div class="bottom-inner">
+        <img src="./images/copyright_2023_02_v2.png" alt="산리오카피라이트" />
+        <div class="btn-box simple">
+          <a href="#" class="btn-view">개인정보처리방침</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const body = document.body;
+      const menuBtn = document.querySelector(".menu-btn");
+      function setMenu(open) {
+        body.classList.toggle("menu-open", open);
+        menuBtn.setAttribute("aria-expanded", open);
+        menuBtn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      }
+      menuBtn.addEventListener("click", () =>
+        setMenu(!body.classList.contains("menu-open")),
+      );
+      document
+        .querySelectorAll(".menu-list a")
+        .forEach((a) => a.addEventListener("click", () => setMenu(false)));
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1199) setMenu(false);
+      });
+    </script>
+  </body>
+</html>

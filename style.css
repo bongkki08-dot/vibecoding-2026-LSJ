@@ -10,6 +10,7 @@
     --btn-text: #fff;
     --btn-hover-bg: #fff;
     --btn-hover-text: #000;
+    --nav-column-width: 120px;
 }
 
 body.light-mode {
@@ -52,15 +53,15 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* 상단영역 */
-header {
+.site-header {
     height: 80px;
     background-color: var(--header-bg);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
+    isolation: isolate;
 }
-
 
 .header-inner {
     display: flex;
@@ -79,18 +80,115 @@ header {
     color: #ff69b4; /* Hotpink */
 }
 
-.nav-menu {
+.main-navigation {
     display: flex;
-    gap: 40px;
+    align-items: center;
+}
+
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(4, var(--nav-column-width));
 }
 
 .nav-menu a {
+    display: block;
+    text-align: center;
     font-weight: 500;
-    transition: 0.3s;
+    transition: color 0.2s;
 }
 
 .nav-menu a:hover {
-    color: #ff69b4;
+    color: #fff;
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 100vw;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    background: #1a1a1a;
+    color: #aaa;
+    transform: translateX(-50%);
+    transition: max-height 0.35s ease-out, opacity 0.25s ease-out, visibility 0s linear 0.35s;
+}
+
+.site-header:hover .mega-menu,
+.site-header:focus-within .mega-menu {
+    max-height: 420px;
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.mega-menu-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 120px;
+    padding-top: 32px;
+    padding-bottom: 36px;
+}
+
+.mega-menu-columns {
+    display: grid;
+    grid-template-columns: repeat(4, var(--nav-column-width));
+}
+
+.mega-menu-column {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 0 12px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.site-header:hover .mega-menu-column,
+.site-header:focus-within .mega-menu-column {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.12s;
+}
+
+.mega-menu-column h2 {
+    margin-bottom: 7px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.mega-menu-column a {
+    color: #aaa;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    transition: color 0.2s;
+}
+
+.mega-menu-column a:hover,
+.mega-menu-column a:focus-visible {
+    color: #fff;
+}
+
+.menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    margin: 4px 0;
+    background: currentColor;
 }
 
 /* 메인영역 */
@@ -327,10 +425,66 @@ footer {
 
         grid-template-columns: 1fr;
     }
-    .header-inner, .footer-inner {
+    .site-header {
+        height: 80px;
+    }
+    .header-inner {
+        flex-direction: row;
+        gap: 0;
+        text-align: left;
+    }
+    .footer-inner {
         flex-direction: column;
         gap: 20px;
         text-align: center;
     }
     .footer-info { text-align: center; }
+    .nav-menu {
+        display: none;
+    }
+    .menu-toggle {
+        display: block;
+        margin-left: 12px;
+    }
+    .theme-toggle {
+        margin-left: 0;
+    }
+    .mega-menu {
+        max-height: 0;
+    }
+    .mega-menu-inner {
+        display: block;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        padding-top: 22px;
+        padding-bottom: 26px;
+    }
+    .mega-menu-spacer {
+        display: none;
+    }
+    .mega-menu-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 12px;
+    }
+    .mega-menu-column {
+        padding: 0 8px;
+    }
+    .site-header:hover .mega-menu,
+    .site-header:focus-within .mega-menu {
+        max-height: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: max-height 0.35s ease-out, opacity 0.25s ease-out, visibility 0s linear 0.35s;
+    }
+    .site-header.mobile-menu-open .mega-menu {
+        max-height: calc(100vh - 80px);
+        visibility: visible;
+        opacity: 1;
+        transition-delay: 0s;
+    }
+    .site-header.mobile-menu-open .mega-menu-column {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.12s;
+    }
 }
