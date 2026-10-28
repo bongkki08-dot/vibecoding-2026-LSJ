@@ -23,6 +23,7 @@
     --container-width: 1440px;
     --hero-height: 900px;
     --scale: 1;
+    --history-max-h: 100vh; /* [수정] 아코디언 접힘 상태 최대 높이 기준 (모든 구간 공통) */
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -294,17 +295,18 @@
     overflow: hidden;
   }
 
-  /* 접힌 상태: max-height를 충분히 넉넉하게(예: 1100px) 주어 이미지와 내용이 잘리지 않도록 조정 */
+  /* [수정] 접힌 상태: 최대 높이를 100vh(--history-max-h)를 넘지 않도록 제한 (나머지는 펼치기로 확인) */
   .history .hs-container.is-collapsed {
-    max-height: calc(1200 * var(--mu));
+    max-height: min(calc(1200 * var(--mu)), var(--history-max-h));
     overflow: hidden;
     position: relative;
   }
+  /* 하단 페이드 */
   .history .hs-container.is-collapsed::after {
     content: "";
     position: absolute;
-    left: 0; bottom: 0; right: 0;
-    height: calc(200 * var(--mu));
+    left: 0; right: 0; bottom: 0;
+    height: calc(260 * var(--mu));
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
     pointer-events: none;
     z-index: 15;
@@ -320,14 +322,25 @@
   }
 
   .hs-title {
+    max-width: calc(680 * var(--mu));
+    margin: 0 auto calc(60 * var(--mu));
+    text-align: center;
+    font-weight: 800;
+    font-size: calc(48 * var(--mu));
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    color: var(--black);
+  }
+  .hs-num {
     margin: 0 auto calc(100 * var(--mu));
     text-align: center;
     font-weight: 800;
-    font-size: calc(52 * var(--mu));
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-    color: var(--black);
+    font-size: calc(240 * var(--mu));
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #FF5D32;
   }
+  .hs-num .th { font-size: 0.45em; letter-spacing: 0; margin-left: 0.04em; }
 
   .hs-content-wrap {
     position: relative;
@@ -340,11 +353,11 @@
   .hs-timeline-line {
     position: absolute;
     left: 50%;
-    top: 0;
-    bottom: calc(150 * var(--mu));
-    width: calc(6 * var(--mu));
+    top: calc(-150 * var(--mu));
+    bottom: 0;
+    width: calc(18 * var(--mu));
     transform: translateX(-50%);
-    background: #FF5D32;
+    background: linear-gradient(180deg, #FF5D32 0%, #FF5D32 55%, rgba(255,93,50,0) 100%);
     z-index: 1;
   }
 
@@ -365,7 +378,7 @@
 
   .hs-year-title {
     font-weight: 800;
-    font-size: calc(44 * var(--mu));
+    font-size: calc(34 * var(--mu));
     color: #FF5D32;
     margin-bottom: calc(16 * var(--mu));
     line-height: 1.1;
@@ -388,22 +401,25 @@
   }
   .hs-row {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    font-size: calc(17 * var(--mu));
+    justify-content: flex-start;
+    align-items: center;
+    font-size: calc(14 * var(--mu));
     line-height: 1.5;
     color: #333333;
-    gap: 15px;
+    gap: calc(24 * var(--mu));
   }
-  .hs-row span:first-child {
-    flex: 1;
-  }
+  .hs-row span:first-child { flex: 0 1 auto; }
   .hs-row .yr {
     font-weight: 700;
+    font-size: calc(22 * var(--mu));
     color: var(--black);
     flex: none;
+    min-width: calc(62 * var(--mu));
     text-align: right;
   }
+  /* 왼쪽 컬럼 텍스트는 중앙선 쪽으로 우측 정렬 */
+  .hs-col:first-child .hs-desc-head { text-align: right; }
+  .hs-col:first-child .hs-row { justify-content: flex-end; text-align: right; }
 
   .hs-img-box {
     margin-top: calc(24 * var(--mu));
@@ -441,9 +457,99 @@
     position: relative;
     display: flex;
     justify-content: center;
-    margin-top: calc(60 * var(--mu));
+    margin-top: calc(24 * var(--mu));
+    padding-bottom: calc(60 * var(--mu));
     z-index: 20;
+    pointer-events: none;
   }
+  /* 접힌 상태에서는 하단 페이드 위로 버튼을 올려 겹치게 */
+  .history:has(.hs-container.is-collapsed) .hs-btn-wrap { margin-top: calc(-130 * var(--mu)); }
+
+  /* 펼치기 버튼: 텍스트 + 더블 쉐브론 */
+  .hs-btn-wrap .hs-toggle-btn {
+    pointer-events: auto;
+    flex-direction: column;
+    gap: 2px;
+    width: auto; height: auto;
+    padding: 8px 16px;
+    background: none; background-image: none;
+    color: var(--black);
+    font-size: 18px; line-height: 1.4; font-weight: 500; letter-spacing: -0.3px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .hs-btn-wrap .hs-toggle-btn:hover { background: none; background-image: none; color: var(--red); box-shadow: none; }
+  .hs-toggle-btn svg { width: 28px; height: 28px; color: #B5B5B5; transition: transform 0.3s ease, color var(--transition); }
+  .hs-toggle-btn:hover svg { color: var(--red); }
+  .hs-toggle-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+  /* 장식 (반짝이 / 비커) */
+  .hs-deco { position: absolute; inset: 0; pointer-events: none; }
+  .hs-spark {
+    position: absolute;
+    background: linear-gradient(160deg, #FFE27A 0%, #FFC21F 100%);
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  }
+  .hs-spark.s1 { right: 10.3%; top: calc(246 * var(--mu)); width: calc(78 * var(--mu)); height: calc(78 * var(--mu)); }
+  .hs-spark.s2 { right: 8.9%;  top: calc(190 * var(--mu)); width: calc(57 * var(--mu)); height: calc(57 * var(--mu)); }
+  .hs-spark.s3 { right: 14.5%; top: calc(218 * var(--mu)); width: calc(40 * var(--mu)); height: calc(40 * var(--mu)); }
+  .hs-beaker { position: absolute; left: 6.3%; top: calc(652 * var(--mu)); width: calc(114 * var(--mu)); height: auto; }
+
+  /* ---------- Staff (직원 소개 / 직무 소개) ---------- */
+  .staff {
+    --mu: calc(min(100vw, var(--container-width)) / 1440);
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: calc(150 * var(--mu)) 0 calc(100 * var(--mu));
+    background: #fff4f0;
+    overflow: hidden;
+  }
+  .st-container {
+    position: relative;
+    width: calc(1324 * var(--mu));
+    margin: 0 auto;
+    z-index: 4;
+  }
+
+  .st-head { text-align: center; margin-bottom: calc(85 * var(--mu)); }
+  .st-title-wrap { position: relative; display: inline-block; margin-top: calc(52 * var(--mu)); }
+  .st-badge { position: absolute; left: calc(-35 * var(--mu)); top: calc(-50 * var(--mu)); width: calc(92 * var(--mu)); height: auto; }
+  .st-title { margin: 0; font-weight: 800; font-size: calc(44 * var(--mu)); line-height: 1.3; letter-spacing: -0.04em; }
+  .st-desc { margin: calc(24 * var(--mu)) 0 0; font-weight: 500; font-size: calc(22 * var(--mu)); line-height: 1.5; letter-spacing: -0.03em; }
+  .st-mascot { position: absolute; right: 0; top: calc(-15 * var(--mu)); width: calc(240 * var(--mu)); height: auto; pointer-events: none; user-select: none; }
+
+  .st-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: calc(60 * var(--mu)); margin: 0; padding: 0; list-style: none; }
+  .st-card {
+    height: 100%;
+    padding: calc(40 * var(--mu));
+    border-radius: calc(32 * var(--mu));
+    background: #fff9f7b9;
+    backdrop-filter: blur(-4px);
+    box-shadow: 0 calc(10 * var(--mu)) calc(30 * var(--mu)) rgba(255, 93, 50, 0.08);
+  }
+  .st-thumb { margin: 0; border-radius: calc(28 * var(--mu)); overflow: hidden; aspect-ratio: 552 / 354; }
+  .st-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .st-quote { margin: calc(32 * var(--mu)) 0 0; font-weight: 700; font-size: calc(20 * var(--mu)); line-height: 1.6; letter-spacing: -0.03em; }
+  .st-info { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: calc(36 * var(--mu)); }
+  .st-meta { display: flex; align-items: center; margin: 0; font-size: calc(16 * var(--mu)); color: #333333; letter-spacing: -0.03em; }
+  .st-dept::after { content: ""; display: inline-block; width: 1px; height: 0.9em; margin: 0 0.8em; background: #999999; vertical-align: middle; }
+  .st-arrow {
+    flex: none;
+    display: flex; align-items: center; justify-content: center;
+    width: calc(40 * var(--mu)); height: calc(40 * var(--mu));
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF9A76 0%, #E9582F 100%);
+    color: var(--white);
+    transition: filter var(--transition);
+  }
+  .st-arrow svg { width: 50%; height: 50%; }
+  .st-arrow:hover { filter: brightness(0.92); }
+
+  .st-cta { display: flex; justify-content: center; margin-top: calc(90 * var(--mu)); }
+  .st-cta .btn-main { width: 330px; padding: 0; }
+  .st-bottle { position: absolute; left: calc(50% - 720 * var(--mu)); top: calc(801 * var(--mu)); width: calc(224 * var(--mu)); height: auto; z-index: 3; pointer-events: none; }
 
   /* ---------- Footer ---------- */
   .site-footer {
@@ -511,13 +617,37 @@
     .mr-star2   { left: calc(50% - 99.5 * var(--mu));  top: calc(550 * var(--mu)); width: calc(29 * var(--mu)); }
 
     .history { --mu: calc(100vw / 1024); }
+    /* [수정] 태블릿 구간에서도 100vh 기준 명시 */
+    .history .hs-container.is-collapsed { max-height: min(calc(1200 * var(--mu)), var(--history-max-h)); }
     .hs-container { width: 100%; padding: 60px 40px 80px; }
     .hs-title { font-size: 36px; margin-bottom: 50px; }
     .hs-col { width: calc(50% - 40px); }
     .hs-year-title { font-size: 32px; }
-    .hs-row { font-size: 15px; }
+    .hs-row { font-size: 14px; }
+    .hs-row .yr { font-size: 20px; }
+    .hs-num { font-size: 190px; }
     .hs-big-100 { font-size: 100px; }
     .hs-outro { font-size: 18px; }
+
+    /* Staff - tablet */
+    .staff { --mu: calc(100vw / 1024); padding: calc(70 * var(--mu)) 0 calc(52 * var(--mu)); }
+    .st-container { width: calc(100% - 76 * var(--mu)); }
+    .st-head { margin-bottom: calc(45 * var(--mu)); }
+    .st-title-wrap { margin-top: calc(72 * var(--mu)); }
+    .st-badge { left: calc(-78 * var(--mu)); top: calc(-42 * var(--mu)); width: max(44px, calc(65 * var(--mu))); }
+    .st-title { font-size: max(24px, calc(36 * var(--mu))); }
+    .st-desc { margin-top: calc(18 * var(--mu)); font-size: max(14px, calc(18 * var(--mu))); }
+    .st-mascot { top: calc(-43 * var(--mu)); width: max(96px, calc(169 * var(--mu))); }
+    .st-list { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: max(16px, calc(20 * var(--mu))); }
+    .st-card { padding: max(20px, calc(26 * var(--mu))); border-radius: max(24px, calc(28 * var(--mu))); }
+    .st-thumb { border-radius: max(16px, calc(18 * var(--mu))); }
+    .st-quote { margin-top: calc(22 * var(--mu)); font-size: max(13px, calc(15 * var(--mu))); }
+    .st-info { margin-top: calc(26 * var(--mu)); }
+    .st-meta { font-size: max(12px, calc(13 * var(--mu))); }
+    .st-arrow { width: max(26px, calc(33 * var(--mu))); height: max(26px, calc(33 * var(--mu))); }
+    .st-cta { margin-top: calc(41 * var(--mu)); }
+    .st-cta .btn-main { width: 303px; }
+    .st-bottle { left: calc(93 * var(--mu)); top: calc(651 * var(--mu)); width: calc(161 * var(--mu)); }
   }
 
   @media (max-width: 390px) {
@@ -576,9 +706,14 @@
 
     .history { --mu: calc(100vw / 390); }
     .hs-container { width: 100%; padding: 40px 20px 60px; }
-    .hs-container.is-collapsed { max-height: 750px; }
-    .hs-title { font-size: 24px; margin-bottom: 30px; line-height: 1.4; }
+    /* [수정] 모바일: 750px 고정값 대신 100vh를 넘지 않도록 제한 */
+    .hs-container.is-collapsed { max-height: min(750px, var(--history-max-h)); }
+    .hs-title { font-size: 24px; max-width: none; margin-bottom: 24px; line-height: 1.4; }
+    .hs-num { font-size: 96px; margin-bottom: 30px; }
     .hs-timeline-line { display: none; }
+    .hs-col:first-child .hs-desc-head { text-align: left; }
+    .hs-col:first-child .hs-row { justify-content: flex-start; text-align: left; }
+    .hs-row .yr { font-size: 16px; min-width: 48px; }
     .hs-block { flex-direction: column; width: 100%; gap: 30px; }
     .hs-col { width: 100%; }
     .hs-year-title { font-size: 24px; margin-bottom: 8px; }
@@ -587,12 +722,272 @@
     .hs-footer-visual .hs-outro { display: none; }
     .hs-big-100 { font-size: 64px; margin-bottom: 0; }
     .hs-btn-wrap { margin-top: 30px; }
-    .hs-btn-wrap .btn-main { width: 180px; height: 44px; font-size: 15px; }
+    .hs-btn-wrap .hs-toggle-btn { font-size: 15px; }
+    .hs-toggle-btn svg { width: 24px; height: 24px; }
+
+    /* Staff - mobile */
+    .staff { padding: 0 0 66px; }
+    .st-container { width: 100%; padding: 0 20px; }
+    .st-head { margin-bottom: 22px; }
+    .st-title-wrap { margin-top: 112px; }
+    .st-badge { left: -45px; top: -42px; width: 62px; }
+    .st-title { font-size: 24px; }
+    .st-desc { margin-top: 14px; font-size: 14px; }
+    .st-mascot { top: 11px; right: 12px; width: 108px; }
+    .st-list { grid-template-columns: 1fr; gap: 16px; }
+    .st-card { padding: 20px; border-radius: 24px; }
+    .st-thumb { border-radius: 16px; }
+    .st-quote { margin-top: 20px; font-size: 13px; }
+    .st-br { display: none; }
+    .st-info { margin-top: 18px; }
+    .st-meta { font-size: 12px; }
+    .st-arrow { width: 26px; height: 26px; }
+    .st-cta { margin-top: 36px; }
+    .st-cta .btn-main { width: 202px; }
+    .st-bottle { display: none; }
   }
 
   @media (max-width: 390px) and (prefers-reduced-motion: reduce) {
     .gnb, .gnb.is-open { transition: none; }
   }
+
+  /* ---------- Innovation / News bubble section ---------- */
+  .innovation {
+    --inno-orange: #ff5d32;
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: clamp(42px, 5vw, 76px) 4% clamp(70px, 8vw, 100px);
+    overflow: hidden;
+    background: #fff7f3;
+  }
+  .innovation::before,
+  .innovation::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    aspect-ratio: 1;
+    border-radius: 0;
+  }
+  /* 우측 상단 장식: 정사각형 30vw, 약 60%가 섹션 밖 */
+  .innovation::before {
+    width: 30vw;
+    height: 30vw;
+    top: -12vw;
+    right: -12vw;
+    background: radial-gradient(circle at center,
+      rgba(255, 93, 50, .3) 0%,
+      rgba(255, 93, 50, .18) 38%,
+      rgba(255, 93, 50, 0) 72%);
+  }
+  /* 좌측 하단 장식: 정사각형 20vw */
+  .innovation::after {
+    width: 20vw;
+    height: 20vw;
+    left: -8vw;
+    bottom: -8vw;
+    background: radial-gradient(circle at center,
+      rgba(255, 93, 50, .2) 0%,
+      rgba(255, 93, 50, .12) 38%,
+      rgba(255, 93, 50, 0) 72%);
+  }
+  .inno-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .inno-heading {
+    position: relative;
+    z-index: 2;
+    margin: 0 auto 78px;
+    text-align: center;
+  }
+  .inno-title {
+    margin: 0;
+    font-size: clamp(26px, 2.8vw, 42px);
+    line-height: 1.35;
+    font-weight: 800;
+    letter-spacing: -.045em;
+  }
+  .inno-subtitle {
+    margin: 14px 0 0;
+    font-size: clamp(12px, 1vw, 16px);
+    line-height: 1.65;
+    font-weight: 500;
+    letter-spacing: -.035em;
+  }
+  .inno-panel {
+    position: relative;
+    padding: 62px 4.5% 42px;
+    border: 1px solid rgba(255, 93, 50, .08);
+    border-radius: 22px;
+    background: rgba(255, 249, 247, .7);
+    box-shadow: 0 5px 12px rgba(90, 45, 30, .10);
+  }
+  .inno-atom {
+    position: absolute;
+    z-index: 4; /* 원자 이미지가 배경 Vector 위에 표시 */
+    width: clamp(120px, 15vw, 190px);
+    height: auto;
+    right: 1.5%;
+    top: -15%;
+    pointer-events: none;
+  }
+  .inno-molecule {
+    position: absolute;
+    z-index: 3;
+    width: clamp(68px, 8vw, 105px);
+    height: auto;
+    left: 1.5%;
+    bottom: -12%;
+    pointer-events: none;
+  }
+  .inno-vector {
+    position: absolute;
+    z-index: 3; /* 원자 이미지 뒤에 겹치는 장식 배경 */
+    display: block;
+    width: clamp(190px, 30vw, 420px);
+    height: auto;
+    right: -2%;
+    top: -19%;
+    opacity: .32;
+    pointer-events: none;
+  }
+  .inno-bubbles {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 54px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .inno-bubble {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    width: 54%;
+    max-width: 62%;
+    min-width: 0;
+    padding: 13px 18px;
+    border-radius: 9px;
+    font-size: clamp(11px, .9vw, 15px);
+    line-height: 1.55;
+    letter-spacing: -.025em;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(80, 45, 35, .08);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .inno-bubble:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(80, 45, 35, .12);
+  }
+  .inno-bubble svg {
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 16px;
+    bottom: -15px;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .inno-bubble--orange {
+    justify-self: start;
+    color: #fff;
+    background: var(--inno-orange);
+    grid-column: 1;
+    margin-top: 0;
+    border-bottom-left-radius: 0;
+  }
+  .inno-bubble--orange svg {
+    left: 0;
+    transform: translateX(-1px);
+  }
+  .inno-bubble--white {
+    justify-self: end;
+    color: var(--inno-orange);
+    background: #fff;
+    grid-column: 1;
+    margin-top: 18px;
+    border-bottom-right-radius: 0;
+  }
+  .inno-bubble--white svg {
+    right: 0;
+    transform: translateX(1px);
+  }
+  .inno-hint {
+    position: relative;
+    margin: 24px 0 0;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #b7aaa5;
+    letter-spacing: -.025em;
+  }
+  .inno-hint::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin: 0 7px 3px 0;
+    border-radius: 50%;
+    background: var(--inno-orange);
+  }
+
+  @media (min-width: 1025px) {
+    .inno-panel { padding-top: 62px; padding-bottom: 42px; }
+    .inno-bubbles { row-gap: 54px; }
+    .inno-bubble { width: 54%; max-width: 62%; }
+    .inno-bubble:nth-child(odd) { justify-self: start; margin-top: 0; }
+    .inno-bubble:nth-child(even) { justify-self: end; margin-top: 18px; }
+  }
+  @media (min-width: 391px) and (max-width: 1024px) {
+    .innovation { padding: 56px 4% 80px; }
+    .inno-heading { margin-bottom: 76px; }
+    .inno-title { font-size: clamp(28px, 3.7vw, 38px); }
+    .inno-subtitle { font-size: clamp(12px, 1.6vw, 15px); }
+    .inno-panel { padding: 54px 5% 36px; border-radius: 20px; }
+    .inno-atom { width: clamp(100px, 18vw, 155px); top: -7%; right: -1%; }
+    .inno-vector { width: 30vw; max-width: 300px; top: -12%; right: -8%; opacity: .22; }
+    .inno-molecule { width: clamp(75px, 13vw, 110px); left: 1%; bottom: -11%; }
+    .inno-bubbles { row-gap: 42px; }
+    .inno-bubble { width: 58%; max-width: 68%; padding: 13px 15px; font-size: clamp(11px, 1.35vw, 14px); }
+    .inno-bubble:nth-child(odd) { justify-self: start; margin-top: 0; }
+    .inno-bubble:nth-child(even) { justify-self: end; margin-top: 16px; }
+    .inno-hint { margin-top: 28px; font-size: 11px; }
+  }
+  @media (max-width: 390px) {
+    .innovation { padding: 6px 5% 66px; }
+    .inno-heading { margin-bottom: 30px; padding: 0 4px; }
+    .inno-title { font-size: 23px; line-height: 1.42; letter-spacing: -.05em; }
+    .inno-subtitle { margin-top: 12px; font-size: 12px; line-height: 1.65; }
+    .inno-panel { padding: 38px 12px 24px; border-radius: 17px; }
+    .inno-atom { width: 76px; top: -7%; right: -1%; opacity: .9; }
+    .inno-molecule { width: 58px; left: 1%; bottom: -8%; }
+    .inno-vector { display: block; width: 30vw; top: -5%; right: -5%; opacity: .18; }
+    .inno-bubbles { display: flex; flex-direction: column; gap: 30px; }
+    .inno-bubble {
+      width: 88%;
+      max-width: 88%;
+      min-height: 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+    .inno-bubble--orange { align-self: flex-start; margin-top: 0; }
+    .inno-bubble--white { align-self: flex-end; margin-top: 10px; }
+    .inno-bubble svg { width: 20px; height: 12px; bottom: -11px; }
+    .inno-hint { margin: 16px 0 0; font-size: 10px; }
+  }
+
 </style>
 </head>
 <body>
@@ -697,16 +1092,23 @@
 
   <!-- 세 번째 섹션: 한미그룹 연역 -->
   <section class="history" id="history" aria-labelledby="history-title">
+    <div class="hs-deco" aria-hidden="true">
+      <span class="hs-spark s1"></span>
+      <span class="hs-spark s2"></span>
+      <span class="hs-spark s3"></span>
+      <!-- 비커 이미지 경로는 실제 파일명으로 교체하세요 -->
+      <img class="hs-beaker" src="./images/his_beaker.png" alt="" onerror="this.style.display='none'">
+    </div>
     <div class="hs-container is-collapsed" id="history-container">
-      
+
       <h2 class="hs-title" id="history-title">한미의 도전은 작은 가능성에서 시작되었습니다.</h2>
+      <div class="hs-num">53<span class="th">th</span></div>
 
       <div class="hs-content-wrap">
         <div class="hs-timeline-line" aria-hidden="true"></div>
 
         <div class="hs-block">
           <div class="hs-col">
-            <div class="hs-year-title">53<sub>th</sub></div>
             <span class="hs-desc-head">한계를 하나씩 넘을 때마다,</span>
             <div class="hs-list">
               <div class="hs-row"><span>창립 제정업무 개시 및 설립</span> <span class="yr">1973</span></div>
@@ -811,9 +1213,109 @@
     <div class="hs-btn-wrap">
       <button type="button" class="btn btn-main hs-toggle-btn" aria-expanded="false" aria-controls="history-container">
         <span>펼치기</span>
+        <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M7 6l7 7 7-7M7 14l7 7 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </button>
     </div>
   </section>
+
+  <!-- 네 번째 섹션: 직원 소개 / 직무 소개 -->
+  <section class="staff" id="staff" aria-labelledby="staff-title">
+    <div class="st-container">
+      <header class="st-head">
+        <div class="st-title-wrap">
+          <img class="st-badge" src="./images/ss_con3_logo.png.png" alt="Hanmi">
+          <h2 class="st-title" id="staff-title">한미에서는 어떤 일을 할까요?</h2>
+        </div>
+        <p class="st-desc">일의 보람부터 성장의 순간까지, 먼저 경험한 현직자들이 솔직하게 들려드립니다.</p>
+      </header>
+      <img class="st-mascot" src="./images/ss_con3_char.png.png" alt="">
+
+      <ul class="st-list">
+        <li class="st-item">
+          <article class="st-card">
+            <figure class="st-thumb">
+              <img src="./images/ss_con3_int1.jpg.png" alt="실험실에서 주먹을 쥐어 보이는 품질관리 이건호 사원" loading="lazy">
+            </figure>
+            <p class="st-quote">정밀한 시험과 분석으로 의약품의 품질을 확인해<br class="st-br"> 안전하고 신뢰할 수 있는 의약품을 만들어갑니다.</p>
+            <div class="st-info">
+              <p class="st-meta"><span class="st-dept">한미약품 품질관리</span><span class="st-name">이건호 사원</span></p>
+              <!-- href는 실제 상세 페이지 링크로 교체 -->
+              <a class="st-arrow" href="#staff-interview-01" aria-label="이건호 사원 인터뷰 보기"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </article>
+        </li>
+        <li class="st-item">
+          <article class="st-card">
+            <figure class="st-thumb">
+              <img src="./images/ss_con3_int2.jpg.png" alt="소파에 앉아 있는 전임상연구 박진하 연구원" loading="lazy">
+            </figure>
+            <p class="st-quote">신약 후보물질의 가능성을 과학적으로 검증해<br class="st-br"> 새로운 치료제가 환자에게 향하는 첫걸음을 만듭니다.</p>
+            <div class="st-info">
+              <p class="st-meta"><span class="st-dept">한미약품 전임상연구</span><span class="st-name">박진하 연구원</span></p>
+              <a class="st-arrow" href="#staff-interview-02" aria-label="박진하 연구원 인터뷰 보기"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </article>
+        </li>
+      </ul>
+
+      <div class="st-cta">
+        <!-- href는 실제 현직자 목록 링크로 교체 -->
+        <a class="btn btn-main" href="#staff-all">모든 현직자 알아가기!</a>
+      </div>
+    </div>
+
+    <img class="st-bottle" src="./images/ss_Container.png" alt="" aria-hidden="true">
+  </section>
+
+  <!-- 다섯 번째 섹션: 한미그룹 혁신 소식 -->
+  <section class="innovation" id="innovation" aria-labelledby="inno-title">
+    <div class="inno-container">
+      <header class="inno-heading">
+        <h2 class="inno-title" id="inno-title">당신의 가능성,<br>한미그룹에서 더 크게 성장합니다</h2>
+        <p class="inno-subtitle">연구와 혁신으로 성장하며 글로벌 제약/바이오 기업을 향해 나아갑니다.</p>
+      </header>
+
+      <div class="inno-panel">
+        <img class="inno-atom" src="./images/inno_obj_mol.png.png" alt="" aria-hidden="true">
+        <img class="inno-molecule" src="./images/inno_Container.png" alt="" aria-hidden="true">
+
+        <div class="inno-bubbles" aria-label="한미그룹 주요 소식">
+          <a class="inno-bubble inno-bubble--orange" href="#news-01">
+            한미약품, 상반기 누적 매출 8,602억원…2분기 영업이익 117% 증가
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M30 0H10C10 7 6 12 0 16L30 0Z" fill="#ff5d32"/></svg>
+          </a>
+          <a class="inno-bubble inno-bubble--white" href="#news-02">
+            “사업형 지주사 경쟁력 입증”…한미사이언스, 2분기 영업이익 71%↑<br>2분기 매출 3,679억원…상반기 누적 매출 7,216억원 돌파
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M0 0H20C20 7 24 12 30 16L0 0Z" fill="#fff"/></svg>
+          </a>
+          <a class="inno-bubble inno-bubble--orange" href="#news-03">
+            한미약품, 로수젯 제네릭에 비만신약 기술수출…최대 3조 2,000억 규모
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M30 0H10C10 7 6 12 0 16L30 0Z" fill="#ff5d32"/></svg>
+          </a>
+          <a class="inno-bubble inno-bubble--white" href="#news-04">
+            “UCN2 이어 또…” 한미약품, 두 번째 근육 증가 비만신약 공개
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M0 0H20C20 7 24 12 30 16L0 0Z" fill="#fff"/></svg>
+          </a>
+          <a class="inno-bubble inno-bubble--orange" href="#news-05">
+            명품 반열 오른 한미 ‘로수젯’…압도적 데이터 경쟁력으로 시장 석권<br>2년 연속 국내사 개발 전문의약품 시장 ‘1위’…올해 상반기 누적 처방액도 선두
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M30 0H10C10 7 6 12 0 16L30 0Z" fill="#ff5d32"/></svg>
+          </a>
+          <a class="inno-bubble inno-bubble--white" href="#news-06">
+            “비만 넘어 항암으로 혁신 확장”…한미, AACR서 차세대 신약 대거 공개
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M0 0H20C20 7 24 12 30 16L0 0Z" fill="#fff"/></svg>
+          </a>
+          <a class="inno-bubble inno-bubble--orange" href="#news-07">
+            한미 완전두유·케어미, 영양에 ‘맛’까지 인정…국제 우수 미각상 수상
+            <svg viewBox="0 0 30 16" aria-hidden="true"><path d="M30 0H10C10 7 6 12 0 16L30 0Z" fill="#ff5d32"/></svg>
+          </a>
+        </div>
+        <p class="inno-hint">말풍선을 클릭해서 기사를 확인해 보세요.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
