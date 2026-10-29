@@ -1052,6 +1052,32 @@
     font-size: 12px;
     line-height: 1.5;
   }
+  .welfare-group-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0 10px;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+    color: var(--welfare-orange);
+  }
+  .welfare-group-title::-webkit-scrollbar { display: none; }
+  .welfare-group-title h3 {
+    margin: 0;
+    flex: none;
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .welfare-group-title p {
+    flex: none;
+    margin: 0;
+    color: #333;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .welfare-scroll > .welfare-group-title { margin-bottom: 12px; }
   .welfare-scroll {
     max-height: 460px;
     overflow-y: auto;
@@ -1071,6 +1097,10 @@
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+  .welfare-grid > .welfare-group-title {
+    grid-column: 1 / -1;
+    margin-top: 12px;
   }
   .welfare-card {
     display: flex;
@@ -1142,6 +1172,318 @@
     .welfare-card p { max-width: 225px; margin-top: 6px; font-size: 12px; }
     .welfare-icon { width: 38px; height: 38px; }
     .welfare-decoration { left: 10px; bottom: -34px; width: 84px; }
+  }
+
+  /* ---------- Tasks ---------- */
+  .tasks {
+    --tasks-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .tasks-hero {
+    position: relative;
+    height: 422px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffe2db 0%, #fff8f5 76%, #fff 100%);
+  }
+  .tasks-bg-title {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 100%;
+    height: 280px;
+    max-width: none;
+    object-fit: cover;
+    object-position: center top;
+    opacity: .16;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .tasks-character {
+    position: absolute;
+    left: 65%;
+    bottom: 0;
+    width: clamp(300px, 30vw, 430px);
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .tasks-container {
+    position: relative;
+    width: calc(100% - 64px);
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 82px 0 120px;
+  }
+  .tasks-heading {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .tasks-title {
+    margin: 0;
+    font-size: clamp(28px, 2.5vw, 36px);
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: -.04em;
+  }
+  .tasks-subtitle {
+    margin: 14px 0 0;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .tasks-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 48px 0 0;
+    padding: 0 0 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid #e8e5e4;
+    scrollbar-width: none;
+  }
+  .tasks-tabs::-webkit-scrollbar { display: none; }
+  .tasks-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 112px;
+    min-width: 0;
+    height: 52px;
+    padding: 0 14px;
+    border-radius: 14px;
+    background: transparent;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  @media (hover: hover) {
+    .tasks-tab:hover { transform: translateY(-2px); }
+    .tasks-tab:not([aria-selected="true"]):hover {
+      background: #fff8f5;
+      color: var(--tasks-orange);
+      box-shadow: 0 4px 12px rgba(100, 54, 37, .1), inset 0 0 0 1px #ffebe4;
+    }
+  }
+  .tasks-tab[aria-selected="true"] {
+    background: #fff8f5;
+    color: var(--tasks-orange);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(100, 54, 37, .13), inset 0 0 0 1px #ffebe4;
+  }
+  .tasks-groups { border-top: 0; }
+  .tasks-group { border-bottom: 1px solid #e8e5e4; }
+  .tasks-group-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 68px;
+    padding: 16px 18px;
+    background: #fff;
+    color: #777;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  .tasks-group-toggle[aria-expanded="true"] { color: var(--tasks-orange); }
+  .tasks-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    min-width: 24px;
+    height: 18px;
+    padding: 0 7px;
+    border-radius: 20px;
+    background: var(--tasks-orange);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+  }
+  .tasks-roles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-height: 0;
+    margin: 0;
+    padding: 0 18px;
+    overflow: hidden;
+    opacity: 0;
+    list-style: none;
+    transition: max-height .4s ease, padding-bottom .4s ease, opacity .25s ease;
+  }
+  .tasks-roles.is-open { padding-bottom: 38px; opacity: 1; }
+  .tasks-roles[hidden] { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .tasks-roles { transition: none; }
+  }
+  .tasks-role-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    min-height: 84px;
+    padding: 20px 28px;
+    border: 1px solid #ffddd3;
+    border-radius: 20px;
+    background: linear-gradient(110deg, #fff 0%, #fffaf8 100%);
+    box-shadow: 0 5px 12px rgba(90, 45, 30, .09);
+    color: #111;
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.35;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .tasks-role-card:hover {
+    transform: translateY(-2px);
+    border-color: #ff9a7e;
+    box-shadow: 0 8px 18px rgba(90, 45, 30, .13);
+  }
+  .tasks-role-arrow {
+    flex: none;
+    color: #777;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .tasks-empty { padding: 32px 18px; color: #777; font-size: 14px; }
+  .tasks-modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: min(800px, calc(100vw - 40px));
+    max-width: none;
+    height: min(640px, calc(100dvh - 40px));
+    max-height: min(640px, calc(100dvh - 40px));
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 20px;
+    background: #fff;
+    color: #111;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+  }
+  .tasks-modal:not([open]) { display: none; }
+  .tasks-modal::backdrop { background: rgba(0, 0, 0, .5); }
+  .tasks-modal-hero {
+    position: relative;
+    flex: none;
+    height: 160px;
+    background: #d7eaf6 url('./images/tasks_rnd_bg.jpg') center / cover no-repeat;
+  }
+  .tasks-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--tasks-orange);
+    color: #fff;
+    font-size: 25px;
+    line-height: 1;
+  }
+  .tasks-modal-fixed {
+    flex: none;
+    padding: 48px 60px 0;
+  }
+  .tasks-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0 60px 48px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+  .tasks-modal-body::-webkit-scrollbar { display: none; }
+  .tasks-modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+  }
+  .tasks-modal-title { margin: 0; font-size: 27px; line-height: 1.35; font-weight: 700; }
+  .tasks-modal-category { color: var(--tasks-orange); font-size: 15px; font-weight: 600; }
+  .tasks-modal-department { color: #888; font-size: 15px; }
+  .tasks-modal-experience { margin: 4px 0 0; font-size: 13px; }
+  .tasks-modal-section { padding: 0 0 34px; }
+  .tasks-modal-section:first-child { padding-top: 40px; }
+  .tasks-modal-section + .tasks-modal-section { padding-top: 34px; border-top: 1px solid #ddd; }
+  .tasks-modal-section[hidden] { display: none; }
+  .tasks-modal-section h3 { margin: 0 0 18px; font-size: 18px; line-height: 1.5; }
+  .tasks-modal-section ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .tasks-modal-section li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.65; }
+  .tasks-modal-section li::before {
+    content: "";
+    position: absolute;
+    top: .68em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tasks-orange);
+  }
+  body.tasks-modal-open { overflow: hidden; }
+
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .tasks-hero { height: 344px; }
+    .tasks-bg-title { height: 230px; }
+    .tasks-character { left: 48%; width: clamp(270px, 48vw, 380px); }
+    .tasks-container { width: calc(100% - 40px); padding: 78px 0 96px; }
+    .tasks-title { font-size: 28px; }
+    .tasks-subtitle { margin-top: 12px; font-size: 13px; }
+    .tasks-tabs { gap: 4px; margin-top: 40px; padding-bottom: 14px; }
+    .tasks-tab { flex-basis: 88px; height: 48px; padding: 0 8px; font-size: 13px; }
+    .tasks-group-toggle { min-height: 60px; padding: 15px 16px; font-size: 14px; }
+    .tasks-roles { gap: 16px; padding: 0 16px; }
+    .tasks-roles.is-open { padding-bottom: 32px; }
+    .tasks-role-card { min-height: 76px; padding: 18px 20px; border-radius: 17px; font-size: 16px; }
+    .tasks-modal { width: min(800px, calc(100vw - 56px)); }
+    .tasks-modal-fixed { padding: 42px 40px 0; }
+    .tasks-modal-body { padding: 0 40px 36px; }
+  }
+  @media (max-width: 680px) {
+    .tasks-hero { height: 362px; }
+    .tasks-bg-title { top: 0; height: 172px; object-position: 48% top; }
+    .tasks-character { left: 46%; width: min(82vw, 330px); }
+    .tasks-container { width: calc(100% - 36px); padding: 78px 0 76px; }
+    .tasks-title { font-size: 23px; line-height: 1.48; }
+    .tasks-subtitle { max-width: 300px; margin: 14px auto 0; font-size: 13px; line-height: 1.65; }
+    .tasks-tabs { justify-content: flex-start; gap: 8px; margin: 36px -18px 0; padding: 0 18px 16px; }
+    .tasks-tab { flex: 0 0 76px; height: 60px; padding: 0 6px; border-radius: 15px; font-size: 12px; }
+    .tasks-groups { margin-top: 0; }
+    .tasks-group-toggle { min-height: 68px; gap: 10px; padding: 15px 18px; font-size: 13px; }
+    .tasks-roles { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 0 12px; }
+    .tasks-roles.is-open { padding-bottom: 24px; }
+    .tasks-role-card { min-height: 68px; padding: 16px 18px; border-radius: 15px; font-size: 14px; }
+    .tasks-modal { width: calc(100vw - 28px); height: calc(100dvh - 28px); max-height: calc(100dvh - 28px); border-radius: 16px; }
+    .tasks-modal-hero { height: 120px; }
+    .tasks-modal-close { top: 14px; right: 14px; width: 36px; height: 36px; }
+    .tasks-modal-fixed { padding: 28px 22px 0; }
+    .tasks-modal-body { padding: 0 22px 26px; }
+    .tasks-modal-section:first-child { padding-top: 30px; }
+    .tasks-modal-meta { gap: 6px 10px; }
+    .tasks-modal-title { width: 100%; font-size: 21px; }
+    .tasks-modal-category, .tasks-modal-department { font-size: 13px; }
+    .tasks-modal-experience { margin: 6px 0 34px; font-size: 12px; }
+    .tasks-modal-section { padding-bottom: 24px; }
+    .tasks-modal-section + .tasks-modal-section { padding-top: 24px; }
+    .tasks-modal-section h3 { margin-bottom: 14px; font-size: 16px; }
+    .tasks-modal-section li { font-size: 13px; }
   }
 
 </style>
@@ -1477,11 +1819,14 @@
       <header class="welfare-heading">
         <h2 class="welfare-title" id="welfare-title">한미 생활을 더 즐겁게 만드는 방법</h2>
         <p class="welfare-subtitle">건강부터 성장, 휴식까지 알차게 준비한 복지를 소개할게요.</p>
-        <img class="welfare-mascot" src="./images/mv_char3_png.png" alt="" aria-hidden="true" loading="lazy">
+        <img class="welfare-mascot" src="./images/con5_char.png" alt="" aria-hidden="true" loading="lazy">
       </header>
 
-      <p class="welfare-lead"><strong>💗 오늘의 나도, 내일의 나도 든든하게!</strong><span>건강, 성장, 문화생활까지 알차게 챙겨드려요.</span></p>
       <div class="welfare-scroll" role="region" aria-label="한미그룹 복지 혜택 목록" tabindex="0">
+        <header class="welfare-group-title">
+          <h3>💗 오늘의 나도, 내일의 나도 든든하게!</h3>
+          <p>건강, 성장, 문화생활까지 알차게 챙겨드려요.</p>
+        </header>
         <ul class="welfare-grid">
           <li><article class="welfare-card"><div class="welfare-copy"><h3>건강 검진</h3><p>건강한 하루가 오래 이어지도록, 정기적인 건강관리를 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico1.png" alt="" aria-hidden="true" loading="lazy"></article></li>
           <li><article class="welfare-card"><div class="welfare-copy"><h3>기념일 축하 지원</h3><p>소중한 기념일이 더 특별해지도록 한미가 함께 축하해요.</p></div><img class="welfare-icon" src="./images/wf_ico2.png" alt="" aria-hidden="true" loading="lazy"></article></li>
@@ -1493,6 +1838,10 @@
           <li><article class="welfare-card"><div class="welfare-copy"><h3>임직원 제휴 할인</h3><p>다양한 제휴 혜택으로 일상 속 즐거움을 실속 있게 더해요.</p></div><img class="welfare-icon" src="./images/wf_ico8.png" alt="" aria-hidden="true" loading="lazy"></article></li>
           <li><article class="welfare-card"><div class="welfare-copy"><h3>문화 생활 지원</h3><p>바쁜 일상에 기분 좋은 쉼표를 더할 수 있도록 문화생활을 응원해요.</p></div><img class="welfare-icon" src="./images/wf_ico9.png" alt="" aria-hidden="true" loading="lazy"></article></li>
           <li><article class="welfare-card"><div class="welfare-copy"><h3>구내식당</h3><p>든든하고 맛있는 한 끼로 활기찬 하루를 채워드려요.</p></div><img class="welfare-icon" src="./images/wf_ico10.png" alt="" aria-hidden="true" loading="lazy"></article></li>
+          <li class="welfare-group-title">
+            <h3>🏠 가족의 행복도 빼놓을 수 없죠!</h3>
+            <p>축하할 때도, 도움이 필요할 때도 한미가 함께해요.</p>
+          </li>
           <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>건강 검진</h3><p>건강한 하루가 오래 이어지도록, 정기적인 건강관리를 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico1.png" alt="" loading="lazy"></article></li>
           <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>기념일 축하 지원</h3><p>소중한 기념일이 더 특별해지도록 한미가 함께 축하해요.</p></div><img class="welfare-icon" src="./images/wf_ico2.png" alt="" loading="lazy"></article></li>
           <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>본인주도 선택복지</h3><p>나에게 필요한 복지를 내 취향과 생활에 맞게 선택할 수 있어요.</p></div><img class="welfare-icon" src="./images/wf_ico3.png" alt="" loading="lazy"></article></li>
@@ -1507,6 +1856,58 @@
       </div>
     </div>
     <img class="welfare-decoration" src="./images/ss_con3_char.png.png" alt="" aria-hidden="true" loading="lazy">
+  </section>
+
+  <section class="tasks" id="tasks" aria-labelledby="tasks-title">
+    <div class="tasks-hero" aria-hidden="true">
+      <img class="tasks-bg-title" src="./images/tasks_bg_title.png" alt="">
+      <img class="tasks-character" src="./images/tasks_character.png" alt="">
+    </div>
+    <div class="tasks-container">
+      <header class="tasks-heading">
+        <h2 class="tasks-title" id="tasks-title">알약이를 따라<br>나에게 맞는 직무를 찾아봐요!</h2>
+        <p class="tasks-subtitle">연구부터 생산, 영업, 경영관리까지 당신의 가능성이 빛날 자리를 안내해 드릴게요.</p>
+      </header>
+
+      <div class="tasks-tabs" role="tablist" aria-label="직무 분야">
+        <button class="tasks-tab" id="tasks-tab-rnd" type="button" role="tab" aria-selected="true" aria-controls="tasks-panel" data-task-tab="rnd">R&amp;D</button>
+        <button class="tasks-tab" id="tasks-tab-production" type="button" role="tab" aria-selected="false" aria-controls="tasks-panel" data-task-tab="production" tabindex="-1">생산/품질</button>
+        <button class="tasks-tab" id="tasks-tab-sales" type="button" role="tab" aria-selected="false" aria-controls="tasks-panel" data-task-tab="sales" tabindex="-1">영업</button>
+        <button class="tasks-tab" id="tasks-tab-management" type="button" role="tab" aria-selected="false" aria-controls="tasks-panel" data-task-tab="management" tabindex="-1">경영관리</button>
+        <button class="tasks-tab" id="tasks-tab-clinical" type="button" role="tab" aria-selected="false" aria-controls="tasks-panel" data-task-tab="clinical" tabindex="-1">임상</button>
+        <button class="tasks-tab" id="tasks-tab-global" type="button" role="tab" aria-selected="false" aria-controls="tasks-panel" data-task-tab="global" tabindex="-1">글로벌</button>
+        <button class="tasks-tab" id="tasks-tab-healthcare" type="button" role="tab" aria-selected="false" aria-controls="tasks-panel" data-task-tab="healthcare" tabindex="-1">헬스케어</button>
+      </div>
+      <div class="tasks-groups" id="tasks-panel" role="tabpanel" aria-labelledby="tasks-tab-rnd" tabindex="0" aria-live="polite"></div>
+    </div>
+
+    <dialog class="tasks-modal" aria-labelledby="tasks-modal-title">
+      <div class="tasks-modal-hero">
+        <button class="tasks-modal-close" type="button" aria-label="상세 창 닫기">×</button>
+      </div>
+      <div class="tasks-modal-fixed">
+        <div class="tasks-modal-meta">
+          <h2 class="tasks-modal-title" id="tasks-modal-title"></h2>
+          <span class="tasks-modal-category" id="tasks-modal-category"></span>
+          <span class="tasks-modal-department" id="tasks-modal-department"></span>
+        </div>
+        <p class="tasks-modal-experience" id="tasks-modal-experience"></p>
+      </div>
+      <div class="tasks-modal-body">
+        <section class="tasks-modal-section" aria-labelledby="tasks-modal-duties-title">
+          <h3 id="tasks-modal-duties-title">직무 내용</h3>
+          <ul id="tasks-modal-duties"></ul>
+        </section>
+        <section class="tasks-modal-section" aria-labelledby="tasks-modal-qualifications-title">
+          <h3 id="tasks-modal-qualifications-title">자격요건</h3>
+          <ul id="tasks-modal-qualifications"></ul>
+        </section>
+        <section class="tasks-modal-section" aria-labelledby="tasks-modal-preferred-title">
+          <h3 id="tasks-modal-preferred-title">우대사항</h3>
+          <ul id="tasks-modal-preferred"></ul>
+        </section>
+      </div>
+    </dialog>
   </section>
 
 </main>
@@ -1649,6 +2050,216 @@
       }
     });
   })();
+
+    (function () {
+      var categories = {
+        rnd: { label: 'R&D', dataCategory: 'rnd' },
+        production: { label: '생산/품질', dataCategory: 'prod' },
+        sales: { label: '영업', dataCategory: 'sales' },
+        management: { label: '경영관리', dataCategory: 'mps' },
+        clinical: { label: '임상', dataCategory: 'cl' },
+        global: { label: '글로벌', dataCategory: 'global' },
+        healthcare: { label: '헬스케어', dataCategory: 'healthcare' }
+      };
+      var taskGroups = [];
+      var jobRecords = [];
+
+      var tabs = Array.from(document.querySelectorAll('.tasks-tab'));
+      var panel = document.getElementById('tasks-panel');
+      var dialog = document.querySelector('.tasks-modal');
+      if (!tabs.length || !panel || !dialog) return;
+
+      var closeButton = dialog.querySelector('.tasks-modal-close');
+      var modalTitle = document.getElementById('tasks-modal-title');
+      var modalCategory = document.getElementById('tasks-modal-category');
+      var modalDepartment = document.getElementById('tasks-modal-department');
+      var modalExperience = document.getElementById('tasks-modal-experience');
+      var dutiesList = document.getElementById('tasks-modal-duties');
+      var qualificationsList = document.getElementById('tasks-modal-qualifications');
+      var preferredList = document.getElementById('tasks-modal-preferred');
+      var preferredSection = preferredList.closest('.tasks-modal-section');
+      var modalHero = dialog.querySelector('.tasks-modal-hero');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function appendListItems(list, values) {
+        list.replaceChildren();
+        values.forEach(function (value) {
+          var item = document.createElement('li');
+          item.textContent = value;
+          list.appendChild(item);
+        });
+      }
+
+      function closeGroup(button) {
+        button.setAttribute('aria-expanded', 'false');
+        var rolesList = document.getElementById(button.getAttribute('aria-controls'));
+        rolesList.inert = true;
+        rolesList.classList.remove('is-open');
+        rolesList.style.maxHeight = '0px';
+        window.setTimeout(function () {
+          if (button.getAttribute('aria-expanded') === 'false' && !rolesList.classList.contains('is-open')) {
+            rolesList.hidden = true;
+          }
+        }, reduceMotion ? 0 : 400);
+      }
+
+      function showRole(role, categoryLabel) {
+        modalTitle.textContent = role.title;
+        modalCategory.textContent = role.department || categoryLabel;
+        modalDepartment.textContent = role.location;
+        modalExperience.textContent = role.category;
+        modalHero.style.backgroundImage = 'url("' + role.image + '")';
+        appendListItems(dutiesList, role.job_description || []);
+        appendListItems(qualificationsList, role.qualifications || []);
+        appendListItems(preferredList, role.preferred || []);
+        preferredSection.hidden = !(role.preferred && role.preferred.length);
+        dialog.showModal();
+        document.body.classList.add('tasks-modal-open');
+        closeButton.focus();
+      }
+
+      function renderCategory(categoryKey) {
+        var category = categories[categoryKey];
+        if (!category || !taskGroups.length) return;
+        panel.replaceChildren();
+        panel.setAttribute('aria-labelledby', 'tasks-tab-' + categoryKey);
+
+        var taskCategory = taskGroups.find(function (item) {
+          return item.category === category.dataCategory;
+        });
+        if (!taskCategory) return;
+
+        taskCategory.details.forEach(function (detail, groupIndex) {
+          var groupElement = document.createElement('section');
+          var groupId = 'tasks-group-' + categoryKey + '-' + groupIndex;
+          var button = document.createElement('button');
+          var count = document.createElement('span');
+          var rolesList = document.createElement('ul');
+
+          groupElement.className = 'tasks-group';
+          button.className = 'tasks-group-toggle';
+          button.type = 'button';
+          button.setAttribute('aria-expanded', 'false');
+          button.setAttribute('aria-controls', groupId);
+          button.appendChild(document.createTextNode(detail.location));
+          count.className = 'tasks-count';
+          count.textContent = detail.count;
+          button.appendChild(count);
+
+          rolesList.className = 'tasks-roles';
+          rolesList.id = groupId;
+          rolesList.hidden = true;
+          rolesList.inert = true;
+          detail.fields.forEach(function (titleText) {
+            var role = jobRecords.find(function (record) {
+              return record.title === titleText && record.department === category.label;
+            }) || {
+              title: titleText,
+              department: category.label,
+              location: detail.location,
+              category: '',
+              job_description: [],
+              qualifications: [],
+              preferred: []
+            };
+            var item = document.createElement('li');
+            var roleButton = document.createElement('button');
+            var title = document.createElement('span');
+            var arrow = document.createElement('span');
+
+            roleButton.className = 'tasks-role-card';
+            roleButton.type = 'button';
+            roleButton.setAttribute('aria-label', role.title + ' 상세 내용 보기');
+            title.textContent = role.title;
+            arrow.className = 'tasks-role-arrow';
+            arrow.setAttribute('aria-hidden', 'true');
+            arrow.textContent = '→';
+            roleButton.append(title, arrow);
+            roleButton.addEventListener('click', function () {
+              showRole(role, category.label);
+            });
+            item.appendChild(roleButton);
+            rolesList.appendChild(item);
+          });
+
+          button.addEventListener('click', function () {
+            var isExpanded = button.getAttribute('aria-expanded') === 'true';
+            panel.querySelectorAll('.tasks-group-toggle').forEach(function (otherButton) {
+              closeGroup(otherButton);
+            });
+            if (!isExpanded) {
+              button.setAttribute('aria-expanded', 'true');
+              rolesList.hidden = false;
+              rolesList.inert = false;
+              requestAnimationFrame(function () {
+                rolesList.classList.add('is-open');
+                rolesList.style.maxHeight = rolesList.scrollHeight + 'px';
+              });
+            }
+          });
+
+          groupElement.append(button, rolesList);
+          panel.appendChild(groupElement);
+        });
+      }
+
+      function selectTab(tab) {
+        tabs.forEach(function (item) {
+          var selected = item === tab;
+          item.setAttribute('aria-selected', String(selected));
+          item.tabIndex = selected ? 0 : -1;
+        });
+        renderCategory(tab.dataset.taskTab);
+      }
+
+      tabs.forEach(function (tab, index) {
+        tab.addEventListener('click', function () { selectTab(tab); });
+        tab.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          var offset = event.key === 'ArrowRight' ? 1 : -1;
+          var nextTab = tabs[(index + offset + tabs.length) % tabs.length];
+          selectTab(nextTab);
+          nextTab.focus();
+          nextTab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        });
+      });
+
+      closeButton.addEventListener('click', function () { dialog.close(); });
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener('close', function () {
+        document.body.classList.remove('tasks-modal-open');
+      });
+
+      panel.textContent = '직무 정보를 불러오는 중입니다.';
+      function fetchJson(path) {
+        return fetch(path).then(function (response) {
+          if (!response.ok) throw new Error('직무 데이터를 불러오지 못했습니다.');
+          return response.json();
+        });
+      }
+
+      Promise.all([
+        fetchJson('./data/task_data.json'),
+        fetchJson('./data/pop_data.json')
+      ])
+        .then(function (data) {
+          if (!Array.isArray(data[0]) || !Array.isArray(data[1])) {
+            throw new Error('직무 데이터 형식이 올바르지 않습니다.');
+          }
+          taskGroups = data[0];
+          jobRecords = data[1];
+          var selectedTab = tabs.find(function (tab) {
+            return tab.getAttribute('aria-selected') === 'true';
+          });
+          renderCategory(selectedTab ? selectedTab.dataset.taskTab : 'rnd');
+        })
+        .catch(function () {
+          panel.textContent = '직무 정보를 불러오지 못했습니다.';
+        });
+    })();
 </script>
 </body>
 </html>
