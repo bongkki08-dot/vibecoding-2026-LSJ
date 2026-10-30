@@ -50,7 +50,9 @@
     min-height: calc(720px * var(--scale));
     margin: 0 auto;
     overflow: hidden;
-    background: #FFF1EC none;
+    background:
+      radial-gradient(ellipse at 82% 28%, rgba(255, 93, 50, 0.16) 0%, rgba(255, 93, 50, 0) 48%),
+      linear-gradient(135deg, #FFF9F7 0%, #FFF1EC 52%, #FFE4DC 100%);
   }
   .mv-container {
     position: relative;
@@ -180,19 +182,6 @@
     width: 1440px; height: 900px;
     z-index: 1;
     pointer-events: none;
-  }
-  .ring { position: absolute; border-radius: 500px; }
-  .ring-glow {
-    left: 700px; top: 118px;
-    width: 663px; height: 663px;
-    border: 5px solid var(--white);
-    background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
-    filter: blur(5px);
-  }
-  .ring-line {
-    left: 755px; top: 173px;
-    width: 553px; height: 553px;
-    border: 1px solid var(--white-50);
   }
   .mv-visual img { position: absolute; }
   .micro { left: 765.8px;  top: 151.7px; width: 289.52px; height: 221.76px; }
@@ -1077,7 +1066,6 @@
     font-size: 12px;
     line-height: 1.5;
   }
-  .welfare-scroll > .welfare-group-title { margin-bottom: 12px; }
   .welfare-scroll {
     max-height: 460px;
     overflow-y: auto;
@@ -1087,6 +1075,8 @@
     scrollbar-gutter: stable;
     padding: 2px 8px 8px 2px;
   }
+  .welfare-category + .welfare-category { margin-top: 24px; }
+  .welfare-category-title { margin-bottom: 12px; }
   .welfare-scroll::-webkit-scrollbar { width: 4px; }
   .welfare-scroll::-webkit-scrollbar-track { background: #f1eeee; border-radius: 10px; }
   .welfare-scroll::-webkit-scrollbar-thumb { background: var(--welfare-orange); border-radius: 10px; }
@@ -1097,10 +1087,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-  .welfare-grid > .welfare-group-title {
-    grid-column: 1 / -1;
-    margin-top: 12px;
   }
   .welfare-card {
     display: flex;
@@ -1486,6 +1472,832 @@
     .tasks-modal-section li { font-size: 13px; }
   }
 
+  .requirement {
+    --requirement-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .requirement-container {
+    position: relative;
+    width: calc(100% - 64px);
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 64px 0 56px;
+  }
+  .requirement-heading {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 108px;
+    padding: 0 120px;
+  }
+  .requirement-title {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: clamp(28px, 2.5vw, 36px);
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: -.045em;
+  }
+  .requirement-bulb {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: clamp(96px, 8.8vw, 140px);
+    height: auto;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .requirement-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(6px, 1vw, 12px);
+    margin-top: clamp(28px, 4.1vw, 50px);
+    padding-bottom: clamp(12px, 1.65vw, 20px);
+    border-bottom: 1px solid #e8e5e4;
+  }
+  .requirement-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: clamp(32px, 5.2vw, 64px);
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: transparent;
+    color: #777;
+    font-size: clamp(7px, 1.25vw, 15px);
+    line-height: 1.4;
+    white-space: nowrap;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .requirement-tab[aria-selected="true"] {
+    background: #fff8f5;
+    color: var(--requirement-orange);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(100, 54, 37, .13), inset 0 0 0 1px #ffebe4;
+  }
+  .requirement-panel { min-width: 0; }
+  .requirement-panel[hidden] { display: none; }
+  .requirement-eligibility {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 1px solid #e8e5e4;
+  }
+  .requirement-condition {
+    display: flex;
+    min-width: 0;
+    min-height: 184px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .requirement-condition + .requirement-condition {
+    position: relative;
+  }
+  .requirement-condition + .requirement-condition::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    width: 1px;
+    background: #e8e5e4;
+  }
+  .requirement-condition img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+  .requirement-condition h3 {
+    margin: 0;
+    font-size: clamp(12px, 1.4vw, 17px);
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .requirement-bullets {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 28px 20px;
+    border-bottom: 1px solid #e8e5e4;
+    list-style: none;
+  }
+  .requirement-bullets li {
+    position: relative;
+    padding-left: 13px;
+    color: #333;
+    font-size: clamp(6px, 1.1vw, 13px);
+    line-height: 1.6;
+  }
+  .requirement-bullets li::before {
+    content: "";
+    position: absolute;
+    top: .65em;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--requirement-orange);
+  }
+  .requirement-notice {
+    margin: 0;
+    padding: 30px 12px;
+    border-bottom: 1px solid #e8e5e4;
+    color: #aaa;
+    text-align: center;
+    font-size: clamp(10px, 1.25vw, 15px);
+    line-height: 1.6;
+    font-weight: 700;
+  }
+  .requirement-process-group {
+    padding: clamp(12px, 3.6vw, 44px) clamp(6px, 2.8vw, 34px) clamp(12px, 3.45vw, 42px);
+    border-bottom: 1px solid #e8e5e4;
+  }
+  .requirement-process-group h3 {
+    margin: 0 0 clamp(10px, 3vw, 36px);
+    font-size: clamp(8px, 2vw, 24px);
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  .requirement-steps {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr) minmax(0, .14fr)) minmax(0, 1fr);
+    align-items: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .requirement-step {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .requirement-step-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 58px;
+    color: var(--requirement-orange);
+    font-size: 42px;
+    line-height: 1;
+  }
+  .requirement-step-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .requirement-step h4 {
+    margin: clamp(4px, 1.3vw, 16px) 0 2px;
+    font-size: clamp(5px, 1.15vw, 14px);
+    line-height: 1.4;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .requirement-step p {
+    margin: 0;
+    color: #999;
+    font-size: clamp(5px, 1vw, 12px);
+    line-height: 1.45;
+    white-space: pre-line;
+  }
+  .requirement-process-group--other .requirement-steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr) minmax(0, .14fr)) minmax(0, 1fr);
+  }
+  .requirement-step-arrow {
+    display: grid;
+    place-items: center;
+    min-height: 58px;
+    color: #222;
+    font-size: 22px;
+    line-height: 1;
+  }
+  .requirement-process-group--other { border-bottom: 0; }
+  .requirement-process-notes {
+    display: grid;
+    max-width: 900px;
+    gap: 12px;
+    margin: 0 auto;
+    padding: 54px 0 58px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    list-style: none;
+  }
+  .requirement-process-notes li {
+    position: relative;
+    padding-left: 16px;
+    color: #111;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .requirement-process-notes li::before {
+    content: "";
+    position: absolute;
+    top: .65em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--requirement-orange);
+  }
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .requirement-container { width: calc(100% - 40px); padding: 54px 0 44px; }
+    .requirement-heading { min-height: 84px; padding: 0 88px; }
+    .requirement-title { font-size: clamp(18px, 3.75vw, 28px); }
+    .requirement-bulb { width: 104px; }
+    .requirement-condition { min-height: clamp(126px, 21.3vw, 160px); }
+    .requirement-condition img { width: clamp(32px, 6.4vw, 48px); height: clamp(32px, 6.4vw, 48px); }
+    .requirement-condition h3 { font-size: clamp(12px, 2vw, 15px); }
+    .requirement-bullets { gap: 8px; padding: 24px 16px; }
+    .requirement-bullets li { font-size: clamp(8px, 1.6vw, 12px); }
+    .requirement-notice { padding: 24px 12px; font-size: clamp(10px, 1.75vw, 13px); }
+    .requirement-step-icon { width: clamp(32px, 5.2vw, 48px); height: clamp(36px, 5.7vw, 54px); font-size: clamp(26px, 4.4vw, 40px); }
+    .requirement-step-arrow { min-height: clamp(36px, 5.7vw, 54px); font-size: clamp(14px, 2vw, 20px); }
+    .requirement-process-notes li { font-size: 13px; }
+  }
+  @media (max-width: 680px) {
+    .requirement-container { width: calc(100% - 24px); padding: clamp(18px, 4.55vw, 34px) 0 32px; }
+    .requirement-title { max-width: 280px; font-size: clamp(11px, 5.1vw, 20px); line-height: 1.45; }
+    .requirement-heading { min-height: auto; padding: 0; }
+    .requirement-bulb { display: none; }
+    .requirement-tabs { gap: 6px; }
+    .requirement-tab { min-height: clamp(30px, 5.2vw, 40px); padding: 8px 4px; border-radius: 11px; font-size: clamp(7px, 3.8vw, 10px); }
+    .requirement-eligibility { grid-template-columns: minmax(0, 1fr); }
+    .requirement-condition { min-height: clamp(88px, 23.8vw, 126px); gap: 8px; padding: 18px 12px; }
+    .requirement-condition + .requirement-condition { border-top: 1px solid #e8e5e4; }
+    .requirement-condition + .requirement-condition::before { display: none; }
+    .requirement-condition img { width: clamp(20px, 12vw, 34px); height: clamp(20px, 12vw, 34px); }
+    .requirement-condition h3 { font-size: clamp(8px, 2.5vw, 12px); }
+    .requirement-bullets { justify-content: start; gap: 6px; padding: 18px 12px; }
+    .requirement-bullets li { padding-left: 10px; font-size: clamp(6px, 2.4vw, 9px); }
+    .requirement-bullets li::before { width: 4px; height: 4px; }
+    .requirement-notice { padding: 18px 8px; font-size: clamp(6px, 2.7vw, 10px); }
+    .requirement-step-icon { width: clamp(16px, 7vw, 26px); height: clamp(18px, 7.5vw, 28px); font-size: clamp(14px, 6.2vw, 23px); }
+    .requirement-step h4 { font-size: clamp(4px, 2.3vw, 9px); }
+    .requirement-step p { font-size: clamp(3px, 1.7vw, 7px); }
+    .requirement-step-arrow { min-height: clamp(18px, 7.5vw, 28px); font-size: clamp(7px, 2.6vw, 11px); }
+    .requirement-process-notes li { font-size: 10px; }
+  }
+
+  .exposition {
+    --exposition-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .exposition-container {
+    width: 82%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 48px 0 64px;
+  }
+  .exposition-intro {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+    min-height: 184px;
+    margin-bottom: 32px;
+  }
+  .exposition-intro-character {
+    display: block;
+    width: 190px;
+    height: auto;
+    object-fit: contain;
+  }
+  .exposition-intro-copy { min-width: 0; }
+  .exposition-title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -.04em;
+  }
+  .exposition-description {
+    margin: 14px 0 0;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .exposition-hint {
+    position: relative;
+    margin: 16px 0 0 28px;
+    color: #555;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .exposition-hint::before {
+    content: "";
+    position: absolute;
+    top: .55em;
+    left: -12px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--exposition-orange);
+  }
+  .exposition-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 22px;
+    padding-bottom: 20px;
+  }
+  .exposition-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 56px;
+    padding: 10px 14px;
+    border-radius: 13px;
+    background: transparent;
+    color: #777;
+    font-size: 15px;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .exposition-tab[aria-selected="true"],
+  .exposition-region[aria-pressed="true"] {
+    background: #fff8f5;
+    color: var(--exposition-orange);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(100, 54, 37, .13), inset 0 0 0 1px #ffebe4;
+  }
+  .exposition-panel[hidden] { display: none; }
+  .exposition-calendar { min-width: 0; }
+  .exposition-week {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .exposition-week:first-child { border-top: 1px solid #ddd; }
+  .exposition-day { display: contents; }
+  .exposition-date {
+    grid-row: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  .exposition-date {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 6px 4px;
+    color: #111;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+  .exposition-day + .exposition-day .exposition-date::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    width: 1px;
+    background: #ddd;
+  }
+  .exposition-event {
+    grid-row: 2;
+    display: flex;
+    min-width: 0;
+    min-height: 138px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 6px;
+    text-align: center;
+  }
+  .exposition-event-name {
+    color: var(--exposition-orange);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  button.exposition-event-name {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button.exposition-event-name:hover,
+  button.exposition-event-name:focus-visible {
+    background: #fff8f5;
+  }
+  .exposition-event-detail {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 8px;
+    width: min(100%, 164px);
+    min-height: 156px;
+    padding: 14px 8px;
+    border-radius: 7px;
+    background: #fff8f5;
+    color: #111;
+    text-align: center;
+    cursor: pointer;
+    animation: exposition-detail-in .18s ease-out both;
+  }
+  .exposition-event-detail.is-closing {
+    animation: exposition-detail-out .16s ease-in both;
+    pointer-events: none;
+  }
+  @keyframes exposition-detail-in {
+    from { opacity: 0; transform: translateY(6px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes exposition-detail-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(4px) scale(.97); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .exposition-event-detail { animation-duration: .01ms; }
+    .exposition-event-detail.is-closing { animation-duration: .01ms; }
+  }
+  .exposition-event-detail-row {
+    display: grid;
+    gap: 3px;
+  }
+  .exposition-event-detail-label {
+    color: var(--exposition-orange);
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  .exposition-event-detail-value {
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  .exposition-event-name + .exposition-event-name {
+    position: relative;
+    padding-top: 13px;
+  }
+  .exposition-event-name + .exposition-event-name::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 36px;
+    height: 1px;
+    background: #ffb09c;
+    transform: translateX(-50%);
+  }
+  .exposition-regions {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+    margin: 0 0 14px;
+    padding: 8px;
+    border-radius: 13px;
+    background: #fffaf8;
+  }
+  .exposition-region {
+    min-width: 0;
+    min-height: 42px;
+    padding: 8px 4px;
+    border-radius: 11px;
+    background: transparent;
+    color: #777;
+    font-size: 14px;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .exposition-decoration {
+    position: absolute;
+    right: max(12px, calc(50% - 690px));
+    bottom: 10px;
+    width: clamp(74px, 10vw, 116px);
+    height: auto;
+    pointer-events: none;
+  }
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .exposition-container { width: calc(100% - 40px); padding: 40px 0 58px; }
+    .exposition-intro {
+      display: block;
+      min-height: 0;
+      max-width: 560px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+    .exposition-intro-character { display: none; }
+    .exposition-title { font-size: clamp(26px, 3.4vw, 34px); }
+    .exposition-description { margin-top: 12px; font-size: 14px; }
+    .exposition-hint { display: inline-block; margin: 14px 0 0 12px; font-size: 10px; }
+    .exposition-tabs { gap: 8px; margin-bottom: 18px; padding-bottom: 16px; }
+    .exposition-tab { min-height: 48px; font-size: 13px; }
+    .exposition-date { min-height: 36px; font-size: 11px; }
+    .exposition-event { min-height: 128px; }
+    .exposition-event-name { font-size: 11px; }
+    .exposition-event-detail { min-height: 140px; }
+    .exposition-event-detail-value { font-size: 12px; }
+    .exposition-region { min-height: 38px; font-size: 13px; }
+    .exposition-decoration { display: none; }
+  }
+  @media (max-width: 680px) {
+    .exposition-container { width: calc(100% - 26px); padding: 28px 0 40px; }
+    .exposition-intro {
+      display: block;
+      min-height: 0;
+      margin: 0 auto 24px;
+      text-align: center;
+    }
+    .exposition-intro-character { display: none; }
+    .exposition-title { font-size: clamp(18px, 5vw, 24px); }
+    .exposition-description { margin-top: 8px; font-size: clamp(10px, 2.8vw, 13px); }
+    .exposition-hint { margin: 12px 0 0 10px; font-size: clamp(8px, 2.2vw, 10px); }
+    .exposition-tabs { gap: 6px; margin-bottom: 14px; padding-bottom: 12px; }
+    .exposition-tab { min-height: 40px; padding: 8px 4px; border-radius: 10px; font-size: clamp(9px, 2.7vw, 12px); }
+    .exposition-regions { gap: 3px; margin-bottom: 10px; padding: 5px; border-radius: 10px; }
+    .exposition-region { min-height: 34px; padding: 6px 2px; border-radius: 8px; font-size: clamp(8px, 2.5vw, 11px); }
+    .exposition-calendar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .exposition-week { display: contents; }
+    .exposition-day {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      border-bottom: 1px solid #ddd;
+    }
+    .exposition-day--left { border-right: 1px solid #ddd; }
+    .exposition-date {
+      grid-row: auto;
+      min-height: 32px;
+      padding: 5px 2px;
+      border-bottom: 1px solid #ddd;
+      font-size: clamp(8px, 2.7vw, 10px);
+    }
+    .exposition-day + .exposition-day .exposition-date::before { display: none; }
+    .exposition-event { min-height: 116px; gap: 9px; padding: 12px 3px; }
+    .exposition-event-name { font-size: clamp(8px, 2.5vw, 10px); }
+    .exposition-event-detail { width: 100%; min-height: 108px; gap: 6px; padding: 8px 3px; }
+    .exposition-event-detail-label { font-size: clamp(7px, 2vw, 9px); }
+    .exposition-event-detail-value { font-size: clamp(8px, 2.3vw, 10px); }
+    .exposition-event-name + .exposition-event-name { padding-top: 11px; }
+    .exposition-event-name + .exposition-event-name::before { width: 28px; }
+    .exposition-decoration { display: none; }
+  }
+
+  .cont8 {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .cont8-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(28px, 4vw, 64px);
+    width: min(86%, 1240px);
+    margin: 0 auto;
+    padding: 70px 0 88px;
+  }
+  .cont8-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    color: #111;
+    isolation: isolate;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .cont8-card:nth-child(2) { margin-top: -28px; }
+  .cont8-card:nth-child(3) { margin-top: 18px; }
+  .cont8-card:hover { transform: translateY(-8px); }
+  .cont8-image {
+    position: relative;
+    display: block;
+    aspect-ratio: 800 / 1035;
+    isolation: isolate;
+  }
+  .cont8-image > .cont8-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    z-index: -2;
+  }
+  .cont8-image::after {
+    content: "";
+    position: absolute;
+    inset: 42% 0 0;
+    z-index: -1;
+    border-radius: 0 0 12px 12px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .68) 100%);
+  }
+  .cont8-card-title {
+    display: block;
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: clamp(10px, 1.05vw, 15px);
+    line-height: 1.45;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cont8-mark {
+    position: absolute;
+    z-index: 2;
+    height: auto;
+    pointer-events: none;
+  }
+  .cont8-mark--first-arrow {
+    left: 2%;
+    bottom: -7%;
+    width: 12%;
+  }
+  .cont8-mark--first-star {
+    right: -5%;
+    bottom: -7%;
+    width: 16%;
+  }
+  .cont8-mark--second-arrow {
+    right: 4%;
+    bottom: -7%;
+    width: 12%;
+  }
+  .cont8-mark-target {
+    position: relative;
+    display: inline-block;
+  }
+  .cont8-mark--underline {
+    left: -5%;
+    bottom: -7px;
+    width: 110%;
+  }
+  .cont8-mark--circle {
+    top: 50%;
+    left: 50%;
+    width: 138%;
+    transform: translate(-50%, -50%);
+  }
+
+  .cont9 {
+    --cont9-orange: #ff5d32;
+    position: relative;
+    display: flex;
+    height: clamp(640px, 75.28vw, 1084px);
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #dff9f8 url("./images/con9_bg.png.png") center / cover no-repeat;
+    text-align: center;
+  }
+  .cont9-heading {
+    position: relative;
+    z-index: 1;
+    margin: 118px 20px 0;
+    font-size: clamp(30px, 3vw, 44px);
+    line-height: 1.4;
+    font-weight: 800;
+    letter-spacing: -.04em;
+  }
+  .cont9-countdown {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 10px;
+    margin: 8px 20px 0;
+    font-size: clamp(25px, 2.4vw, 36px);
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  .cont9-countdown-unit { white-space: nowrap; }
+  .cont9-countdown-value { color: var(--cont9-orange); font-size: 1.28em; font-weight: 800; }
+  .cont9-countdown-ended { color: var(--cont9-orange); }
+  .cont9-world {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: clamp(220px, 20vw, 300px);
+    aspect-ratio: 1;
+    margin-top: 34px;
+  }
+  .cont9-world > img { width: 100%; height: 100%; object-fit: contain; }
+  .cont9-apply {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .86);
+    color: var(--cont9-orange);
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 700;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 14px rgba(56, 111, 130, .14);
+    transition: background .2s ease, transform .2s ease;
+  }
+  .cont9-apply::after {
+    content: "›";
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffae83, #e9582f);
+    color: #fff;
+    font-size: 18px;
+  }
+  .cont9-apply:hover { background: #fff; transform: translate(-50%, -50%) scale(1.05); }
+  .cont9-cloud {
+    position: absolute;
+    z-index: 0;
+    bottom: -1px;
+    width: min(43%, 560px);
+    height: auto;
+    pointer-events: none;
+  }
+  .cont9-cloud--left { left: 0; }
+  .cont9-cloud--right { right: 0; }
+  .cont9-note {
+    position: absolute;
+    z-index: 1;
+    bottom: 38px;
+    margin: 0 16px;
+    color: #333;
+    font-size: 12px;
+  }
+
+  .site-footer {
+    display: grid;
+    place-items: center;
+    min-height: 64px;
+    background: #fff;
+    color: #000;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+  }
+  .footer-logo { display: block; width: 112px; height: auto; }
+
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .cont8-container { width: calc(100% - 80px); gap: 24px; padding: 52px 0 64px; }
+    .cont8-image > .cont8-photo { border-radius: 9px; }
+    .cont8-image::after { border-radius: 0 0 9px 9px; }
+    .cont8-card:nth-child(2) { margin-top: -16px; }
+    .cont8-card:nth-child(3) { margin-top: 12px; }
+    .cont8-card-title { margin-top: 10px; font-size: clamp(10px, 1.8vw, 15px); }
+    .cont9 { height: min(75.28vw, 768px); min-height: 580px; }
+    .cont9-heading { margin-top: 88px; font-size: clamp(26px, 4vw, 36px); }
+    .cont9-countdown { font-size: clamp(23px, 3.2vw, 30px); }
+    .cont9-world { width: 230px; margin-top: 26px; }
+  }
+  @media (max-width: 680px) {
+    .cont8-container { grid-template-columns: minmax(0, 1fr); gap: 24px; width: min(100% - 36px, 420px); padding: 34px 0 44px; }
+    .cont8-card { width: 100%; }
+    .cont8-image > .cont8-photo { border-radius: 10px; }
+    .cont8-image::after { border-radius: 0 0 10px 10px; }
+    .cont8-card:nth-child(2), .cont8-card:nth-child(3) { margin-top: 0; }
+    .cont8-card-title { margin-top: 9px; font-size: clamp(13px, 4vw, 17px); }
+    .cont8-mark { display: none; }
+    .cont9 { height: 590px; min-height: 0; background-position: center; }
+    .cont9-heading { max-width: 340px; margin-top: 64px; font-size: clamp(22px, 6vw, 28px); }
+    .cont9-countdown { gap: 0 5px; margin-top: 8px; font-size: clamp(17px, 4.7vw, 22px); }
+    .cont9-world { width: clamp(190px, 58vw, 230px); margin-top: 28px; }
+    .cont9-apply { gap: 6px; padding: 8px 9px; font-size: 12px; }
+    .cont9-apply::after { width: 18px; height: 18px; font-size: 15px; }
+    .cont9-cloud { width: 62%; }
+    .cont9-note { bottom: 22px; font-size: 10px; }
+    .site-footer { min-height: 48px; }
+    .footer-inner { padding: 10px 16px; }
+    .footer-logo { width: 92px; }
+  }
+  .cont9 [hidden] { display: none; }
+
 </style>
 </head>
 <body>
@@ -1511,7 +2323,7 @@
       <ul class="gnb-list">
         <li><a href="#jobs">직무소개</a></li>
         <li><a href="#qualification">지원자격 및 접수방법</a></li>
-        <li><a href="#schedule">채용설명회 일정</a></li>
+        <li><a href="#exposition">채용설명회 일정</a></li>
       </ul>
       <div class="gnb-cta">
         <a class="btn btn-apply" href="#apply">
@@ -1537,8 +2349,6 @@
   <section class="main-visual" id="main-visual" aria-label="한미그룹 2026년 하반기 공개채용">
     <div class="mv-container">
       <div class="mv-visual" aria-hidden="true">
-        <div class="ring ring-glow"></div>
-        <div class="ring ring-line"></div>
         <img class="micro" src="./images/mv_micro_png.png" alt="">
         <img class="char1" src="./images/mv_char1_png.png" alt="">
         <img class="char2" src="./images/mv_char2_png.png" alt="">
@@ -1822,37 +2632,8 @@
         <img class="welfare-mascot" src="./images/con5_char.png" alt="" aria-hidden="true" loading="lazy">
       </header>
 
-      <div class="welfare-scroll" role="region" aria-label="한미그룹 복지 혜택 목록" tabindex="0">
-        <header class="welfare-group-title">
-          <h3>💗 오늘의 나도, 내일의 나도 든든하게!</h3>
-          <p>건강, 성장, 문화생활까지 알차게 챙겨드려요.</p>
-        </header>
-        <ul class="welfare-grid">
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>건강 검진</h3><p>건강한 하루가 오래 이어지도록, 정기적인 건강관리를 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico1.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>기념일 축하 지원</h3><p>소중한 기념일이 더 특별해지도록 한미가 함께 축하해요.</p></div><img class="welfare-icon" src="./images/wf_ico2.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>본인주도 선택복지</h3><p>나에게 필요한 복지를 내 취향과 생활에 맞게 선택할 수 있어요.</p></div><img class="welfare-icon" src="./images/wf_ico3.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>장기근속 포상</h3><p>한미와 함께 걸어온 소중한 시간에 감사의 마음을 전해요.</p></div><img class="welfare-icon" src="./images/wf_ico4.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>유연근무제</h3><p>업무와 일상의 균형을 찾을 수 있도록 유연한 근무를 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico5.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>단체 상해 보험</h3><p>예상하지 못한 순간에도 든든할 수 있도록 임직원을 보호해요.</p></div><img class="welfare-icon" src="./images/wf_ico6.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>직무 교육 지원</h3><p>배우고 성장하는 즐거움이 계속되도록 역량 개발을 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico7.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>임직원 제휴 할인</h3><p>다양한 제휴 혜택으로 일상 속 즐거움을 실속 있게 더해요.</p></div><img class="welfare-icon" src="./images/wf_ico8.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>문화 생활 지원</h3><p>바쁜 일상에 기분 좋은 쉼표를 더할 수 있도록 문화생활을 응원해요.</p></div><img class="welfare-icon" src="./images/wf_ico9.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li><article class="welfare-card"><div class="welfare-copy"><h3>구내식당</h3><p>든든하고 맛있는 한 끼로 활기찬 하루를 채워드려요.</p></div><img class="welfare-icon" src="./images/wf_ico10.png" alt="" aria-hidden="true" loading="lazy"></article></li>
-          <li class="welfare-group-title">
-            <h3>🏠 가족의 행복도 빼놓을 수 없죠!</h3>
-            <p>축하할 때도, 도움이 필요할 때도 한미가 함께해요.</p>
-          </li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>건강 검진</h3><p>건강한 하루가 오래 이어지도록, 정기적인 건강관리를 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico1.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>기념일 축하 지원</h3><p>소중한 기념일이 더 특별해지도록 한미가 함께 축하해요.</p></div><img class="welfare-icon" src="./images/wf_ico2.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>본인주도 선택복지</h3><p>나에게 필요한 복지를 내 취향과 생활에 맞게 선택할 수 있어요.</p></div><img class="welfare-icon" src="./images/wf_ico3.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>장기근속 포상</h3><p>한미와 함께 걸어온 소중한 시간에 감사의 마음을 전해요.</p></div><img class="welfare-icon" src="./images/wf_ico4.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>유연근무제</h3><p>업무와 일상의 균형을 찾을 수 있도록 유연한 근무를 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico5.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>단체 상해 보험</h3><p>예상하지 못한 순간에도 든든할 수 있도록 임직원을 보호해요.</p></div><img class="welfare-icon" src="./images/wf_ico6.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>직무 교육 지원</h3><p>배우고 성장하는 즐거움이 계속되도록 역량 개발을 지원해요.</p></div><img class="welfare-icon" src="./images/wf_ico7.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>임직원 제휴 할인</h3><p>다양한 제휴 혜택으로 일상 속 즐거움을 실속 있게 더해요.</p></div><img class="welfare-icon" src="./images/wf_ico8.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>문화 생활 지원</h3><p>바쁜 일상에 기분 좋은 쉼표를 더할 수 있도록 문화생활을 응원해요.</p></div><img class="welfare-icon" src="./images/wf_ico9.png" alt="" loading="lazy"></article></li>
-          <li aria-hidden="true"><article class="welfare-card"><div class="welfare-copy"><h3>구내식당</h3><p>든든하고 맛있는 한 끼로 활기찬 하루를 채워드려요.</p></div><img class="welfare-icon" src="./images/wf_ico10.png" alt="" loading="lazy"></article></li>
-        </ul>
+      <div class="welfare-scroll" id="welfare-content" role="region" aria-label="한미그룹 복지 혜택 목록" aria-live="polite" tabindex="0">
+        복지 정보를 불러오는 중입니다.
       </div>
     </div>
     <img class="welfare-decoration" src="./images/ss_con3_char.png.png" alt="" aria-hidden="true" loading="lazy">
@@ -1910,11 +2691,169 @@
     </dialog>
   </section>
 
+  <section class="requirement" id="requirement" aria-labelledby="requirement-title">
+    <div class="requirement-container">
+      <header class="requirement-heading">
+        <h2 class="requirement-title" id="requirement-title">한미그룹과 함께하는 문은<br>활짝 열려 있습니다</h2>
+        <img class="requirement-bulb" src="./images/require_obj_bulb.png.png" alt="" aria-hidden="true">
+      </header>
+
+      <div class="requirement-tabs" role="tablist" aria-label="지원 안내">
+        <button class="requirement-tab" id="requirement-tab-eligibility" type="button" role="tab" aria-selected="true" aria-controls="requirement-panel-eligibility">지원자격</button>
+        <button class="requirement-tab" id="requirement-tab-process" type="button" role="tab" aria-selected="false" aria-controls="requirement-panel-process" tabindex="-1">전형절차 및 접수방법</button>
+      </div>
+
+      <div class="requirement-panel" id="requirement-panel-eligibility" role="tabpanel" aria-labelledby="requirement-tab-eligibility">
+        <div class="requirement-eligibility">
+          <article class="requirement-condition">
+            <img src="./images/require_ico_calendar_3d.png.png" alt="" aria-hidden="true">
+            <h3>27년 1월 입사가 가능한 자</h3>
+          </article>
+          <article class="requirement-condition">
+            <img src="./images/require_ico_gradcap_3d.png.png" alt="" aria-hidden="true">
+            <h3>기졸업자 또는 27년 2월 졸업 예정자</h3>
+          </article>
+        </div>
+        <ul class="requirement-bullets">
+          <li>남성의 경우 병역을 마쳤거나 면제인 분</li>
+          <li>해외여행 (또는 해외 출장)에 결격사유가 없는 분</li>
+          <li>취업보호대상자는 관련 법령에 의거하여 우대</li>
+        </ul>
+        <p class="requirement-notice">모집 직무별로 지원자격이 상이하오니 반드시 채용 공고를 확인해 주시기 바랍니다.</p>
+      </div>
+
+      <div class="requirement-panel" id="requirement-panel-process" role="tabpanel" aria-labelledby="requirement-tab-process" hidden>
+        <section class="requirement-process-group" aria-labelledby="requirement-process-sales">
+          <h3 id="requirement-process-sales">영업직군</h3>
+          <ol class="requirement-steps">
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true"><img src="./images/require_ico_calendar_3d.png.png" alt=""></span><h4>지원접수</h4><p>9.28~10.18</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">📑</span><h4>서류전형</h4><p>10.19~10.20</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">🔎</span><h4>AI역량검사</h4><p>10.21~10.25</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">🪪</span><h4>1차면접</h4><p>11월 중</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">📍</span><h4>현장체험</h4><p>12월 초</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">💬</span><h4>2차면접</h4><p>12월 중</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">🏢</span><h4>교육전형</h4><p>27.1.4~</p></li>
+          </ol>
+        </section>
+        <section class="requirement-process-group requirement-process-group--other" aria-labelledby="requirement-process-other">
+          <h3 id="requirement-process-other">영업 외 전직군</h3>
+          <ol class="requirement-steps">
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true"><img src="./images/require_ico_calendar_3d.png.png" alt=""></span><h4>지원접수</h4><p>9.28~10.18</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">📑</span><h4>서류전형</h4><p>10.19~10.20</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">🔎</span><h4>AI역량검사</h4><p>10.21~10.25</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">🪪</span><h4>1차면접</h4><p>11월 중</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">💬</span><h4>2차면접</h4><p>12월 중</p></li>
+            <li class="requirement-step-arrow" aria-hidden="true">›</li>
+            <li class="requirement-step"><span class="requirement-step-icon" aria-hidden="true">🏢</span><h4>입사</h4><p>27.1.4<br>(경력직 협의 가능)</p></li>
+          </ol>
+        </section>
+        <ul class="requirement-process-notes">
+          <li>상기 일정은 상황에 따라 변경될 수 있으며 각 전형별 상세 일정은 대상자에 한해 개별 안내 예정입니다</li>
+          <li>입사지원서에 허위 기재가 있거나 제출서류가 허위로 판명되는 경우, 또는 입사 이후 자격 미보유 및 상실하는 경우는 입사가 취소될 수 있습니다.</li>
+          <li>지원서 제출 후에는 수정이 절대 불가하오니, 주의하시기 바랍니다.</li>
+          <li>전형단계별 결과는 E-Mail 및 SMS를 통하여 안내하오니 E-Mail 주소 및 휴대전화 번호를 정확히 기재해주시기 바랍니다.</li>
+          <li>입사 후 3개월간 수습기간이 적용되며, 수습 기간 중 성적이 불량하거나 직무 수행 능력이 부족하다고 판단되는 경우 입사가 취소될 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="exposition" id="exposition" aria-labelledby="exposition-title">
+    <div class="exposition-container">
+      <header class="exposition-intro">
+        <img class="exposition-intro-character" src="./images/expo_char.png" alt="" aria-hidden="true">
+        <div class="exposition-intro-copy">
+          <h2 class="exposition-title" id="exposition-title">Hanmi 박람회/캠퍼스로 출발!</h2>
+          <p class="exposition-description">한미그룹이 여러분을 만나러 박람회와 캠퍼스로 찾아갑니다.<br>우리가 어디서 만날지 궁금하다면 아래 지역에서 찾아보세요!</p>
+          <p class="exposition-hint">학교/행사명을 클릭하거나 터치하면 세부장소를 확인하실 수 있습니다.</p>
+        </div>
+      </header>
+
+      <div class="exposition-tabs" role="tablist" aria-label="채용 행사 일정 종류">
+        <button class="exposition-tab" id="exposition-tab-fair" type="button" role="tab" aria-selected="true" aria-controls="exposition-panel-fair">박람회</button>
+        <button class="exposition-tab" id="exposition-tab-campus" type="button" role="tab" aria-selected="false" aria-controls="exposition-panel-campus" tabindex="-1">캠퍼스</button>
+      </div>
+
+      <div class="exposition-panel" id="exposition-panel-fair" role="tabpanel" aria-labelledby="exposition-tab-fair">
+        <div class="exposition-calendar" id="exposition-fair-calendar" aria-live="polite"></div>
+      </div>
+
+      <div class="exposition-panel" id="exposition-panel-campus" role="tabpanel" aria-labelledby="exposition-tab-campus" hidden>
+        <div class="exposition-regions" role="group" aria-label="캠퍼스 방문 지역">
+          <button class="exposition-region" type="button" data-exposition-region="seoul" aria-pressed="true">서울</button>
+          <button class="exposition-region" type="button" data-exposition-region="gyeonggi" aria-pressed="false">경기</button>
+          <button class="exposition-region" type="button" data-exposition-region="gangwon" aria-pressed="false">강원</button>
+          <button class="exposition-region" type="button" data-exposition-region="gyeongsang" aria-pressed="false">경상</button>
+          <button class="exposition-region" type="button" data-exposition-region="chungcheong" aria-pressed="false">충청</button>
+          <button class="exposition-region" type="button" data-exposition-region="jeolla" aria-pressed="false">전라</button>
+        </div>
+        <div class="exposition-calendar" id="exposition-campus-calendar" aria-live="polite"></div>
+      </div>
+    </div>
+    <img class="exposition-decoration" src="./images/expo_char2.png" alt="" aria-hidden="true">
+  </section>
+
+  <section class="cont8" id="cont8" aria-label="한미그룹 더 알아보기">
+    <div class="cont8-container">
+      <a class="cont8-card" href="#welfare">
+        <span class="cont8-image">
+          <img class="cont8-photo" src="./images/con8_img1.jpg.png" alt="" aria-hidden="true" loading="lazy">
+          <img class="cont8-mark cont8-mark--first-arrow" src="./images/con8_Image.png" alt="" aria-hidden="true">
+          <img class="cont8-mark cont8-mark--first-star" src="./images/con8_Image-2.png" alt="" aria-hidden="true">
+        </span>
+        <span class="cont8-card-title">한미그룹의 <span class="cont8-mark-target">문화와 복지<img class="cont8-mark cont8-mark--underline" src="./images/con8_Image-1.png" alt="" aria-hidden="true"></span>가 궁금하다면?</span>
+      </a>
+      <a class="cont8-card" href="#tasks">
+        <span class="cont8-image">
+          <img class="cont8-photo" src="./images/con8_img2.jpg.png" alt="" aria-hidden="true" loading="lazy">
+          <img class="cont8-mark cont8-mark--second-arrow" src="./images/con8_Image-4.png" alt="" aria-hidden="true">
+        </span>
+        <span class="cont8-card-title">한미그룹의 <span class="cont8-mark-target">직무가<img class="cont8-mark cont8-mark--circle" src="./images/con8_Image-3.png" alt="" aria-hidden="true"></span> 궁금하다면?</span>
+      </a>
+      <a class="cont8-card" href="https://hanmi.recruiter.co.kr/career/apply" target="_blank" rel="noopener noreferrer">
+        <span class="cont8-image">
+          <img class="cont8-photo" src="./images/con8_img3.jpg.png" alt="" aria-hidden="true" loading="lazy">
+        </span>
+        <span class="cont8-card-title">한미그룹의 <span class="cont8-mark-target">채용소식<img class="cont8-mark cont8-mark--underline" src="./images/con8_Image-5.png" alt="" aria-hidden="true"></span>을 빠르게 받고 싶다면?</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cont9" id="cont9" aria-labelledby="cont9-heading">
+    <h2 class="cont9-heading" id="cont9-heading">당신에게 딱 맞는 자리를 찾으러 출발!</h2>
+    <p class="cont9-countdown" id="cont9-countdown" aria-live="polite">
+      <span class="cont9-countdown-unit"><span class="cont9-countdown-value" data-countdown-days>0</span> 일</span>
+      <span class="cont9-countdown-unit"><span class="cont9-countdown-value" data-countdown-hours>00</span> 시간</span>
+      <span class="cont9-countdown-unit"><span class="cont9-countdown-value" data-countdown-minutes>00</span> 분</span>
+      <span class="cont9-countdown-unit"><span class="cont9-countdown-value" data-countdown-seconds>00</span> 초 남았어요</span>
+    </p>
+    <p class="cont9-countdown cont9-countdown-ended" id="cont9-countdown-ended" hidden>지원 기간이 종료되었습니다.</p>
+    <div class="cont9-world">
+      <img src="./images/con9_지원하기.png" alt="" aria-hidden="true">
+      <a class="cont9-apply" href="https://hanmi.recruiter.co.kr/career/apply" target="_blank" rel="noopener noreferrer">지원하기</a>
+    </div>
+    <p class="cont9-note">아이콘을 클릭해서 지원해보세요!</p>
+    <img class="cont9-cloud cont9-cloud--left" src="./images/con9_cloud_l.png.png" alt="" aria-hidden="true">
+    <img class="cont9-cloud cont9-cloud--right" src="./images/con9_cloud_r.png.png" alt="" aria-hidden="true">
+  </section>
+
 </main>
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <p>&copy; 2026 Hanmi Group. All rights reserved.</p>
+    <a href="#main-visual" aria-label="한미그룹 홈">
+      <img class="footer-logo" src="./images/logo_svg.svg" alt="한미그룹 Hanmi">
+    </a>
   </div>
 </footer>
 
@@ -1940,6 +2879,360 @@
         }
       });
     });
+  })();
+
+  (function () {
+    var countdown = document.getElementById('cont9-countdown');
+    var ended = document.getElementById('cont9-countdown-ended');
+    if (!countdown || !ended) return;
+
+    var deadline = new Date('2026-10-18T23:59:59+09:00').getTime();
+    var days = countdown.querySelector('[data-countdown-days]');
+    var hours = countdown.querySelector('[data-countdown-hours]');
+    var minutes = countdown.querySelector('[data-countdown-minutes]');
+    var seconds = countdown.querySelector('[data-countdown-seconds]');
+
+    function updateCountdown() {
+      var remaining = deadline - Date.now();
+      if (remaining <= 0) {
+        countdown.hidden = true;
+        ended.hidden = false;
+        return false;
+      }
+
+      countdown.hidden = false;
+      ended.hidden = true;
+      days.textContent = String(Math.floor(remaining / 86400000));
+      hours.textContent = String(Math.floor((remaining % 86400000) / 3600000)).padStart(2, '0');
+      minutes.textContent = String(Math.floor((remaining % 3600000) / 60000)).padStart(2, '0');
+      seconds.textContent = String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0');
+      return true;
+    }
+
+    if (updateCountdown()) window.setInterval(updateCountdown, 1000);
+  })();
+
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.requirement-tab'));
+    var panels = tabs.map(function (tab) {
+      return document.getElementById(tab.getAttribute('aria-controls'));
+    });
+    if (!tabs.length || panels.some(function (panel) { return !panel; })) return;
+
+    function selectTab(selectedIndex, moveFocus) {
+      tabs.forEach(function (tab, index) {
+        var selected = index === selectedIndex;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        panels[index].hidden = !selected;
+      });
+      if (moveFocus) tabs[selectedIndex].focus();
+    }
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener('click', function () { selectTab(index, false); });
+      tab.addEventListener('keydown', function (event) {
+        var nextIndex = index;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectTab(nextIndex, true);
+      });
+    });
+  })();
+
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.exposition-tab'));
+    var panels = tabs.map(function (tab) {
+      return document.getElementById(tab.getAttribute('aria-controls'));
+    });
+    var regionButtons = Array.prototype.slice.call(document.querySelectorAll('.exposition-region'));
+    var fairCalendar = document.getElementById('exposition-fair-calendar');
+    var campusCalendar = document.getElementById('exposition-campus-calendar');
+    var closeActiveCampusDetail = null;
+    if (!tabs.length || panels.some(function (panel) { return !panel; }) || !fairCalendar || !campusCalendar) return;
+
+    function closeCampusDetail() {
+      if (!closeActiveCampusDetail) return;
+      var close = closeActiveCampusDetail;
+      closeActiveCampusDetail = null;
+      close();
+    }
+
+    var fairWeeks = [
+      [
+        { date: '8월 31일 (월)', events: ['KAIST'] },
+        { date: '9월 1일 (화)', events: ['서울대학교', '서강대학교', '연세대학교'] },
+        { date: '9월 2일 (수)', events: ['UNIST', '한양대학교'] },
+        { date: '9월 3일 (목)', events: ['GIST'] },
+        { date: '9월 4일 (금)', events: ['고려대학교', '성균관대학교(자연)'] }
+      ],
+      [
+        { date: '9월 7일 (월)', events: ['KIST', '동국대학교'] },
+        { date: '9월 8일 (화)', events: ['이화여자대학교', '중견기업박람회(대전)'] },
+        { date: '9월 9일 (수)', events: ['POSTECH'] },
+        { date: '', events: [] },
+        { date: '10월 7일 (수)', events: ['서울고용센터'] }
+      ]
+    ];
+    var campusWeeks = [
+      [
+        { date: '9월 14일 (월)', events: [] },
+        { date: '9월 15일 (화)', events: [] },
+        { date: '9월 16일 (수)', events: [] },
+        { date: '9월 17일 (목)', events: ['중앙대학교'] },
+        { date: '9월 18일 (금)', events: [] }
+      ],
+      [
+        { date: '9월 28일 (월)', events: [] },
+        { date: '9월 29일 (화)', events: [] },
+        { date: '9월 30일 (수)', events: [] },
+        { date: '10월 1일 (목)', events: ['건국대학교'] },
+        { date: '10월 2일 (금)', events: [] }
+      ],
+      [
+        { date: '10월 12일 (월)', events: [] },
+        { date: '10월 13일 (화)', events: [] },
+        { date: '10월 14일 (수)', events: ['경희대학교'] }
+      ]
+    ];
+    var campusSchedules = {
+      seoul: { weeks: campusWeeks },
+      gyeonggi: { weeks: campusWeeks },
+      gangwon: { weeks: campusWeeks },
+      gyeongsang: { weeks: campusWeeks },
+      chungcheong: { weeks: campusWeeks },
+      jeolla: { weeks: campusWeeks }
+    };
+    var campusEventDetails = {
+      중앙대학교: { location: '310관 2층 201호', time: '14:00~15:30' },
+      건국대학교: { location: '장소 확인 중', time: '시간 확인 중' },
+      경희대학교: { location: '장소 확인 중', time: '시간 확인 중' }
+    };
+
+    document.addEventListener('pointerdown', function (event) {
+      var target = event.target;
+      if (closeActiveCampusDetail && (!target.closest || !target.closest('.exposition-event-detail'))) {
+        closeCampusDetail();
+      }
+    });
+
+    function renderCalendar(container, weeks, interactiveEvents) {
+      var calendar = document.createDocumentFragment();
+      weeks.forEach(function (days, weekIndex) {
+        var week = document.createElement('section');
+        week.className = 'exposition-week';
+        week.setAttribute('aria-label', (weekIndex + 1) + '주 일정');
+
+        days.forEach(function (day, dayIndex) {
+          var dayCell = document.createElement('div');
+          var date = document.createElement('div');
+          var eventCell = document.createElement('div');
+          dayCell.className = 'exposition-day' + (dayIndex % 2 === 0 ? ' exposition-day--left' : '');
+          date.className = 'exposition-date';
+          date.style.gridColumn = String(dayIndex + 1);
+          date.textContent = day.date;
+
+          eventCell.className = 'exposition-event';
+          eventCell.style.gridColumn = String(dayIndex + 1);
+          day.events.forEach(function (eventName) {
+            function renderEventName() {
+              var event = document.createElement(interactiveEvents ? 'button' : 'span');
+              event.className = 'exposition-event-name';
+              event.textContent = eventName;
+              if (interactiveEvents) {
+                event.type = 'button';
+                event.setAttribute('aria-expanded', 'false');
+                event.addEventListener('click', renderEventDetails);
+              }
+              eventCell.replaceChildren(event);
+            }
+
+            function renderEventDetails() {
+              var details = campusEventDetails[eventName];
+              if (!details) throw new Error('캠퍼스 상세 일정이 없습니다: ' + eventName);
+              var detailButton = document.createElement('button');
+              detailButton.type = 'button';
+              detailButton.className = 'exposition-event-detail';
+              detailButton.setAttribute('aria-expanded', 'true');
+              detailButton.setAttribute('aria-label', eventName + ' 장소 및 시간 상세 정보 닫기');
+              closeActiveCampusDetail = function () {
+                detailButton.classList.add('is-closing');
+                detailButton.addEventListener('animationend', function (event) {
+                  if (event.animationName === 'exposition-detail-out') renderEventName();
+                });
+              };
+              detailButton.addEventListener('click', function () {
+                closeCampusDetail();
+              });
+              detailButton.addEventListener('focusout', function (event) {
+                if (!eventCell.contains(event.relatedTarget)) closeCampusDetail();
+              });
+              [
+                { label: '⚑ 장소', value: details.location },
+                { label: '◷ 시간', value: details.time }
+              ].forEach(function (detail) {
+                var row = document.createElement('span');
+                var label = document.createElement('span');
+                var value = document.createElement('span');
+                row.className = 'exposition-event-detail-row';
+                label.className = 'exposition-event-detail-label';
+                label.textContent = detail.label;
+                value.className = 'exposition-event-detail-value';
+                value.textContent = detail.value;
+                row.append(label, value);
+                detailButton.appendChild(row);
+              });
+              eventCell.replaceChildren(detailButton);
+            }
+
+            if (interactiveEvents) renderEventName();
+            else {
+              var event = document.createElement('span');
+              event.className = 'exposition-event-name';
+              event.textContent = eventName;
+              eventCell.appendChild(event);
+            }
+          });
+          dayCell.append(date, eventCell);
+          week.appendChild(dayCell);
+        });
+
+        calendar.appendChild(week);
+      });
+      container.replaceChildren(calendar);
+    }
+
+    function renderCampusRegion(region) {
+      var schedule = campusSchedules[region];
+      if (!schedule) throw new Error('캠퍼스 지역 데이터가 없습니다: ' + region);
+      closeCampusDetail();
+      regionButtons.forEach(function (button) {
+        button.setAttribute('aria-pressed', String(button.dataset.expositionRegion === region));
+      });
+      renderCalendar(campusCalendar, schedule.weeks, true);
+    }
+
+    function selectTab(selectedIndex, moveFocus) {
+      tabs.forEach(function (tab, index) {
+        var selected = index === selectedIndex;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        panels[index].hidden = !selected;
+      });
+      if (moveFocus) tabs[selectedIndex].focus();
+    }
+
+    renderCalendar(fairCalendar, fairWeeks, false);
+    renderCampusRegion('seoul');
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener('click', function () { selectTab(index, false); });
+      tab.addEventListener('keydown', function (event) {
+        var nextIndex = index;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectTab(nextIndex, true);
+      });
+    });
+    regionButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        renderCampusRegion(button.dataset.expositionRegion);
+      });
+    });
+  })();
+
+  (function () {
+    var container = document.getElementById('welfare-content');
+    if (!container) return;
+
+    function isBenefitData(data) {
+      return data && Array.isArray(data.benefits) && data.benefits.length > 0 &&
+        data.benefits.every(function (group) {
+          return typeof group.group_title === 'string' && group.group_title.trim() !== '' &&
+            typeof group.group_description === 'string' && group.group_description.trim() !== '' &&
+            Array.isArray(group.items) && group.items.length > 0 &&
+          group.items.every(function (item) {
+              return typeof item.title === 'string' && item.title.trim() !== '' &&
+                typeof item.description === 'string' && item.description.trim() !== '';
+          });
+        });
+    }
+
+    function createBenefitGroup(group, iconIndex) {
+      var section = document.createElement('section');
+      var heading = document.createElement('header');
+      var title = document.createElement('h3');
+      var description = document.createElement('p');
+      var list = document.createElement('ul');
+
+      section.className = 'welfare-category';
+      heading.className = 'welfare-group-title welfare-category-title';
+      title.textContent = group.group_title;
+      description.textContent = group.group_description;
+      heading.append(title, description);
+      list.className = 'welfare-grid';
+
+      group.items.forEach(function (item) {
+        var listItem = document.createElement('li');
+        var card = document.createElement('article');
+        var copy = document.createElement('div');
+        var itemTitle = document.createElement('h3');
+        var itemDescription = document.createElement('p');
+
+        listItem.appendChild(card);
+        card.className = 'welfare-card';
+        copy.className = 'welfare-copy';
+        itemTitle.textContent = item.title;
+        itemDescription.textContent = item.description;
+        copy.append(itemTitle, itemDescription);
+        card.appendChild(copy);
+
+        if (iconIndex < 10) {
+          var icon = document.createElement('img');
+          icon.className = 'welfare-icon';
+          icon.src = './images/wf_ico' + (iconIndex + 1) + '.png';
+          icon.alt = '';
+          icon.setAttribute('aria-hidden', 'true');
+          icon.loading = 'lazy';
+          card.appendChild(icon);
+        }
+
+        list.appendChild(listItem);
+        iconIndex += 1;
+      });
+
+      section.append(heading, list);
+      return { section: section, nextIconIndex: iconIndex };
+    }
+
+    fetch('./data/benefits.json')
+      .then(function (response) {
+        if (!response.ok) throw new Error('복지 데이터를 불러오지 못했습니다.');
+        return response.json();
+      })
+      .then(function (data) {
+        if (!isBenefitData(data)) throw new Error('복지 데이터 형식이 올바르지 않습니다.');
+
+        var content = document.createDocumentFragment();
+        var iconIndex = 0;
+        data.benefits.forEach(function (group) {
+          var renderedGroup = createBenefitGroup(group, iconIndex);
+          content.appendChild(renderedGroup.section);
+          iconIndex = renderedGroup.nextIconIndex;
+        });
+        container.replaceChildren(content);
+      })
+      .catch(function (error) {
+        console.error(error);
+        container.textContent = '복지 정보를 불러오지 못했습니다.';
+      });
   })();
 
   (function () {
