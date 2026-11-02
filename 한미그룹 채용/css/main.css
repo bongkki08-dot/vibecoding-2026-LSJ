@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@500;600;700;800&display=swap');
+@import "../hanmi-eye-tracking/player.css";
+@import "./reset.css";
+@import "./common.css";
+@import "./hero.css";
+@import "./company.css";
+@import "./innovation.css";
+@import "./welfare.css";
+@import "./tasks.css";
+@import "./requirement.css";
+@import "./exposition.css";
+@import "./closing.css";

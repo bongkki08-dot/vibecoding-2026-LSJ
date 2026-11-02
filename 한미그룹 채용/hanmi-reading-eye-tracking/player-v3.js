@@ -12,14 +12,25 @@
       this.frames = [];
       this.index = 0; this.elapsed = 0; this.last = 0; this.raf = 0;
       this.ready = false; this.visible = true; this.paused = false;
-      this.tracking = true; this.pointer = null; this.gaze = { x: 0, y: 0 };
+      this.trackMedia = matchMedia('(hover: hover) and (pointer: fine)');
+      this.tracking = this.trackMedia.matches; this.pointer = null; this.gaze = { x: 0, y: 0 };
       this.reduce = matchMedia('(prefers-reduced-motion: reduce)');
       this.paused = this.reduce.matches;
       this.tick = this.tick.bind(this);
       this.onVisibility = () => { this.last = 0; this.update(); };
+      this.onTrackMediaChange = event => {
+        this.tracking = event.matches;
+        this.pointer = null; this.gaze = { x: 0, y: 0 };
+        if (this.trackControl) {
+          this.trackControl.checked = this.tracking;
+          this.trackControl.disabled = !this.tracking;
+        }
+        this.update();
+      };
+      this.trackMedia.addEventListener('change', this.onTrackMediaChange);
       document.addEventListener('visibilitychange', this.onVisibility);
       this.canvas.addEventListener('pointermove', e => {
-        if (e.pointerType === 'touch') return;
+        if (!this.tracking || e.pointerType === 'touch') return;
         const r = this.canvas.getBoundingClientRect();
         this.pointer = {x:(e.clientX-r.left)*1920/r.width,y:(e.clientY-r.top)*1080/r.height};
         this.update();
@@ -36,9 +47,16 @@
       this.pauseButton?.addEventListener('click', () => {
         this.paused=!this.paused;this.syncButton();this.update();
       });
-      root.querySelector('[data-track]')?.addEventListener('change', e => {
-        this.tracking=e.target.checked; this.update();
-      });
+      this.trackControl = root.querySelector('[data-track]');
+      if (this.trackControl) {
+        this.trackControl.checked = this.tracking;
+        this.trackControl.disabled = !this.tracking;
+        this.trackControl.addEventListener('change', e => {
+          this.tracking = this.trackMedia.matches && e.target.checked;
+          if (!this.tracking) { this.pointer = null; this.gaze = { x: 0, y: 0 }; }
+          this.update();
+        });
+      }
       this.syncButton(); this.load();
     }
     syncButton() {
@@ -138,6 +156,7 @@
     destroy() {
       cancelAnimationFrame(this.raf);this.observer.disconnect();
       document.removeEventListener('visibilitychange',this.onVisibility);
+      this.trackMedia.removeEventListener('change',this.onTrackMediaChange);
       this.reduce.removeEventListener('change',this.onReduce);
       this.ready=false;this.frames=[];
     }

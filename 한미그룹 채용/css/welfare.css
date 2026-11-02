@@ -1,0 +1,179 @@
+  /* ---------- Welfare ---------- */
+  .welfare {
+    --welfare-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 78px 5% 92px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .welfare-container {
+    position: relative;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .welfare-heading {
+    position: relative;
+    margin: 0 auto 38px;
+    text-align: center;
+  }
+  .welfare-title {
+    margin: 0;
+    font-size: clamp(26px, 3.2vw, 42px);
+    line-height: 1.35;
+    font-weight: 800;
+    letter-spacing: -.04em;
+  }
+  .welfare-subtitle {
+    margin: 12px 0 0;
+    font-size: clamp(13px, 1.25vw, 17px);
+    line-height: 1.6;
+    color: #333;
+  }
+  .welfare-mascot {
+    position: absolute;
+    top: -50px;
+    right: -12px;
+    width: clamp(92px, 13vw, 160px);
+    height: auto;
+    pointer-events: none;
+  }
+  .welfare-lead {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    margin: 0 0 14px;
+  }
+  .welfare-lead strong {
+    color: var(--welfare-orange);
+    font-size: clamp(14px, 1.45vw, 18px);
+    line-height: 1.5;
+  }
+  .welfare-lead span {
+    color: #333;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .welfare-group-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0 10px;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+    color: var(--welfare-orange);
+  }
+  .welfare-group-title::-webkit-scrollbar { display: none; }
+  .welfare-group-title h3 {
+    margin: 0;
+    flex: none;
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .welfare-group-title p {
+    flex: none;
+    margin: 0;
+    color: #333;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .welfare-scroll {
+    max-height: 460px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--welfare-orange) #f1eeee;
+    scrollbar-gutter: stable;
+    padding: 2px 8px 8px 2px;
+  }
+  .welfare-category + .welfare-category { margin-top: 24px; }
+  .welfare-category-title { margin-bottom: 12px; }
+  .welfare-scroll::-webkit-scrollbar { width: 4px; }
+  .welfare-scroll::-webkit-scrollbar-track { background: #f1eeee; border-radius: 10px; }
+  .welfare-scroll::-webkit-scrollbar-thumb { background: var(--welfare-orange); border-radius: 10px; }
+  .welfare-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .welfare-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+    min-height: 82px;
+    padding: 16px 20px;
+    border: 1px solid #ffe0d7;
+    border-radius: 14px;
+    background: linear-gradient(110deg, #fff 0%, #fffaf8 100%);
+    box-shadow: 0 3px 7px rgba(104, 49, 31, .08);
+  }
+  .welfare-copy { min-width: 0; }
+  .welfare-card h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+  .welfare-card p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .welfare-icon {
+    display: block;
+    flex: none;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+  .welfare-decoration {
+    position: absolute;
+    z-index: 1;
+    left: max(12px, calc(50% - 690px));
+    bottom: -34px;
+    width: 112px;
+    height: auto;
+    pointer-events: none;
+  }
+
+  @media (min-width: 391px) and (max-width: 1024px) {
+    .welfare { padding: 64px 5% 78px; }
+    .welfare-heading { margin-bottom: 38px; }
+    .welfare-title { font-size: clamp(27px, 4vw, 36px); }
+    .welfare-subtitle { font-size: clamp(13px, 1.8vw, 16px); }
+    .welfare-mascot { top: -48px; right: -4px; width: clamp(88px, 15vw, 132px); }
+    .welfare-scroll { max-height: 425px; padding-right: 8px; }
+    .welfare-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+    .welfare-card { min-height: 74px; padding: 14px 18px; }
+    .welfare-decoration { width: 96px; bottom: -30px; }
+  }
+  @media (max-width: 390px) {
+    .welfare { padding: 20px 5% 66px; }
+    .welfare-heading { margin-bottom: 38px; padding: 0 20px; }
+    .welfare-title { font-size: 23px; line-height: 1.4; }
+    .welfare-subtitle { margin-top: 12px; font-size: 12px; }
+    .welfare-mascot { top: -18px; right: -8px; width: 66px; }
+    .welfare-lead { gap: 3px 6px; margin-bottom: 12px; }
+    .welfare-lead strong { font-size: 14px; }
+    .welfare-lead span { flex-basis: 100%; font-size: 11px; }
+    .welfare-scroll { max-height: 440px; padding: 2px 6px 8px 2px; }
+    .welfare-grid { grid-template-columns: minmax(0, 1fr); gap: 11px; }
+    .welfare-card { min-height: 98px; gap: 10px; padding: 15px 16px; border-radius: 13px; }
+    .welfare-card h3 { font-size: 15px; }
+    .welfare-card p { max-width: 225px; margin-top: 6px; font-size: 12px; }
+    .welfare-icon { width: 38px; height: 38px; }
+    .welfare-decoration { left: 10px; bottom: -34px; width: 84px; }
+  }
+

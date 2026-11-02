@@ -1,0 +1,313 @@
+  /* ---------- Tasks ---------- */
+  .tasks {
+    --tasks-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .tasks-hero {
+    position: relative;
+    height: max(422px, calc(50vw * 9 / 16));
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffe2db 0%, #fff8f5 76%, #fff 100%);
+  }
+  .tasks-bg-title {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 100%;
+    height: 280px;
+    max-width: none;
+    object-fit: cover;
+    object-position: center top;
+    opacity: .16;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .tasks-character {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    display: block;
+    width: 50vw;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    background: transparent;
+    transform: translateX(-50%);
+  }
+  .tasks-container {
+    position: relative;
+    width: calc(100% - 64px);
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 82px 0 120px;
+  }
+  .tasks-heading {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .tasks-title {
+    margin: 0;
+    font-size: clamp(28px, 2.5vw, 36px);
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: -.04em;
+  }
+  .tasks-subtitle {
+    margin: 14px 0 0;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .tasks-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 48px 0 0;
+    padding: 0 0 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid #e8e5e4;
+    scrollbar-width: none;
+  }
+  .tasks-tabs::-webkit-scrollbar { display: none; }
+  .tasks-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 112px;
+    min-width: 0;
+    height: 52px;
+    padding: 0 14px;
+    border-radius: 14px;
+    background: transparent;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  @media (hover: hover) {
+    .tasks-tab:hover { transform: translateY(-2px); }
+    .tasks-tab:not([aria-selected="true"]):hover {
+      background: #fff8f5;
+      color: var(--tasks-orange);
+      box-shadow: 0 4px 12px rgba(100, 54, 37, .1), inset 0 0 0 1px #ffebe4;
+    }
+  }
+  .tasks-tab[aria-selected="true"] {
+    background: #fff8f5;
+    color: var(--tasks-orange);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(100, 54, 37, .13), inset 0 0 0 1px #ffebe4;
+  }
+  .tasks-groups { border-top: 0; }
+  .tasks-group { border-bottom: 1px solid #e8e5e4; }
+  .tasks-group-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 68px;
+    padding: 16px 18px;
+    background: #fff;
+    color: #777;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  .tasks-group-toggle[aria-expanded="true"] { color: var(--tasks-orange); }
+  .tasks-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    min-width: 24px;
+    height: 18px;
+    padding: 0 7px;
+    border-radius: 20px;
+    background: var(--tasks-orange);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+  }
+  .tasks-roles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-height: 0;
+    margin: 0;
+    padding: 0 18px;
+    overflow: hidden;
+    opacity: 0;
+    list-style: none;
+    transition: max-height .4s ease, padding-bottom .4s ease, opacity .25s ease;
+  }
+  .tasks-roles.is-open { padding-bottom: 38px; opacity: 1; }
+  .tasks-roles[hidden] { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .tasks-roles { transition: none; }
+  }
+  .tasks-role-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    min-height: 84px;
+    padding: 20px 28px;
+    border: 1px solid #ffddd3;
+    border-radius: 20px;
+    background: linear-gradient(110deg, #fff 0%, #fffaf8 100%);
+    box-shadow: 0 5px 12px rgba(90, 45, 30, .09);
+    color: #111;
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.35;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .tasks-role-card:hover {
+    transform: translateY(-2px);
+    border-color: #ff9a7e;
+    box-shadow: 0 8px 18px rgba(90, 45, 30, .13);
+  }
+  .tasks-role-arrow {
+    flex: none;
+    color: #777;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .tasks-empty { padding: 32px 18px; color: #777; font-size: 14px; }
+  .tasks-modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: min(800px, calc(100vw - 40px));
+    max-width: none;
+    height: min(640px, calc(100dvh - 40px));
+    max-height: min(640px, calc(100dvh - 40px));
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 20px;
+    background: #fff;
+    color: #111;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+  }
+  .tasks-modal:not([open]) { display: none; }
+  .tasks-modal::backdrop { background: rgba(0, 0, 0, .5); }
+  .tasks-modal-hero {
+    position: relative;
+    flex: none;
+    height: 160px;
+    background: #d7eaf6 url('../images/tasks_rnd_bg.jpg') center / cover no-repeat;
+  }
+  .tasks-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--tasks-orange);
+    color: #fff;
+    font-size: 25px;
+    line-height: 1;
+  }
+  .tasks-modal-fixed {
+    flex: none;
+    padding: 48px 60px 0;
+  }
+  .tasks-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0 60px 48px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+  .tasks-modal-body::-webkit-scrollbar { display: none; }
+  .tasks-modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+  }
+  .tasks-modal-title { margin: 0; font-size: 27px; line-height: 1.35; font-weight: 700; }
+  .tasks-modal-category { color: var(--tasks-orange); font-size: 15px; font-weight: 600; }
+  .tasks-modal-department { color: #888; font-size: 15px; }
+  .tasks-modal-experience { margin: 4px 0 0; font-size: 13px; }
+  .tasks-modal-section { padding: 0 0 34px; }
+  .tasks-modal-section:first-child { padding-top: 40px; }
+  .tasks-modal-section + .tasks-modal-section { padding-top: 34px; border-top: 1px solid #ddd; }
+  .tasks-modal-section[hidden] { display: none; }
+  .tasks-modal-section h3 { margin: 0 0 18px; font-size: 18px; line-height: 1.5; }
+  .tasks-modal-section ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .tasks-modal-section li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.65; }
+  .tasks-modal-section li::before {
+    content: "";
+    position: absolute;
+    top: .68em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tasks-orange);
+  }
+  body.tasks-modal-open { overflow: hidden; }
+
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .tasks-hero { height: 344px; }
+    .tasks-bg-title { height: 230px; }
+    .tasks-character { left: 48%; }
+    .tasks-container { width: calc(100% - 40px); padding: 78px 0 96px; }
+    .tasks-title { font-size: 28px; }
+    .tasks-subtitle { margin-top: 12px; font-size: 13px; }
+    .tasks-tabs { gap: 4px; margin-top: 40px; padding-bottom: 14px; }
+    .tasks-tab { flex-basis: 88px; height: 48px; padding: 0 8px; font-size: 13px; }
+    .tasks-group-toggle { min-height: 60px; padding: 15px 16px; font-size: 14px; }
+    .tasks-roles { gap: 16px; padding: 0 16px; }
+    .tasks-roles.is-open { padding-bottom: 32px; }
+    .tasks-role-card { min-height: 76px; padding: 18px 20px; border-radius: 17px; font-size: 16px; }
+    .tasks-modal { width: min(800px, calc(100vw - 56px)); }
+    .tasks-modal-fixed { padding: 42px 40px 0; }
+    .tasks-modal-body { padding: 0 40px 36px; }
+  }
+  @media (max-width: 680px) {
+    .tasks-hero { height: 362px; }
+    .tasks-bg-title { top: 0; height: 172px; object-position: 48% top; }
+    .tasks-character { left: 46%; }
+    .tasks-container { width: calc(100% - 36px); padding: 78px 0 76px; }
+    .tasks-title { font-size: 23px; line-height: 1.48; }
+    .tasks-subtitle { max-width: 300px; margin: 14px auto 0; font-size: 13px; line-height: 1.65; }
+    .tasks-tabs { justify-content: flex-start; gap: 8px; margin: 36px -18px 0; padding: 0 18px 16px; }
+    .tasks-tab { flex: 0 0 76px; height: 60px; padding: 0 6px; border-radius: 15px; font-size: 12px; }
+    .tasks-groups { margin-top: 0; }
+    .tasks-group-toggle { min-height: 68px; gap: 10px; padding: 15px 18px; font-size: 13px; }
+    .tasks-roles { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 0 12px; }
+    .tasks-roles.is-open { padding-bottom: 24px; }
+    .tasks-role-card { min-height: 68px; padding: 16px 18px; border-radius: 15px; font-size: 14px; }
+    .tasks-modal { width: calc(100vw - 28px); height: calc(100dvh - 28px); max-height: calc(100dvh - 28px); border-radius: 16px; }
+    .tasks-modal-hero { height: 120px; }
+    .tasks-modal-close { top: 14px; right: 14px; width: 36px; height: 36px; }
+    .tasks-modal-fixed { padding: 28px 22px 0; }
+    .tasks-modal-body { padding: 0 22px 26px; }
+    .tasks-modal-section:first-child { padding-top: 30px; }
+    .tasks-modal-meta { gap: 6px 10px; }
+    .tasks-modal-title { width: 100%; font-size: 21px; }
+    .tasks-modal-category, .tasks-modal-department { font-size: 13px; }
+    .tasks-modal-experience { margin: 6px 0 34px; font-size: 12px; }
+    .tasks-modal-section { padding-bottom: 24px; }
+    .tasks-modal-section + .tasks-modal-section { padding-top: 24px; }
+    .tasks-modal-section h3 { margin-bottom: 14px; font-size: 16px; }
+    .tasks-modal-section li { font-size: 13px; }
+  }
+

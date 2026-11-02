@@ -1,0 +1,31 @@
+  .scroll-smoothing-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 40;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    accent-color: var(--red);
+    cursor: pointer;
+  }
+
+  .updown { animation: character-updown 1.6s ease-in-out infinite alternate; }
+  .leftright { animation: character-leftright 1.6s ease-in-out infinite alternate; }
+  .bigsmall { animation: character-bigsmall 1.6s ease-in-out infinite alternate; }
+  @keyframes character-updown {
+    from { translate: 0 0; }
+    to { translate: 0 -10%; }
+  }
+  @keyframes character-leftright {
+    from { translate: 0 0; }
+    to { translate: 10% 0; }
+  }
+  @keyframes character-bigsmall {
+    from { scale: 0.9; }
+    to { scale: 1.1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .updown, .leftright, .bigsmall { animation: none; }
+  }
+
