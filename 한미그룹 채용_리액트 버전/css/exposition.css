@@ -1,0 +1,303 @@
+  .exposition {
+    --exposition-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .exposition-container {
+    width: 82%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 48px 0 64px;
+  }
+  .exposition-intro {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+    min-height: 184px;
+    margin-bottom: 32px;
+  }
+  .exposition-intro-character {
+    display: block;
+    width: 190px;
+    height: auto;
+    object-fit: contain;
+  }
+  .exposition-intro-copy { min-width: 0; }
+  .exposition-title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -.04em;
+  }
+  .exposition-description {
+    margin: 14px 0 0;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .exposition-hint {
+    position: relative;
+    margin: 16px 0 0 28px;
+    color: #555;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .exposition-hint::before {
+    content: "";
+    position: absolute;
+    top: .55em;
+    left: -12px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--exposition-orange);
+  }
+  .exposition-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 22px;
+    padding-bottom: 20px;
+  }
+  .exposition-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 56px;
+    padding: 10px 14px;
+    border-radius: 13px;
+    background: transparent;
+    color: #777;
+    font-size: 15px;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .exposition-tab[aria-selected="true"],
+  .exposition-region[aria-pressed="true"] {
+    background: #fff8f5;
+    color: var(--exposition-orange);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(100, 54, 37, .13), inset 0 0 0 1px #ffebe4;
+  }
+  .exposition-panel[hidden] { display: none; }
+  .exposition-calendar { min-width: 0; }
+  .exposition-week {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .exposition-week:first-child { border-top: 1px solid #ddd; }
+  .exposition-day { display: contents; }
+  .exposition-date {
+    grid-row: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  .exposition-date {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 6px 4px;
+    color: #111;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+  .exposition-day + .exposition-day .exposition-date::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    width: 1px;
+    background: #ddd;
+  }
+  .exposition-event {
+    grid-row: 2;
+    display: flex;
+    min-width: 0;
+    min-height: 138px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 6px;
+    text-align: center;
+  }
+  .exposition-event-name {
+    color: var(--exposition-orange);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  button.exposition-event-name {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button.exposition-event-name:hover,
+  button.exposition-event-name:focus-visible {
+    background: #fff8f5;
+  }
+  .exposition-event-detail {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 8px;
+    width: min(100%, 164px);
+    min-height: 156px;
+    padding: 14px 8px;
+    border-radius: 7px;
+    background: #fff8f5;
+    color: #111;
+    text-align: center;
+    cursor: pointer;
+    animation: exposition-detail-in .18s ease-out both;
+  }
+  .exposition-event-detail.is-closing {
+    animation: exposition-detail-out .16s ease-in both;
+    pointer-events: none;
+  }
+  @keyframes exposition-detail-in {
+    from { opacity: 0; transform: translateY(6px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes exposition-detail-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(4px) scale(.97); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .exposition-event-detail { animation-duration: .01ms; }
+    .exposition-event-detail.is-closing { animation-duration: .01ms; }
+  }
+  .exposition-event-detail-row {
+    display: grid;
+    gap: 3px;
+  }
+  .exposition-event-detail-label {
+    color: var(--exposition-orange);
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  .exposition-event-detail-value {
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  .exposition-event-name + .exposition-event-name {
+    position: relative;
+    padding-top: 13px;
+  }
+  .exposition-event-name + .exposition-event-name::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 36px;
+    height: 1px;
+    background: #ffb09c;
+    transform: translateX(-50%);
+  }
+  .exposition-regions {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+    margin: 0 0 14px;
+    padding: 8px;
+    border-radius: 13px;
+    background: #fffaf8;
+  }
+  .exposition-region {
+    min-width: 0;
+    min-height: 42px;
+    padding: 8px 4px;
+    border-radius: 11px;
+    background: transparent;
+    color: #777;
+    font-size: 14px;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .exposition-decoration {
+    position: absolute;
+    right: max(12px, calc(50% - 690px));
+    bottom: 10px;
+    width: clamp(74px, 10vw, 116px);
+    height: auto;
+    pointer-events: none;
+  }
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .exposition-container { width: calc(100% - 40px); padding: 40px 0 58px; }
+    .exposition-intro {
+      display: block;
+      min-height: 0;
+      max-width: 560px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+    .exposition-intro-character { display: none; }
+    .exposition-title { font-size: clamp(26px, 3.4vw, 34px); }
+    .exposition-description { margin-top: 12px; font-size: 14px; }
+    .exposition-hint { display: inline-block; margin: 14px 0 0 12px; font-size: 10px; }
+    .exposition-tabs { gap: 8px; margin-bottom: 18px; padding-bottom: 16px; }
+    .exposition-tab { min-height: 48px; font-size: 13px; }
+    .exposition-date { min-height: 36px; font-size: 11px; }
+    .exposition-event { min-height: 128px; }
+    .exposition-event-name { font-size: 11px; }
+    .exposition-event-detail { min-height: 140px; }
+    .exposition-event-detail-value { font-size: 12px; }
+    .exposition-region { min-height: 38px; font-size: 13px; }
+    .exposition-decoration { display: none; }
+  }
+  @media (max-width: 680px) {
+    .exposition-container { width: calc(100% - 26px); padding: 28px 0 40px; }
+    .exposition-intro {
+      display: block;
+      min-height: 0;
+      margin: 0 auto 24px;
+      text-align: center;
+    }
+    .exposition-intro-character { display: none; }
+    .exposition-title { font-size: clamp(18px, 5vw, 24px); }
+    .exposition-description { margin-top: 8px; font-size: clamp(10px, 2.8vw, 13px); }
+    .exposition-hint { margin: 12px 0 0 10px; font-size: clamp(8px, 2.2vw, 10px); }
+    .exposition-tabs { gap: 6px; margin-bottom: 14px; padding-bottom: 12px; }
+    .exposition-tab { min-height: 40px; padding: 8px 4px; border-radius: 10px; font-size: clamp(9px, 2.7vw, 12px); }
+    .exposition-regions { gap: 3px; margin-bottom: 10px; padding: 5px; border-radius: 10px; }
+    .exposition-region { min-height: 34px; padding: 6px 2px; border-radius: 8px; font-size: clamp(8px, 2.5vw, 11px); }
+    .exposition-calendar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .exposition-week { display: contents; }
+    .exposition-day {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      border-bottom: 1px solid #ddd;
+    }
+    .exposition-day--left { border-right: 1px solid #ddd; }
+    .exposition-date {
+      grid-row: auto;
+      min-height: 32px;
+      padding: 5px 2px;
+      border-bottom: 1px solid #ddd;
+      font-size: clamp(8px, 2.7vw, 10px);
+    }
+    .exposition-day + .exposition-day .exposition-date::before { display: none; }
+    .exposition-event { min-height: 116px; gap: 9px; padding: 12px 3px; }
+    .exposition-event-name { font-size: clamp(8px, 2.5vw, 10px); }
+    .exposition-event-detail { width: 100%; min-height: 108px; gap: 6px; padding: 8px 3px; }
+    .exposition-event-detail-label { font-size: clamp(7px, 2vw, 9px); }
+    .exposition-event-detail-value { font-size: clamp(8px, 2.3vw, 10px); }
+    .exposition-event-name + .exposition-event-name { padding-top: 11px; }
+    .exposition-event-name + .exposition-event-name::before { width: 28px; }
+    .exposition-decoration { display: none; }
+  }
+

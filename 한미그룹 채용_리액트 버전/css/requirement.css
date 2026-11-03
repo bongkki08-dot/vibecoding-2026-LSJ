@@ -1,0 +1,279 @@
+  .requirement {
+    --requirement-orange: #ff5d32;
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+  }
+  .requirement-container {
+    position: relative;
+    width: calc(100% - 64px);
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 64px 0 56px;
+  }
+  .requirement-heading {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 108px;
+    padding: 0 120px;
+  }
+  .requirement-title {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: clamp(28px, 2.5vw, 36px);
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: -.045em;
+  }
+  .requirement-bulb {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: clamp(96px, 8.8vw, 140px);
+    height: auto;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .requirement-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(6px, 1vw, 12px);
+    margin-top: clamp(28px, 4.1vw, 50px);
+    padding-bottom: clamp(12px, 1.65vw, 20px);
+    border-bottom: 1px solid #e8e5e4;
+  }
+  .requirement-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: clamp(32px, 5.2vw, 64px);
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: transparent;
+    color: #777;
+    font-size: clamp(7px, 1.25vw, 15px);
+    line-height: 1.4;
+    white-space: nowrap;
+    transition: color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .requirement-tab[aria-selected="true"] {
+    background: #fff8f5;
+    color: var(--requirement-orange);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(100, 54, 37, .13), inset 0 0 0 1px #ffebe4;
+  }
+  .requirement-panel { min-width: 0; }
+  .requirement-panel[hidden] { display: none; }
+  .requirement-eligibility {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 1px solid #e8e5e4;
+  }
+  .requirement-condition {
+    display: flex;
+    min-width: 0;
+    min-height: 184px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .requirement-condition + .requirement-condition {
+    position: relative;
+  }
+  .requirement-condition + .requirement-condition::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    width: 1px;
+    background: #e8e5e4;
+  }
+  .requirement-condition img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+  .requirement-condition h3 {
+    margin: 0;
+    font-size: clamp(12px, 1.4vw, 17px);
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .requirement-bullets {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 28px 20px;
+    border-bottom: 1px solid #e8e5e4;
+    list-style: none;
+  }
+  .requirement-bullets li {
+    position: relative;
+    padding-left: 13px;
+    color: #333;
+    font-size: clamp(6px, 1.1vw, 13px);
+    line-height: 1.6;
+  }
+  .requirement-bullets li::before {
+    content: "";
+    position: absolute;
+    top: .65em;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--requirement-orange);
+  }
+  .requirement-notice {
+    margin: 0;
+    padding: 30px 12px;
+    border-bottom: 1px solid #e8e5e4;
+    color: #aaa;
+    text-align: center;
+    font-size: clamp(10px, 1.25vw, 15px);
+    line-height: 1.6;
+    font-weight: 700;
+  }
+  .requirement-process-group {
+    padding: clamp(12px, 3.6vw, 44px) clamp(6px, 2.8vw, 34px) clamp(12px, 3.45vw, 42px);
+    border-bottom: 1px solid #e8e5e4;
+  }
+  .requirement-process-group h3 {
+    margin: 0 0 clamp(10px, 3vw, 36px);
+    font-size: clamp(8px, 2vw, 24px);
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  .requirement-steps {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr) minmax(0, .14fr)) minmax(0, 1fr);
+    align-items: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .requirement-step {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .requirement-step-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 58px;
+    color: var(--requirement-orange);
+    font-size: 42px;
+    line-height: 1;
+  }
+  .requirement-step-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .requirement-step h4 {
+    margin: clamp(4px, 1.3vw, 16px) 0 2px;
+    font-size: clamp(5px, 1.15vw, 14px);
+    line-height: 1.4;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .requirement-step p {
+    margin: 0;
+    color: #999;
+    font-size: clamp(5px, 1vw, 12px);
+    line-height: 1.45;
+    white-space: pre-line;
+  }
+  .requirement-process-group--other .requirement-steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr) minmax(0, .14fr)) minmax(0, 1fr);
+  }
+  .requirement-step-arrow {
+    display: grid;
+    place-items: center;
+    min-height: 58px;
+    color: #222;
+    font-size: 22px;
+    line-height: 1;
+  }
+  .requirement-process-group--other { border-bottom: 0; }
+  .requirement-process-notes {
+    display: grid;
+    max-width: 900px;
+    gap: 12px;
+    margin: 0 auto;
+    padding: 54px 0 58px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    list-style: none;
+  }
+  .requirement-process-notes li {
+    position: relative;
+    padding-left: 16px;
+    color: #111;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .requirement-process-notes li::before {
+    content: "";
+    position: absolute;
+    top: .65em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--requirement-orange);
+  }
+  @media (min-width: 681px) and (max-width: 1024px) {
+    .requirement-container { width: calc(100% - 40px); padding: 54px 0 44px; }
+    .requirement-heading { min-height: 84px; padding: 0 88px; }
+    .requirement-title { font-size: clamp(18px, 3.75vw, 28px); }
+    .requirement-bulb { width: 104px; }
+    .requirement-condition { min-height: clamp(126px, 21.3vw, 160px); }
+    .requirement-condition img { width: clamp(32px, 6.4vw, 48px); height: clamp(32px, 6.4vw, 48px); }
+    .requirement-condition h3 { font-size: clamp(12px, 2vw, 15px); }
+    .requirement-bullets { gap: 8px; padding: 24px 16px; }
+    .requirement-bullets li { font-size: clamp(8px, 1.6vw, 12px); }
+    .requirement-notice { padding: 24px 12px; font-size: clamp(10px, 1.75vw, 13px); }
+    .requirement-step-icon { width: clamp(32px, 5.2vw, 48px); height: clamp(36px, 5.7vw, 54px); font-size: clamp(26px, 4.4vw, 40px); }
+    .requirement-step-arrow { min-height: clamp(36px, 5.7vw, 54px); font-size: clamp(14px, 2vw, 20px); }
+    .requirement-process-notes li { font-size: 13px; }
+  }
+  @media (max-width: 680px) {
+    .requirement-container { width: calc(100% - 24px); padding: clamp(18px, 4.55vw, 34px) 0 32px; }
+    .requirement-title { max-width: 280px; font-size: clamp(11px, 5.1vw, 20px); line-height: 1.45; }
+    .requirement-heading { min-height: auto; padding: 0; }
+    .requirement-bulb { display: none; }
+    .requirement-tabs { gap: 6px; }
+    .requirement-tab { min-height: clamp(30px, 5.2vw, 40px); padding: 8px 4px; border-radius: 11px; font-size: clamp(7px, 3.8vw, 10px); }
+    .requirement-eligibility { grid-template-columns: minmax(0, 1fr); }
+    .requirement-condition { min-height: clamp(88px, 23.8vw, 126px); gap: 8px; padding: 18px 12px; }
+    .requirement-condition + .requirement-condition { border-top: 1px solid #e8e5e4; }
+    .requirement-condition + .requirement-condition::before { display: none; }
+    .requirement-condition img { width: clamp(20px, 12vw, 34px); height: clamp(20px, 12vw, 34px); }
+    .requirement-condition h3 { font-size: clamp(8px, 2.5vw, 12px); }
+    .requirement-bullets { justify-content: start; gap: 6px; padding: 18px 12px; }
+    .requirement-bullets li { padding-left: 10px; font-size: clamp(6px, 2.4vw, 9px); }
+    .requirement-bullets li::before { width: 4px; height: 4px; }
+    .requirement-notice { padding: 18px 8px; font-size: clamp(6px, 2.7vw, 10px); }
+    .requirement-step-icon { width: clamp(16px, 7vw, 26px); height: clamp(18px, 7.5vw, 28px); font-size: clamp(14px, 6.2vw, 23px); }
+    .requirement-step h4 { font-size: clamp(4px, 2.3vw, 9px); }
+    .requirement-step p { font-size: clamp(3px, 1.7vw, 7px); }
+    .requirement-step-arrow { min-height: clamp(18px, 7.5vw, 28px); font-size: clamp(7px, 2.6vw, 11px); }
+    .requirement-process-notes li { font-size: 10px; }
+  }
+

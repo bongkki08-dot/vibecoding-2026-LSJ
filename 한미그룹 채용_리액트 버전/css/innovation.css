@@ -1,0 +1,237 @@
+  /* ---------- Innovation / News bubble section ---------- */
+  .innovation {
+    --inno-orange: #ff5d32;
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: clamp(42px, 5vw, 76px) 4% clamp(70px, 8vw, 100px);
+    overflow: hidden;
+    background: #fff7f3;
+  }
+  .innovation::before,
+  .innovation::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    aspect-ratio: 1;
+    border-radius: 0;
+  }
+  /* 우측 상단 장식: 정사각형 30vw, 약 60%가 섹션 밖 */
+  .innovation::before {
+    width: 30vw;
+    height: 30vw;
+    top: -12vw;
+    right: -12vw;
+    background: radial-gradient(circle at center,
+      rgba(255, 93, 50, .3) 0%,
+      rgba(255, 93, 50, .18) 38%,
+      rgba(255, 93, 50, 0) 72%);
+  }
+  /* 좌측 하단 장식: 정사각형 20vw */
+  .innovation::after {
+    width: 20vw;
+    height: 20vw;
+    left: -8vw;
+    bottom: -8vw;
+    background: radial-gradient(circle at center,
+      rgba(255, 93, 50, .2) 0%,
+      rgba(255, 93, 50, .12) 38%,
+      rgba(255, 93, 50, 0) 72%);
+  }
+  .inno-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .inno-heading {
+    position: relative;
+    z-index: 2;
+    margin: 0 auto 78px;
+    text-align: center;
+  }
+  .inno-title {
+    margin: 0;
+    font-size: clamp(26px, 2.8vw, 42px);
+    line-height: 1.35;
+    font-weight: 800;
+    letter-spacing: -.045em;
+  }
+  .inno-subtitle {
+    margin: 14px 0 0;
+    font-size: clamp(12px, 1vw, 16px);
+    line-height: 1.65;
+    font-weight: 500;
+    letter-spacing: -.035em;
+  }
+  .inno-panel {
+    position: relative;
+    padding: 62px 4.5% 42px;
+    border: 1px solid rgba(255, 93, 50, .08);
+    border-radius: 22px;
+    background: rgba(255, 249, 247, .7);
+    box-shadow: 0 5px 12px rgba(90, 45, 30, .10);
+  }
+  .inno-atom {
+    position: absolute;
+    z-index: 4; /* 원자 이미지가 배경 Vector 위에 표시 */
+    width: clamp(120px, 15vw, 190px);
+    height: auto;
+    right: 1.5%;
+    top: -15%;
+    pointer-events: none;
+  }
+  .inno-molecule {
+    position: absolute;
+    z-index: 3;
+    width: clamp(68px, 8vw, 105px);
+    height: auto;
+    left: 1.5%;
+    bottom: -12%;
+    pointer-events: none;
+  }
+  .inno-vector {
+    position: absolute;
+    z-index: 3; /* 원자 이미지 뒤에 겹치는 장식 배경 */
+    display: block;
+    width: clamp(190px, 30vw, 420px);
+    height: auto;
+    right: -2%;
+    top: -19%;
+    opacity: .32;
+    pointer-events: none;
+  }
+  .inno-bubbles {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 54px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .inno-bubble {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    width: 54%;
+    max-width: 62%;
+    min-width: 0;
+    padding: 13px 18px;
+    border-radius: 9px;
+    font-size: clamp(11px, .9vw, 15px);
+    line-height: 1.55;
+    letter-spacing: -.025em;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(80, 45, 35, .08);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .inno-bubble:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(80, 45, 35, .12);
+  }
+  .inno-bubble svg {
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 16px;
+    bottom: -15px;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .inno-bubble--orange {
+    justify-self: start;
+    color: #fff;
+    background: var(--inno-orange);
+    grid-column: 1;
+    margin-top: 0;
+    border-bottom-left-radius: 0;
+  }
+  .inno-bubble--orange svg {
+    left: 0;
+    transform: translateX(-1px);
+  }
+  .inno-bubble--white {
+    justify-self: end;
+    color: var(--inno-orange);
+    background: #fff;
+    grid-column: 1;
+    margin-top: 18px;
+    border-bottom-right-radius: 0;
+  }
+  .inno-bubble--white svg {
+    right: 0;
+    transform: translateX(1px);
+  }
+  .inno-hint {
+    position: relative;
+    margin: 24px 0 0;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #b7aaa5;
+    letter-spacing: -.025em;
+  }
+  .inno-hint::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin: 0 7px 3px 0;
+    border-radius: 50%;
+    background: var(--inno-orange);
+  }
+
+  @media (min-width: 1025px) {
+    .inno-panel { padding-top: 62px; padding-bottom: 42px; }
+    .inno-bubbles { row-gap: 54px; }
+    .inno-bubble { width: 54%; max-width: 62%; }
+    .inno-bubble:nth-child(odd) { justify-self: start; margin-top: 0; }
+    .inno-bubble:nth-child(even) { justify-self: end; margin-top: 18px; }
+  }
+  @media (min-width: 391px) and (max-width: 1024px) {
+    .innovation { padding: 56px 4% 80px; }
+    .inno-heading { margin-bottom: 76px; }
+    .inno-title { font-size: clamp(28px, 3.7vw, 38px); }
+    .inno-subtitle { font-size: clamp(12px, 1.6vw, 15px); }
+    .inno-panel { padding: 54px 5% 36px; border-radius: 20px; }
+    .inno-atom { width: clamp(100px, 18vw, 155px); top: -7%; right: -1%; }
+    .inno-vector { width: 30vw; max-width: 300px; top: -12%; right: -8%; opacity: .22; }
+    .inno-molecule { width: clamp(75px, 13vw, 110px); left: 1%; bottom: -11%; }
+    .inno-bubbles { row-gap: 42px; }
+    .inno-bubble { width: 58%; max-width: 68%; padding: 13px 15px; font-size: clamp(11px, 1.35vw, 14px); }
+    .inno-bubble:nth-child(odd) { justify-self: start; margin-top: 0; }
+    .inno-bubble:nth-child(even) { justify-self: end; margin-top: 16px; }
+    .inno-hint { margin-top: 28px; font-size: 11px; }
+  }
+  @media (max-width: 390px) {
+    .innovation { padding: 6px 5% 66px; }
+    .inno-heading { margin-bottom: 30px; padding: 0 4px; }
+    .inno-title { font-size: 23px; line-height: 1.42; letter-spacing: -.05em; }
+    .inno-subtitle { margin-top: 12px; font-size: 12px; line-height: 1.65; }
+    .inno-panel { padding: 38px 12px 24px; border-radius: 17px; }
+    .inno-atom { width: 76px; top: -7%; right: -1%; opacity: .9; }
+    .inno-molecule { width: 58px; left: 1%; bottom: -8%; }
+    .inno-vector { display: block; width: 30vw; top: -5%; right: -5%; opacity: .18; }
+    .inno-bubbles { display: flex; flex-direction: column; gap: 30px; }
+    .inno-bubble {
+      width: 88%;
+      max-width: 88%;
+      min-height: 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+    .inno-bubble--orange { align-self: flex-start; margin-top: 0; }
+    .inno-bubble--white { align-self: flex-end; margin-top: 10px; }
+    .inno-bubble svg { width: 20px; height: 12px; bottom: -11px; }
+    .inno-hint { margin: 16px 0 0; font-size: 10px; }
+  }
+
